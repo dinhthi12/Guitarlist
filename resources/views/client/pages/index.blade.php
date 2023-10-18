@@ -2,11 +2,6 @@
 @section('title', 'Guitarlist')
 @section('content')
     <!--================Home Banner Area =================-->
-    @if (session('error'))
-        <div class="alert alert-danger">
-            {{ session('error') }}
-        </div>
-    @endif
     <section id="slider"><!--slider-->
         <div id="demo" class="carousel slide container" data-ride="carousel">
             <ul class="carousel-indicators">
@@ -121,7 +116,8 @@
                                     <a href="{{ Route('getProById', $pro->id) }}">
                                         <i class="ti-eye"></i>
                                     </a>
-                                    <a href="{{ auth()->check() ? route('addWish', $pro->id) : route('login') }}">
+                                    <a href="{{ auth()->check() ? route('addWish', $pro->id) : 'javascript:void(0);' }}"
+                                        onclick="addToWishlist(event)">
                                         <i class="ti-heart"></i>
                                     </a>
                                     <a href="#">
@@ -217,7 +213,8 @@
                                             <a href="{{ Route('getProById', $homeNewPr[$i]) }}">
                                                 <i class="ti-eye"></i>
                                             </a>
-                                            <a href="#">
+                                            <a href="{{ auth()->check() ? route('addWish', $pro->id) : 'javascript:void(0);' }}"
+                                                onclick="addToWishlist(event)">
                                                 <i class="ti-heart"></i>
                                             </a>
                                             <a href="#">
@@ -284,7 +281,8 @@
                                     <a href="{{ Route('getProById', $pro->id) }}">
                                         <i class="ti-eye"></i>
                                     </a>
-                                    <a href="#">
+                                    <a href="{{ auth()->check() ? route('addWish', $pro->id) : 'javascript:void(0);' }}"
+                                        onclick="addToWishlist(event)">
                                         <i class="ti-heart"></i>
                                     </a>
                                     <a href="#">
@@ -346,11 +344,11 @@
                         </div>
                         <div class="short_details">
                             <div class="meta-top d-flex">
-                                <a href="#">Bởi quản trị viên</a>
+                                <a href="http://htguitarcenter.vn/chuyen-muc/blog/">Bởi quản trị viên</a>
                                 <a href="http://htguitarcenter.vn/chuyen-muc/blog/"><i class="ti-comments-smiley"></i>2
                                     Bình luận</a>
                             </div>
-                            <a class="d-block" href="single-blog.html">
+                            <a class="d-block" href="http://htguitarcenter.vn/chuyen-muc/blog/">
                                 <h4>Đàn acoustic và classic giá tiền khác nhau thế nào?</h4>
                             </a>
                             <div class="text-wrap">
@@ -372,10 +370,11 @@
                         </div>
                         <div class="short_details">
                             <div class="meta-top d-flex">
-                                <a href="#">Bởi quản trị viên</a>
-                                <a href="#"><i class="ti-comments-smiley"></i>2 Bình luận</a>
+                                <a href="http://htguitarcenter.vn/chuyen-muc/blog/">Bởi quản trị viên</a>
+                                <a href="http://htguitarcenter.vn/chuyen-muc/blog/"><i class="ti-comments-smiley"></i>2
+                                    Bình luận</a>
                             </div>
-                            <a class="d-block" href="single-blog.html">
+                            <a class="d-block" href="http://htguitarcenter.vn/chuyen-muc/blog/">
                                 <h4>Cách đọc Tab Guitar từ Cơ bản đến Nâng Cao</h4>
                             </a>
                             <div class="text-wrap">
@@ -397,8 +396,9 @@
                         </div>
                         <div class="short_details">
                             <div class="meta-top d-flex">
-                                <a href="#">Bởi quản trị viên</a>
-                                <a href="#"><i class="ti-comments-smiley"></i>2 Bình luận</a>
+                                <a href="http://htguitarcenter.vn/chuyen-muc/blog/">Bởi quản trị viên</a>
+                                <a href="http://htguitarcenter.vn/chuyen-muc/blog/"><i class="ti-comments-smiley"></i>2
+                                    Bình luận</a>
                             </div>
                             <a class="d-block" href="single-blog.html">
                                 <h4>Độc Tấu Guitar Trịnh Công Sơn | Guitar Nhạc Trịnh Đặc Sắc</h4>
@@ -409,7 +409,7 @@
                                     những ca khúc của mình ông lại là một người tình thầm lặng...
                                 </p>
                             </div>
-                            <a href="#" class="blog_btn">Tìm hiểu thêm <span
+                            <a href="http://htguitarcenter.vn/chuyen-muc/blog/" class="blog_btn">Tìm hiểu thêm <span
                                     class="ml-2 ti-arrow-right"></span></a>
                         </div>
                     </div>
@@ -418,5 +418,18 @@
         </div>
     </section>
     <!--================ End Blog Area =================-->
+    <script>
+        function addToWishlist(event) {
+            if (!authCheck()) {
+                event.preventDefault(); // Prevent the link from being followed
 
+                // Show an alert
+                alert("Bạn chưa đăng nhập. Vui lòng đăng nhập để sử dụng chức năng này.");
+            }
+        }
+
+        function authCheck() {
+            return {{ auth()->check() }};
+        }
+    </script>
 @endsection

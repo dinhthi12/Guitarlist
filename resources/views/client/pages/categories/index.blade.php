@@ -32,10 +32,11 @@
                                             <img class="card-img p-4" src="{{ asset('images/products/' . $pro->image) }}"
                                                 alt="" />
                                             <div class="p_icon">
-                                                <a href="{{route('getProById',$pro->id)}}">
+                                                <a href="{{ route('getProById', $pro->id) }}">
                                                     <i class="ti-eye"></i>
                                                 </a>
-                                                <a href="#">
+                                                <a href="{{ auth()->check() ? route('addWish', $pro->id) : 'javascript:void(0);' }}"
+                                                    onclick="addToWishlist(event)">
                                                     <i class="ti-heart"></i>
                                                 </a>
                                                 <a href="#">
@@ -152,7 +153,7 @@
 
                     },
                     error: function() {
-                        alert('lỗi.');
+                        alert('Chức năng đang được phát triển thêm.');
                     }
                 });
             });
@@ -186,10 +187,22 @@
                         });
                     },
                     error: function() {
-                        alert('lỗi.');
+                        alert('error');
                     }
                 })
             });
         });
+    </script>
+    <script>
+        function addToWishlist(event) {
+            if (!authCheck()) {
+                event.preventDefault(); // chặn việc theo dõi liên kết
+                alert("Bạn chưa đăng nhập. Vui lòng đăng nhập để sử dụng chức năng này.");
+            }
+        }
+
+        function authCheck() {
+            return {{ auth()->check() }};
+        }
     </script>
 @endsection

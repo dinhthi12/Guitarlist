@@ -18,13 +18,18 @@ class WishlistController extends Controller
         //có thể truy cập biến $allCate trong mọi view mà không cần truyền biến này qua các hàm return view()
         view()->share('allCate', $allCate);
     }
+    //func xem danh sách sp yêu thích của user
     public function wishlist()
     {
-
+        // /trả về một object đại diện cho người dùng đã đăng nhập.
         $user = Auth::user();
-        $wishlist = $user->wishlist;
-        $wishlist1 = Wishlist::where('user_id','=', Auth::user()->id)->get();
-        return view('client.pages.wishlist.index', compact('wishlist1'));
+        // $wishlist = $user->wishlist;
+        //Dòng này thực hiện một truy vấn để lấy danh sách yêu thích của người dùng.
+        //kiểm tra trong bảng Wishlist các dòng có cột user_id bằng với id của người dùng đang đăng nhập.
+        //Kết quả trả về là một danh sách các sản phẩm yêu thích
+        $wishlist = Wishlist::where('user_id','=', Auth::user()->id)->get();
+        //trả về view và biến wishlist
+        return view('client.pages.wishlist.index', compact('wishlist'));
     }
     public function add($pro_id)
     {
@@ -39,6 +44,6 @@ class WishlistController extends Controller
             ]);
         }
         toastr()->success('Thành công', 'Thêm vào yêu thích thành công');
-        return redirect(route('listWish'));
+        return redirect(route('listWish'))->with('success', $pro_id);
     }
 }

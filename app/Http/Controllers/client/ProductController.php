@@ -17,7 +17,7 @@ class ProductController extends Controller
         //có thể truy cập biến $allCate trong mọi view mà không cần truyền biến này qua các hàm return view()
         view()->share('allCate', $allCate);
     }
-    //xem chi tiết sản phẩm
+    //func xem chi tiết sản phẩm
     public function getProById($id)
     {
         // Sử dụng Eloquent ORM để tìm kiếm sản phẩm dựa trên ID vừa truyền vào.
@@ -35,7 +35,8 @@ class ProductController extends Controller
         $proColors = Product::find($id)->Color;
         //lấy biến thể
         $proVariant = Product::find($id)->Variant;
-
-        return view('client.pages.products.index', ['pro' => $pro, 'detail' => $proDetails, 'color' => $proColors, 'variant' => $proVariant, 'image' => $image]);
+        //trả về view cùng mảng giá trị
+        return view('client.pages.products.index',
+        ['pro' => $pro, 'detail' => $proDetails, 'color' => $proColors, 'variant' => $proVariant, 'image' => $image]);
     }
 }

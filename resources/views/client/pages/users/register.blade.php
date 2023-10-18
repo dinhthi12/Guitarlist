@@ -241,12 +241,21 @@
                 }
             }
         }
+        Validator.formPhome = function(selector) {
+            return {
+                selector,
+                test(value) {
+                    return value ? undefined : 'Vui lòng nhập số điện thoại'
+                }
+            }
+        }
 
         Validator.isPhone = function(selector, min, message) {
             return {
                 selector,
                 test(value) {
-                    return value.length >= min ? undefined : `Vui lòng nhập tối thiểu ${min} số `
+                    const vietnamesePhoneNumberPattern = /^(03[2-9]|07[06-9]|08[1-46-8]|09[0-46-9]|01[2-9])[0-9]{7}$/;
+                    return vietnamesePhoneNumberPattern.test(value) ? undefined : `Vui lòng nhập đúng định dạng `
                 }
             }
         }
@@ -275,6 +284,7 @@
                     return document.querySelector('#form-register .password').value
                 }, 'Mật khẩu nhập lại không chính xác'),
                 Validator.isAddress('.address', 'Vui lòng nhập địa chỉ'),
+                Validator.formPhome('.myPhone'),
                 Validator.isPhone('.myPhone', 10),
                 Validator.isAvatar('.avatar')
             ],

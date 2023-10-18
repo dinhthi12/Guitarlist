@@ -108,7 +108,7 @@
                                 <i class="lnr lnr-chevron-up"></i>
                             </button>
                             <button
-                                onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;"
+                                onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 1 ) result.value--;return false;"
                                 class="reduced items-count" type="button">
                                 <i class="lnr lnr-chevron-down"></i>
                             </button>
@@ -500,8 +500,8 @@
                                     <div>
                                         <br>
                                         <h4>Bạn cần đăng nhập để bình luận</h4> <br>
-                                        <a class=" btn submit_btn" href="">Đăng nhập</a>...<a
-                                            class="btn submit_btn" href="">Đăng kí</a>
+                                        <a class=" btn submit_btn" href="{{ route('index') }}">Đăng nhập</a>...<a
+                                            class="btn submit_btn" href="{{ Route('signup') }}">Đăng kí</a>
                                     </div>
                                 @endif
                             </div>

@@ -44,17 +44,19 @@ class ClientController extends Controller
     }
     public function signup()
     {
+        //gọi view đăng ký user
         return view('client.pages.users.register');
     }
     public function loginClient(Request $request)
     {
+        //check login user
         $data = [
             'email' => $request->email,
             'password' => $request->password,
         ];
 
         if (Auth::attempt($data)) {
-            return redirect()->back()->with('success', 'Đăng nhập thành công');
+            return redirect()->route('index')->with('success', 'Đăng nhập thành công');
         } else {
             return redirect()->back()->with('error', 'Đăng nhập thất bại!');
         }

@@ -33,7 +33,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($wishlist1 as $item)
+                                @foreach ($wishlist as $item)
                                     <tr>
                                         <td>
                                             <div class="media">
@@ -63,14 +63,11 @@
                                         </td>
                                     </tr>
                                 @endforeach
-                                @if ($wishlist1->count() > 0)
+                                @if ($wishlist->count() > 0)
                                 @else
                                     <tr>
                                         <td colspan="5">
                                             <p class="no_cart">Chưa có sản phẩm nào trong Wishlist</p>
-                                        </td>
-                                        <td>
-                                            <button class="btn btn-success">Xem sản phẩm ngay</button>
                                         </td>
                                     </tr>
                                 @endif

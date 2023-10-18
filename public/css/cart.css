@@ -10,7 +10,7 @@
     color: black;
 }
 .cart-total{
-    color: #f8b600 !important; 
+    color: #f8b600 !important;
     font-weight: 600;
 }
 .cart-table thead{
@@ -87,7 +87,6 @@
 .no_cart{
     text-align: center;
     font-weight: bold;
-    color: #f8b600;
 }
 
 .payment{
@@ -109,7 +108,7 @@
     color: #797979;
     font-weight: 600;
     width: 100%;
-    
+
 }
 .mt-10 label, .mt-5 label{
     font-weight: 600;

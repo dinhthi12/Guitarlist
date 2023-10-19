@@ -58,10 +58,6 @@
                                 </div>
                                 <div class="my-2 d-flex justify-content-between align-items-center">
                                     <div class="form-check">
-                                        <label class="form-check-label text-muted">
-                                            <input type="checkbox" class="form-check-input">
-                                            Ghi nhớ tài khoản
-                                        </label>
                                     </div>
                                 </div>
 

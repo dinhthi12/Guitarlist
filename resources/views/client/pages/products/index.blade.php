@@ -500,7 +500,7 @@
                                     <div>
                                         <br>
                                         <h4>Bạn cần đăng nhập để bình luận</h4> <br>
-                                        <a class=" btn submit_btn" href="{{ route('index') }}">Đăng nhập</a>...<a
+                                        <a class=" btn submit_btn" href="{{ route('login') }}">Đăng nhập</a>...<a
                                             class="btn submit_btn" href="{{ Route('signup') }}">Đăng kí</a>
                                     </div>
                                 @endif

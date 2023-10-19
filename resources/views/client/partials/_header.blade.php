@@ -114,10 +114,10 @@
                                         </li>
                                     @else
                                         <li class="nav-item">
-                                            <a href="#" class="icons" data-toggle="modal" data-target="#myModal">
+                                            <a href="{{ route('login') }}" class="icons"> {{-- data-toggle="modal" data-target="#myModal" --}}
                                                 <i class="ti-user" aria-hidden="true"></i>
                                             </a>
-                                            <div class="container">
+                                            {{-- <div class="container">
                                                 <!-- Modal -->
                                                 <div class="modal fade" id="myModal" role="dialog">
                                                     <div class="modal-dialog">
@@ -177,7 +177,7 @@
                                                     </div>
                                                 </div>
 
-                                            </div>
+                                            </div> --}}
                                         </li>
                                     @endif
                                     @if (Auth::check())

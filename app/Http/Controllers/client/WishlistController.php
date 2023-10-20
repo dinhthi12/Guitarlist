@@ -23,27 +23,30 @@ class WishlistController extends Controller
     {
         // /trả về một object đại diện cho người dùng đã đăng nhập.
         $user = Auth::user();
-        // $wishlist = $user->wishlist;
         //Dòng này thực hiện một truy vấn để lấy danh sách yêu thích của người dùng.
         //kiểm tra trong bảng Wishlist các dòng có cột user_id bằng với id của người dùng đang đăng nhập.
         //Kết quả trả về là một danh sách các sản phẩm yêu thích
-        $wishlist = Wishlist::where('user_id','=', Auth::user()->id)->get();
+        $wishlist = Wishlist::where('user_id', '=', Auth::user()->id)->paginate(4);
         //trả về view và biến wishlist
         return view('client.pages.wishlist.index', compact('wishlist'));
     }
     public function add($pro_id)
     {
+        // Kiểm tra xem người dùng đã thêm sản phẩm này vào danh sách yêu thích chưa
         $pro_wish = Wishlist::where('pro_id', '=', $pro_id,)->where('user_id', '=', Auth::id())->first();
+        //nếu tồn tại thì thông báo
         if ($pro_wish) {
-            toastr()->success('Thành công', 'Thêm vào yêu thích thành công');
-            return redirect(route('listWish'));
+            toastr()->info('Sản phẩm này đã có trong danh sách yêu thích của bạn.');
         } else {
-            Wishlist::insert([
+            // Tạo một bản ghi mới trong danh sách yêu thích
+            Wishlist::create([
                 'user_id' => Auth::id(),
                 'pro_id' => $pro_id
             ]);
+            //thông báo thành công
+            toastr()->success('Thêm vào danh sách yêu thích thành công.');
         }
-        toastr()->success('Thành công', 'Thêm vào yêu thích thành công');
-        return redirect(route('listWish'))->with('success', $pro_id);
+        //trả về trang index
+        return redirect(route('index'));
     }
 }

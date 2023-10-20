@@ -28,7 +28,7 @@
                                         <label for="exampleSelectGender">Danh Mục</label>
                                         <select class="form-control show-cti list" name="categories" id="cate">
                                             @foreach ($allCate as $cate)
-                                                @if ($cate->id == $pro->Cate_items->Category->id)
+                                                @if ($cate->id == $pro->Cate_item->Category->id)
                                                     <option data-id="{{ $cate->id }}" selected
                                                         value="{{ $cate->id }}">{{ $cate->name }}</option>
                                                 @else
@@ -47,7 +47,7 @@
                                         <label for="exampleSelectGender">Hãng</label>
                                         <select class="form-control show-cti firm" name="category_id">
                                             @foreach ($allCateItems as $cti)
-                                                @if ($cti->id == $pro->Cate_items->id)
+                                                @if ($cti->id == $pro->Cate_item->id)
                                                     <option selected value="{{ $cti->id }}">{{ $cti->name }}
                                                     </option>
                                                 @else

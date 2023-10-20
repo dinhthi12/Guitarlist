@@ -39,7 +39,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($data as $cate)
+                                    @foreach ($categoryList as $cate)
                                         <tr>
                                             <td>
                                                 {{ $cate->id }}
@@ -65,7 +65,7 @@
                                 </tbody>
 
                             </table>
-                            {{ $data->links('admin.pagination') }}
+                            {{ $categoryList->links('admin.pagination') }}
 
                         </div>
                     </div>

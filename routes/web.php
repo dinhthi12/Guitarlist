@@ -27,35 +27,37 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('/')->group(function () {
     //trang index
     Route::get('/', [ClientController::class, 'index'])->name('index');
+    //chức năng danh mục
     Route::get('/category/{id}', [ClientCategoryController::class, 'getProByCate'])->name('getProByCate');
     Route::get('/cateitem/{id}', [ClientCategoryController::class, 'getProByCateItem'])->name('getProByCateItem');
-    Route::post('/getcateitem',[ClientCategoryController::class,'getCateItemByCate'])->name('getCateItemByCate');
-    Route::get('/sort',[ClientCategoryController::class,'sortProducts'])->name('sortProducts');
-    Route::get('product/{id}',[ClientProductController::class,'getProById'])->name('getProById');
-    Route::get('wishlist', [WishlistController::class,'wishlist'])->name('listWish');
-    Route::get('/add/{id}', [WishlistController::class,'add'])->name('addWish');
-    Route::get('/manager',[ClientController::class,'manager'] )->name('manager');
+    Route::post('/getcateitem', [ClientCategoryController::class, 'getCateItemByCate'])->name('getCateItemByCate');
+    Route::get('/sort', [ClientCategoryController::class, 'sortProducts'])->name('sortProducts');
+    //chức năng chi tiết sp
+    Route::get('product/{id}', [ClientProductController::class, 'getProById'])->name('getProById');
+    //chức năng wishlist
+    Route::get('wishlist', [WishlistController::class, 'wishlist'])->name('listWish');
+    Route::get('/add/{id}', [WishlistController::class, 'add'])->name('addWish');
+    //chức năng thông tin người dùng
+    Route::get('/manager', [ClientController::class, 'manager'])->name('manager');
 });
-
-Route::post('/clientLogin',[ClientController::class,'loginClient'])->name('clientLogin');
-//route login user
-Route::get('signup',[ClientController::class,'signup'] )->name('signup');
+//chức năng login người dùng
+Route::post('/clientLogin', [ClientController::class, 'loginClient'])->name('clientLogin');
+//chức năng đăng ký người dùng
+Route::get('signup', [ClientController::class, 'signup'])->name('signup');
 Route::post('/register', [RegisterController::class, 'register'])->name('register');
 
-
-//route login admin
+// <---------------------------------------------------------------------------------------------------->
+//chức năng login admin
 Route::post('adminLogin', [AdminController::class, 'adminLogin'])->name('adminLogin');
-//fix lại route
 Route::get('adminlogin', function () {
     return view('admin.pages.login');
 });
 
-//route admin
 Route::prefix('admin')->middleware('checkAdmin')->group(function () {
     //trang index
     Route::get('index', [AdminController::class, 'index'])->name('indexAdmin');
 
-    //trang quan trị category
+    //chức năng quản trị danh mục
     Route::prefix('categories')->group(function () {
         Route::get('index', [CategoryController::class, 'index'])->name('listCate');
         Route::post('create', [CategoryController::class, 'create'])->name('createCate');
@@ -63,7 +65,7 @@ Route::prefix('admin')->middleware('checkAdmin')->group(function () {
         Route::post('edit', [CategoryController::class, 'edit'])->name('editCate');
         Route::get('delete/{id}', [CategoryController::class, 'delete'])->name('deleteCate');
     });
-    //trang quan trị category item
+    //chức năng quản trị danh mục con
     Route::prefix('cateitems')->group(function () {
         Route::get('index/{id}', [CateItemController::class, 'index'])->name('getCateItems');
         Route::post('create', [CateItemController::class, 'create'])->name('createCateItem');
@@ -71,27 +73,20 @@ Route::prefix('admin')->middleware('checkAdmin')->group(function () {
         Route::post('edit', [CateItemController::class, 'edit'])->name('editCateItem');
         Route::get('delete/{id}', [CateItemController::class, 'delete'])->name('deleteCateItem');
     });
-    //trang quản trị product
+    //chức năng quản trị sp
     Route::prefix('products')->group(function () {
         Route::get('index', [ProductController::class, 'index'])->name('listPro');
-
         Route::get('create', [ProductController::class, 'createView'])->name('loadCreatePro');
         Route::post('create', [ProductController::class, 'create'])->name('createPro');
-
         Route::post('cateItems', [ProductController::class, 'loadCateItem'])->name('loadCateItems');
-
         Route::get('edit/{id}', [ProductController::class, 'loadEdit'])->name('loadEditPro');
         Route::post('edit', [ProductController::class, 'edit'])->name('editPro');
-
         Route::get('delete/{id}', [ProductController::class, 'delete'])->name('deletePro');
-
         Route::get('variants/{id}', [ProductController::class, 'showVariants'])->name('showVariants');
-
         Route::post('createColor', [ProductController::class, 'createColor'])->name('createColor');
-
         Route::post('createMemory', [ProductController::class, 'createMemory'])->name('createMemory');
     });
-    //trang quản trị slide
+    //chức năng quản trị slide
     Route::prefix('slider')->group(function () {
         Route::get('index', [SlideController::class, 'index'])->name('listSlide');
         Route::get('create', [SLideController::class, 'loadCreate'])->name('loadCreateSlide');
@@ -100,8 +95,6 @@ Route::prefix('admin')->middleware('checkAdmin')->group(function () {
         Route::post('edit', [SLideController::class, 'edit'])->name('editSlide');
         Route::get('delete/{id}', [SLideController::class, 'delete'])->name('deleteSlide');
     });
-    //route logout admin
-    Route::post('/logout', [AdminController::class, 'logout'])->name('logout');
 });
 
 Auth::routes(['verify' => true]);
@@ -109,3 +102,5 @@ Auth::routes(['verify' => true]);
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+ //route logout admin
+    // Route::post('/logout', [AdminController::class, 'logout'])->name('logout');

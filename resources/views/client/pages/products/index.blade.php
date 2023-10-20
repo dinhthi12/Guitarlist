@@ -30,30 +30,24 @@
                                     <img id="pro_img" class="d-block w-100"
                                         src="{{ asset('images/products/' . $pro->image) }}" alt="First slide" />
                                 </div>
-                                {{-- @foreach ($pro_colors as $pc)
+                                @foreach ($color as $pc)
                                     <div class="carousel-item">
                                         <img class="d-block w-100"
                                             src="{{ asset('images/products/' . $pc->image) }}"alt="Second slide" />
                                     </div>
                                 @endforeach
-                                @foreach ($images as $img)
-                                    <div class="carousel-item">
-                                        <img class="d-block w-100"
-                                            src="{{ asset('images/products/' . $img->image) }}"alt="Second slide" />
-                                    </div>
-                                @endforeach --}}
                             </div>
                             <ol class="carousel-indicators">
-                                <li data-target="#carouselExampleIndicators"data-slide-to="0"class="active">
+                                <li data-target="#carouselExampleIndicators"data-slide-to="0" class="active">
                                     <img src="{{ asset('images/products/' . $pro->image) }}" alt=""
                                         style="width:100%; height:100%; padding: 8px;" />
                                 </li>
-                                {{-- @for ($i = 0; $i < count($pro_colors); $i++)
+                                @for ($i = 0; $i < count($color); $i++)
                                     <li data-target="#carouselExampleIndicators" data-slide-to="{{ $i + 1 }}">
-                                        <img src="{{ asset('images/products/' . $pro_colors[$i]->image) }}" alt=""
+                                        <img src="{{ asset('images/products/' . $color[$i]->image) }}" alt=""
                                             style="width:100%; height:100%; padding: 8px;" />
                                     </li>
-                                @endfor --}}
+                                @endfor
                             </ol>
                         </div>
                     </div>
@@ -83,20 +77,20 @@
                             <li><strong>Lượt xem : {{ $pro->view }}</strong></li>
                             <li><strong>Tình trạng : còn {{ $pro->quantity }} máy</strong></li>
                         </ul>
-                        {{-- @if (isset($pro_colors))
+                        @if (isset($color))
                             <p class="var_title">Chọn màu sắc: </p>
-                            @foreach ($pro_colors as $pc)
+                            @foreach ($color as $pc)
                                 <span class="pro_color pro_var" data-price="{{ $pc->price }}"
                                     data-image="{{ $pc->image }}">{{ $pc->color }}</span>
                             @endforeach
                         @endif
-                        @if (isset($pro_memory))
-                            <p class="var_title">Chọn bộ nhớ: </p>
-                            @foreach ($pro_memory as $pm)
+                        @if (isset($variant))
+                            <p class="var_title">Chọn biến thể: </p>
+                            @foreach ($variant as $pm)
                                 <span class="pro_mem pro_var"
-                                    data-price="{{ $pm->price }}">{{ $pm->memory }}-{{ $pm->ram }} GB</span>
+                                    data-price="{{ $pm->price }}">{{ $pm->name }}-{{ $pm->eq }}</span>
                             @endforeach
-                        @endif --}}
+                        @endif
                         <br>
                         <div class="product_count">
                             <label for="qty">Số lượng:</label>
@@ -157,130 +151,70 @@
                         <div class="col-md-4">
                             <div class="table-responsive">
 
-                                {{-- <table class="table tb_details">
+                                <table class="table tb_details">
                                     <tbody id="var_info">
-                                        @if (isset($pro_details->memory))
+                                        @if (isset($detail->mechanicalSet))
                                             <tr>
                                                 <td>
-                                                    <h5>Bộ nhớ</h5>
+                                                    <h5>Bộ cơ khí</h5>
                                                 </td>
                                                 <td class="dt_value">
-                                                    <h5>{{ $pro_details->memory }} GB</h5>
+                                                    <h5>{{ $detail->mechanicalSet }}</h5>
                                                 </td>
                                             </tr>
                                         @endif
-                                        @if (isset($pro_details->camera))
+                                        @if (isset($detail->soundboard))
                                             <tr>
                                                 <td>
-                                                    <h5>Camera</h5>
+                                                    <h5>Bảng âm thanh</h5>
                                                 </td>
                                                 <td class="dt_value">
-                                                    <h5>{{ $pro_details->camera }}</h5>
+                                                    <h5>{{ $detail->soundboard }}</h5>
                                                 </td>
                                             </tr>
                                         @endif
-                                        @if (isset($pro_details->display))
+                                        @if (isset($detail->keyboard))
                                             <tr>
                                                 <td>
-                                                    <h5>Màn hình</h5>
+                                                    <h5>Bàn phím</h5>
                                                 </td>
                                                 <td class="dt_value">
-                                                    <h5>{{ $pro_details->display }}</h5>
+                                                    <h5>{{ $detail->keyboard }}</h5>
                                                 </td>
                                             </tr>
                                         @endif
-                                        @if (isset($pro_details->batery))
+                                        @if (isset($detail->size))
                                             <tr>
                                                 <td>
-                                                    <h5>Dung lượng Pin</h5>
+                                                    <h5>Kích thước</h5>
                                                 </td>
                                                 <td class="dt_value">
-                                                    <h5>{{ $pro_details->batery }} mAh</h5>
+                                                    <h5>{{ $detail->size }} </h5>
                                                 </td>
                                             </tr>
                                         @endif
-                                        @if (isset($pro_details->os))
-                                            <tr>
-                                                <td>
-                                                    <h5>Hệ Điều Hành</h5>
-                                                </td>
-                                                <td class="dt_value">
-                                                    <h5>{{ $pro_details->os }}</h5>
-                                                </td>
-                                            </tr>
-                                        @endif
-                                        @if (isset($pro_details->sub_camera))
-                                            <tr>
-                                                <td>
-                                                    <h5>Camera Phụ</h5>
-                                                </td>
-                                                <td class="dt_value">
-                                                    <h5>{{ $pro_details->sub_camera }} MP</h5>
-                                                </td>
-                                            </tr>
-                                        @endif
-                                        @if (isset($pro_details->cpu))
-                                            <tr>
-                                                <td>
-                                                    <h5>Chip xử lí</h5>
-                                                </td>
-                                                <td class="dt_value">
-                                                    <h5>{{ $pro_details->cpu }}</h5>
-                                                </td>
-                                            </tr>
-                                        @endif
-                                        @if (isset($pro_details->ram))
-                                            <tr>
-                                                <td>
-                                                    <h5>Bộ nhớ Ram</h5>
-                                                </td>
-                                                <td class="dt_value">
-                                                    <h5>{{ $pro_details->ram }} GB</h5>
-                                                </td>
-                                            </tr>
-                                        @endif
-                                        @if (isset($pro_details->hight))
-                                            <tr>
-                                                <td>
-                                                    <h5>Chiều cao</h5>
-                                                </td>
-                                                <td class="dt_value">
-                                                    <h5>{{ $pro_details->hight }} mm</h5>
-                                                </td>
-                                            </tr>
-                                        @endif
-                                        @if (isset($pro_details->width))
-                                            <tr>
-                                                <td>
-                                                    <h5>Chiều rộng</h5>
-                                                </td>
-                                                <td class="dt_value">
-                                                    <h5>{{ $pro_details->width }} mm</h5>
-                                                </td>
-                                            </tr>
-                                        @endif
-                                        @if (isset($pro_details->depth))
-                                            <tr>
-                                                <td>
-                                                    <h5>Độ dày</h5>
-                                                </td>
-                                                <td class="dt_value">
-                                                    <h5>{{ $pro_details->depth }} mm</h5>
-                                                </td>
-                                            </tr>
-                                        @endif
-                                        @if (isset($pro_details->weight))
+                                        @if (isset($detail->weight))
                                             <tr>
                                                 <td>
                                                     <h5>Trọng lượng</h5>
                                                 </td>
                                                 <td class="dt_value">
-                                                    <h5>{{ $pro_details->weight }} gram</h5>
+                                                    <h5>{{ $detail->weight }}</h5>
+                                                </td>
+                                            </tr>
+                                        @endif
+                                        @if (isset($detail->manufacture))
+                                            <tr>
+                                                <td>
+                                                    <h5>Nhà sản xuất</h5>
+                                                </td>
+                                                <td class="dt_value">
+                                                    <h5>{{ $detail->manufacture }}</h5>
                                                 </td>
                                             </tr>
                                         @endif
                                     </tbody>
-                                </table> --}}
+                                </table>
                             </div>
                         </div>
                     </div>

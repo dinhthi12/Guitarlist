@@ -23,7 +23,7 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="exampleSelectGender">Danh Mục</label>
-                                    <input type="text" name="name" value="{{ $pro->Cate_items->Category->name }}"
+                                    <input type="text" name="name" value="{{ $pro->Cate_item->Category->name }}"
                                         disabled class="form-control fullname" id="exampleInputName1"
                                         placeholder="Nhập tên sản phẩm">
                                     <span
@@ -34,7 +34,7 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="exampleSelectGender">Hãng</label>
-                                    <input type="text" name="name" value="{{ $pro->Cate_items->name }}" disabled
+                                    <input type="text" name="name" value="{{ $pro->Cate_item->name }}" disabled
                                         class="form-control fullname" id="exampleInputName1"
                                         placeholder="Nhập tên sản phẩm">
                                     <span

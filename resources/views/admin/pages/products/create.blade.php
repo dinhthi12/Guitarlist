@@ -132,7 +132,7 @@
                                         aria-controls="multiCollapseExample1" style="margin-right: 1%">Thêm chi tiết sản
                                         phẩm</a>
                                 </p>
-                                {{-- thêm chi tiết sản phẩm --}}
+                                {{-- ----------------------------thêm chi tiết sản phẩm------------------------- --}}
                                 <div class="row">
                                     <div class="col">
                                         <div class="collapse multi-collapse" id="multiCollapseExample1">
@@ -150,8 +150,9 @@
                                                     <div class="col-sm-6">
                                                         <div class="form-group">
                                                             <label for="exampleSelectGender">Bộ cơ khí</label>
-                                                            <input type="text" name="mechanicalSet" class="form-control mechanicalSet"
-                                                                id="exampleInputName1" placeholder="Nhập bộ cơ khí">
+                                                            <input type="text" name="mechanicalSet"
+                                                                class="form-control mechanicalSet" id="exampleInputName1"
+                                                                placeholder="Nhập bộ cơ khí">
                                                             <span
                                                                 style="font-size: 15px; color: #f33a58; line-height: 3px; padding-top: 10px;  display: block;"
                                                                 class="form-message"></span>
@@ -161,8 +162,9 @@
                                                     <div class="col-sm-6">
                                                         <div class="form-group">
                                                             <label for="exampleSelectGender">Bảng âm thanh</label>
-                                                            <input type="text" name="soundboard" class="form-control soundboard"
-                                                                id="exampleInputName1" placeholder="Nhập bảng âm thanh">
+                                                            <input type="text" name="soundboard"
+                                                                class="form-control soundboard" id="exampleInputName1"
+                                                                placeholder="Nhập bảng âm thanh">
                                                             <span
                                                                 style="font-size: 15px; color: #f33a58; line-height: 3px; padding-top: 10px;  display: block;"
                                                                 class="form-message"></span>
@@ -182,8 +184,6 @@
                                                                 class="form-message"></span>
                                                         </div>
                                                     </div>
-
-
                                                 </div>
 
                                                 <div class="row">
@@ -229,7 +229,6 @@
                                     </div>
                                 </div>
                             </div>
-
                             <button type="submit" class="btn btn-primary mr-2">Thêm mới</button>
                             <a type="button" href="{{ route('listPro') }}" class="btn btn-light">Cancel</a>
                         </form>

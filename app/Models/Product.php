@@ -41,18 +41,18 @@ class Product extends Model
     // {
     //     return $this-> hasMany('App\Models\Comment','pro_id','id');
     // }
-    // public function ProDetails()
-    // {
-    //     return $this-> hasOne('App\Models\Detail','pro_id','id');
-    // }
-    // public function Colors()
-    // {
-    //     return $this-> hasMany('App\Models\ProColor','pro_id','id');
-    // }
-    // public function Variants()
-    // {
-    //     return $this-> hasMany('App\Models\ProVariant','pro_id','id');
-    //}
+    public function Detail()
+    {
+        return $this-> hasOne('App\Models\Detail','pro_id','id');
+    }
+    public function Color()
+    {
+        return $this-> hasMany('App\Models\Color','pro_id','id');
+    }
+    public function Variant()
+    {
+        return $this-> hasMany('App\Models\Variant','pro_id','id');
+    }
 
     public static function boot()
     {

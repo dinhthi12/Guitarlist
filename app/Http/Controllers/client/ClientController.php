@@ -27,9 +27,6 @@ class ClientController extends Controller
         //và sắp xếp chúng theo cột id theo thứ tự giảm dần (để lấy các slide mới nhất).
         $allSlide = Slide::where('slide_status', '=', 1)->orderBy('id', 'DESC')->get();
         view()->share('allSlide', $allSlide);
-
-        // $slide = Slide::orderBy('id','DESC')->where('slide_status',1)->take(3)->get();
-        // view()->share('slider', $slide);
     }
     public function index()
     {

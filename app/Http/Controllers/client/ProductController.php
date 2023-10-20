@@ -27,8 +27,6 @@ class ProductController extends Controller
         $pro->view = $pro->view + 1;
         //lưu lại vào db
         $pro->save();
-        //lấy hình ảnh
-        $image = Product::find($id)->Image;
         //lấy detail
         $proDetails = Product::find($id)->Detail;
         //lấy color
@@ -37,6 +35,6 @@ class ProductController extends Controller
         $proVariant = Product::find($id)->Variant;
         //trả về view cùng mảng giá trị
         return view('client.pages.products.index',
-        ['pro' => $pro, 'detail' => $proDetails, 'color' => $proColors, 'variant' => $proVariant, 'image' => $image]);
+        ['pro' => $pro, 'detail' => $proDetails, 'color' => $proColors, 'variant' => $proVariant]);
     }
 }

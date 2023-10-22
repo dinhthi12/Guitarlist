@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Session;
 
 class SlideController extends Controller
 {
+    //lấy ds slide
     public function __construct()
     {
         $allSlide = Slide::all();
@@ -20,10 +21,12 @@ class SlideController extends Controller
     }
     public function loadCreate()
     {
+        //form slide
         return view('admin.pages.slides.create');
     }
     public function create(Request $r)
     {
+        //tạo 1 slide mới
         $slide = new Slide();
 
         if($r->has('file_upload')){

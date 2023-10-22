@@ -6,9 +6,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title">Thêm Slide</h4>
-                        <p class="card-description">
-
-                        </p>
+                        <p class="card-description"></p>
                         <form method="POST" action="{{ Route('createSlide') }}" enctype="multipart/form-data"
                             class="forms-sample">
                             @csrf
@@ -27,9 +25,8 @@
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label for="exampleSelectGender">Mô tả Slider</label>
-                                        <textarea style="resize: none" rows="8" class="form-control" name="slide_desc"
-                                            id="
-                      exampleInputPassword1" placeholder="Mô tả danh mục"></textarea>
+                                        <textarea style="resize: none" rows="8" class="form-control" name="slide_desc" id="exampleInputPassword1"
+                                            placeholder="Mô tả danh mục"></textarea>
                                     </div>
                                 </div>
                                 <div class="form-group">

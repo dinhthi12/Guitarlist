@@ -19,7 +19,7 @@ class WishlistController extends Controller
         view()->share('allCate', $allCate);
     }
     //func xem danh sách sp yêu thích của user
-    public function wishlist()
+    public function index()
     {
         // /trả về một object đại diện cho người dùng đã đăng nhập.
         $user = Auth::user();
@@ -48,5 +48,14 @@ class WishlistController extends Controller
         }
         //trả về trang index
         return redirect(route('index'));
+    }
+    public function delete($id)
+    {
+        //nhận id là tham số truyền vào gắn object tương ứng vào biện wishlist
+        $wishlist = Wishlist::find($id);
+        //thực hiện xoá
+        $wishlist->delete();
+        //trả về route và hiện thông báo
+        return redirect(route('listWish'))->with('success', 'Đã xóa sản phẩm khỏi yêu thích');
     }
 }

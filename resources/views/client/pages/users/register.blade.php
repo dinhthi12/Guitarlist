@@ -237,7 +237,7 @@
             return {
                 selector,
                 test(value) {
-                    return value ? undefined : message || 'Vui lòng nhập'
+                    return value ? undefined : message || 'Vui lòng nhập địa chỉ'
                 }
             }
         }

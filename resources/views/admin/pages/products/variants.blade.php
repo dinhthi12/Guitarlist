@@ -439,15 +439,6 @@
             }
         }
 
-        // Validator.isAvatar = function (selector) {
-        //   return {
-        //     selector,
-        //     test(value) {
-        //       return value ? undefined : 'Vui lòng chọn ảnh'
-        //     }
-        //   }
-        // }
-
         Validator({
             form: '#form-edit-product',
             errorSelector: '.form-message',
@@ -461,7 +452,6 @@
                 Validator.isAmount('.amount'),
                 Validator.isStatus('.status'),
                 Validator.isDescribe('.describe'),
-                // Validator.isAvatar('.avatar')
             ],
         })
     </script>

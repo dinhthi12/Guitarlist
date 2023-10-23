@@ -3,13 +3,16 @@
 namespace App\Http\Controllers\client;
 
 use App\Http\Controllers\Controller;
+use App\Models\Address;
 use App\Models\Category;
 use App\Models\CateItem;
 use App\Models\Product;
 use App\Models\Slide;
+use App\Models\User;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ClientController extends Controller
 {
@@ -57,5 +60,83 @@ class ClientController extends Controller
         } else {
             return redirect()->back()->with('error', 'Đăng nhập thất bại!');
         }
+    }
+    public function manager()
+    {   //trả về view thông tin người dùng
+        return view('client.pages.manager.index');
+    }
+    public function edit_profile()
+    {
+        //trả về view sửa thông tin người dùng
+        return view('client.pages.manager.edit');
+    }
+    public function updateAccount(Request $request)
+    {
+        $id = Auth::user()->id;
+        $user = User::find($id);
+        if ($request->file_upload == '') {
+            $image = $request->input('image1');
+        } else if ($request->has('file_upload')) {
+            $file = $request->file_upload;
+            $file_name = $file->getClientOriginalName();
+            $file->move(public_path('images/users'), $file_name);
+            $image = $file_name;
+        }
+        $user->image = $image;
+        $user->address = $request->address;
+        $user->phone = $request->phone;
+        $user->save();
+        toastr()->success('Thành công', 'Cập nhật tài khoản thành công');
+        return redirect(route('manager'));
+    }
+    public function user_address()
+    {
+        Auth::user()->id;
+        $listAdr = Address::where('user_id', '=', Auth::user()->id)->get();
+        return view('client.pages.manager.address')->with(compact('listAdr'));
+    }
+    public function addAddress(Request $r)
+    {
+        $adr = new Address();
+        $adr->user_id = $r->user_id;
+        $adr->name = $r->name;
+        $adr->phone = $r->phone;
+        $adr->address = $r->address;
+        $adr->status = $r->status;
+        DB::update('update address set status = ?', [0]);
+
+        $adr->save();
+
+        toastr()->success('Thành công', 'Thêm địa chỉ thành công');
+        return redirect(route('user_address'));
+    }
+    public function geteditAddress($id)
+    {
+        $adr = Address::find($id);
+
+        return view('client.pages.manager.editaddress', ['adr' => $adr]);
+    }
+    public function editAddress(Request $r)
+    {
+        $adr = Address::find($r->id);
+        $adr->user_id = $r->user_id;
+        $adr->name = $r->name;
+        $adr->phone = $r->phone;
+        $adr->address = $r->address;
+
+        $adr->status = $r->status;
+
+        $adr->save();
+
+        toastr()->success('Thành công', 'Chỉnh sửa địa chỉ thành công');
+        return redirect(route('user_address'));
+    }
+    public function deleteAddress($id)
+    {
+        $adr = Address::find($id);
+        // $id = $adr->id;
+        $adr->delete();
+        toastr()->success('Thành công', 'Xoá địa chỉ thành công');
+        return redirect(route('user_address'));
     }
 }

@@ -35,10 +35,19 @@ Route::prefix('/')->group(function () {
     //chức năng chi tiết sp
     Route::get('product/{id}', [ClientProductController::class, 'getProById'])->name('getProById');
     //chức năng wishlist
-    Route::get('wishlist', [WishlistController::class, 'wishlist'])->name('listWish');
+    Route::get('wishlist', [WishlistController::class, 'index'])->name('listWish');
     Route::get('/add/{id}', [WishlistController::class, 'add'])->name('addWish');
+    Route::get('deleteWish/{id}', [WishlistController::class, 'delete'])->name('deleteWish');
     //chức năng thông tin người dùng
     Route::get('/manager', [ClientController::class, 'manager'])->name('manager');
+    Route::get('edit_profile', [ClientController::class, 'edit_profile'])->name('edit_profile');
+    Route::post('updateAccount', [ClientController::class, 'updateAccount'])->name('updateAccount');
+    //chức năng thêm địa chỉ người dùng
+    Route::get('/user_address', [ClientController::class, 'user_address'])->name('user_address');
+    Route::post('/addAddress', [ClientController::class, 'addAddress'])->name('addAddress');
+    Route::get('/editaddress/{id}', [ClientController::class, 'geteditAddress'])->name('geteditAddress');
+    Route::post('/editaddress', [ClientController::class, 'editAddress'])->name('editAddress');
+    Route::get('deleteAddress/{id}', [ClientController::class, 'deleteAddress'])->name('deleteAddress');
 });
 //chức năng login người dùng
 Route::post('/clientLogin', [ClientController::class, 'loginClient'])->name('clientLogin');

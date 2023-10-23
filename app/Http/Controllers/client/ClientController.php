@@ -134,7 +134,6 @@ class ClientController extends Controller
     public function deleteAddress($id)
     {
         $adr = Address::find($id);
-        // $id = $adr->id;
         $adr->delete();
         toastr()->success('Thành công', 'Xoá địa chỉ thành công');
         return redirect(route('user_address'));

@@ -75,7 +75,7 @@
                         <ul class="list">
                             <li><strong>Loại : {{ $pro->Cate_item->name }}</strong></li>
                             <li><strong>Lượt xem : {{ $pro->view }}</strong></li>
-                            <li><strong>Tình trạng : còn {{ $pro->quantity }} máy</strong></li>
+                            <li><strong>Tình trạng : còn {{ $pro->quantity }} sản phẩm</strong></li>
                         </ul>
                         @if (isset($color))
                             <p class="var_title">Chọn màu sắc: </p>

@@ -13,9 +13,9 @@
                     <div class="col-lg-5">
                         <div class="float-right">
                             <ul class="right_side">
-                                <li> <a href="#">gift card</a></li>
+                                <li> <a href="{{Route('index')}}">gift card</a></li>
                                 <li> <a href="#">Đơn Hàng</a></li>
-                                <li> <a href="#">Liên Hệ</a></li>
+                                <li> <a href="{{Route('contacts')}}">Liên Hệ</a></li>
                                 @if (Auth::check())
                                     <li><a href="#">hi, {{ Auth::user()->name }}</a></li>
                                 @else
@@ -114,76 +114,14 @@
                                         </li>
                                     @else
                                         <li class="nav-item">
-                                            <a href="{{ route('login') }}" class="icons"> {{-- data-toggle="modal" data-target="#myModal" --}}
+                                            <a href="{{ route('login') }}" class="icons">
                                                 <i class="ti-user" aria-hidden="true"></i>
                                             </a>
-                                            {{-- <div class="container">
-                                                <!-- Modal -->
-                                                <div class="modal fade" id="myModal" role="dialog">
-                                                    <div class="modal-dialog">
-
-                                                        <!-- Modal content-->
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <button type="button" class="close"
-                                                                    data-dismiss="modal">&times;</button>
-                                                                <h4 class="modal-title text-center">Đăng nhập</h4>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                <form action="{{ route('clientLogin') }}"
-                                                                    method="POST" id="form-login">
-                                                                    @csrf
-                                                                    <div class="form-group">
-                                                                        <label for="">Tài khoản</label>
-                                                                        <input type="text"
-                                                                            class="form-control email" name="email"
-                                                                            id="email"
-                                                                            aria-describedby="emailHelp"
-                                                                            placeholder="Nhập Email của bạn">
-                                                                        <span
-                                                                            style="font-size: 15px; color: #f33a58;width: 100%; display:block; margin-top:4px;"
-                                                                            class="form-message"></span>
-                                                                    </div>
-                                                                    <div class="form-group">
-                                                                        <label for="">Mật khẩu</label>
-                                                                        <input type="password" name="password"
-                                                                            class="form-control password"
-                                                                            id="password"
-                                                                            placeholder="Nhập mật khẩu">
-                                                                        <span
-                                                                            style="font-size: 15px; color: #f33a58;width: 100%; display:block; margin-top:4px;"
-                                                                            class="form-message"></span>
-
-                                                                    </div>
-                                                                    <div class="form-check align-items-center">
-                                                                        <input type="checkbox" name="remember"
-                                                                            class="form-check-input"
-                                                                            id="exampleCheck1">
-                                                                        <label class="form-check-label my-1"
-                                                                            for="exampleCheck1">Lưu thông tin</label>
-                                                                    </div>
-                                                                    <button type="submit"
-                                                                        class="my-4 btn btn-lg btn-block btn-form">Đăng
-                                                                        nhập</button>
-
-                                                                </form>
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <p class="m-0">Bạn chưa có tài khoản ? <a
-                                                                        href="#">Đăng ký</a></p>
-                                                            </div>
-                                                        </div>
-
-                                                    </div>
-                                                </div>
-
-                                            </div> --}}
                                         </li>
                                     @endif
                                     @if (Auth::check())
                                         <li class="nav-item">
                                             @php
-                                                //$wishlistcount = App\Models\Wishlist::count();
                                                 $user = Auth::user();
                                                 $wishlist = $user->wishlist;
                                                 $wishlistcount = $wishlist ? $wishlist->count() : 0;
@@ -208,128 +146,3 @@
             </div>
         </div>
 </header>
-<script>
-    function Validator(options) {
-        var formElement = document.querySelector(options.form);
-        var selectorRules = {}
-        // hàm thực hiện validate
-        var selectorRules = {}
-
-        function validate(inputElement, rule) {
-            var input = inputElement.parentElement.querySelector('.form-control')
-            var errorElement = inputElement.parentElement.querySelector('.form-message');
-            var errorMessage
-            //
-            var rules = selectorRules[rule.selector]
-
-            for (var i = 0; i < rules.length; ++i) {
-                errorMessage = rules[i](inputElement.value)
-                if (errorMessage) break;
-            }
-            if (errorMessage) {
-                errorElement.innerText = errorMessage;
-                input.style.borderColor = '#f33a58'
-            } else {
-                errorElement.innerText = ''
-                input.style.borderColor = ''
-            }
-            return !errorMessage;
-        }
-
-        // lấy element của form
-        if (formElement) {
-            formElement.onsubmit = function(e) {
-
-
-                var isFormValid = true
-
-                options.rules.forEach(function(rule) {
-
-                    var inputElement = formElement.querySelector(rule.selector)
-                    var isValid = validate(inputElement, rule)
-                    if (!isValid) {
-                        isFormValid = false
-                    }
-                });
-
-
-                if (isFormValid) {
-                    formElement.submit()
-                } else {
-                    e.preventDefault();
-                }
-            }
-            // lặp qua mỗi rule và xửa lý sự kiện
-            options.rules.forEach(function(rule) {
-                //lu lai cac rules cho moi input
-
-                if (Array.isArray(selectorRules[rule.selector])) {
-                    selectorRules[rule.selector].push(rule.test)
-                } else {
-                    selectorRules[rule.selector] = [rule.test]
-                }
-
-                var inputElement = formElement.querySelector(rule.selector)
-                var errorElement = inputElement.parentElement.querySelector(options.errorSelector);
-                var input = inputElement.parentElement.querySelector('.form-control')
-
-                if (inputElement) {
-                    inputElement.onblur = function() {
-                        validate(inputElement, rule)
-                    }
-
-                    inputElement.oninput = function() {
-                        errorElement.innerHTML = ''
-                        input.style.borderColor = ''
-                    }
-                }
-            })
-        }
-    }
-
-    Validator.isPassword = function(selector) {
-        return {
-            selector,
-            test(value) {
-                return value ? undefined : 'Vui lòng nhập mật khẩu'
-            }
-        }
-    }
-    Validator.formEmail = function(selector) {
-        return {
-            selector,
-            test(value) {
-                return value ? undefined : 'Vui lòng nhập email'
-            }
-        }
-    }
-    Validator.isEmail = function(selector) {
-        return {
-            selector,
-            test(value) {
-                var regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-                return regex.test(value) ? undefined : 'Vui lòng nhập đúng định dạng email'
-            }
-        }
-    }
-
-    Validator.minLength = function(selector, min) {
-        return {
-            selector,
-            test(value) {
-                return value.length >= min ? undefined : `Vui lòng nhập tối đa ${min} ký tự`
-            }
-        }
-    }
-
-    Validator({
-        form: '#form-login',
-        errorSelector: '.form-message',
-        rules: [
-            Validator.formEmail('.email'),
-            Validator.isEmail('.email'),
-            Validator.isPassword('.password'),
-            Validator.minLength('.password', 6),
-        ],
-    })
-</script>

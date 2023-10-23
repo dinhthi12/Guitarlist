@@ -6,6 +6,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CateItemController;
 use App\Http\Controllers\client\CategoryController as ClientCategoryController;
 use App\Http\Controllers\client\ClientController;
+use App\Http\Controllers\client\ContactController;
 use App\Http\Controllers\client\ProductController as ClientProductController;
 use App\Http\Controllers\client\WishlistController;
 use App\Http\Controllers\ProductController;
@@ -48,6 +49,12 @@ Route::prefix('/')->group(function () {
     Route::get('/editaddress/{id}', [ClientController::class, 'geteditAddress'])->name('geteditAddress');
     Route::post('/editaddress', [ClientController::class, 'editAddress'])->name('editAddress');
     Route::get('deleteAddress/{id}', [ClientController::class, 'deleteAddress'])->name('deleteAddress');
+    //tìm kiếm sp theo tên
+    Route::get('/search', [ClientProductController::class, 'search'])->name('search');
+    //chức năng liên hệ
+    Route::get('contact',[ContactController::class,'contact'] )->name('contacts');
+    Route::post('/addcontact',[ContactController::class,'addcontact'] )->name('addcontact');
+    Route::get('deletecontact/{id}', [ContactController::class,'deletecontact'])->name('deletecontact');
 });
 //chức năng login người dùng
 Route::post('/clientLogin', [ClientController::class, 'loginClient'])->name('clientLogin');

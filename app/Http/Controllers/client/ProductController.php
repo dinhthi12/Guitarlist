@@ -4,6 +4,7 @@ namespace App\Http\Controllers\client;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\CateItem;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -34,7 +35,24 @@ class ProductController extends Controller
         //lấy biến thể
         $proVariant = Product::find($id)->Variant;
         //trả về view cùng mảng giá trị
-        return view('client.pages.products.index',
-        ['pro' => $pro, 'detail' => $proDetails, 'color' => $proColors, 'variant' => $proVariant]);
+        return view(
+            'client.pages.products.index',
+            ['pro' => $pro, 'detail' => $proDetails, 'color' => $proColors, 'variant' => $proVariant]
+        );
+    }
+    public function search()
+    {
+        $cti_bar = Category::all();
+        $keywords = $_GET['keywords'];
+        $listPro = Product::where('name', 'LIKE', '%' . $keywords . '%')->orWhere('detail', 'LIKE', '%' . $keywords . '%')->paginate(10);
+        //dd($listPro);
+        if (count($listPro) == 0) {
+
+            $MesSearch = 'Không tìm thấy kết quả của từ khóa: ' . $keywords . '.';
+            return view('client.pages.categories.index')->with(compact('listPro', 'cti_bar', 'keywords', 'MesSearch'));
+        } else {
+            $MesSearch = 'Kết quả của từ khóa: ' . $keywords . '.';
+            return view('client.pages.categories.index')->with(compact('listPro', 'cti_bar', 'keywords', 'MesSearch'));
+        }
     }
 }

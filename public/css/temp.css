@@ -1,12 +1,13 @@
 .single-product {
     position: relative;
-    box-shadow: rgba(228, 228, 228, 0.515) 0px 1px 2px 0px, rgba(216, 216, 216, 0.504) 0px 2px 6px 2px;
+    box-shadow: rgba(228, 228, 228, 0.515) 0px 1px 2px 0px,
+        rgba(216, 216, 216, 0.504) 0px 2px 6px 2px;
     border-radius: 15px;
     height: auto;
     margin-bottom: 0px !important;
     height: 100%;
 }
-.single-product .product-img{
+.single-product .product-img {
     border-radius: 10px 10px 0 0;
 }
 .single-product .product-btm {
@@ -14,7 +15,7 @@
     border-top: 1px solid #e5e5e5;
     border-radius: 0 0 10px 10px;
 }
-.single-product img{
+.single-product img {
     border-radius: 10px;
 }
 
@@ -36,7 +37,8 @@
     color: #fff;
     font-size: 14px;
     font-weight: 500;
-    box-shadow: rgb(60 64 67 / 10%) 0px 1px 0px 0px, rgb(60 64 67 / 15%) 0px 2px 3px 2px;
+    box-shadow: rgb(60 64 67 / 10%) 0px 1px 0px 0px,
+        rgb(60 64 67 / 15%) 0px 2px 3px 2px;
     margin-top: 10px;
 }
 
@@ -48,7 +50,7 @@
     border-top: 5px solid rgb(178 99 1);
     border-left: 6px solid transparent;
 }
-.product-img{
+.product-img {
     /* padding: 8px; */
     background: white !important;
 }
@@ -59,7 +61,6 @@
     height: 25px;
     width: 7px;
     border-top-left-radius: 2px;
-
 }
 
 .product-item_sale--right {
@@ -90,7 +91,8 @@
     bottom: -4px;
     border-width: 0 20px 5px;
     border-style: solid;
-    border-color: transparent rgba(255, 89, 79, 1) transparent rgba(255, 89, 79, 1);
+    border-color: transparent rgba(255, 89, 79, 1) transparent
+        rgba(255, 89, 79, 1);
 }
 
 .product-top--text {
@@ -135,7 +137,6 @@
 .tb_details {
     border: 1px solid #f2f2f2;
     border-radius: 1em;
-
 }
 
 .tb_details tr:nth-child(even) {
@@ -145,7 +146,6 @@
 .dt_value h5 {
     color: black !important;
     font-weight: normal !important;
-
 }
 
 .detail-content {
@@ -174,7 +174,6 @@
     border-top: 1px solid #f0f2f1;
 } */
 
-
 .product-item-sale {
     display: flex;
     align-items: center;
@@ -185,7 +184,8 @@
     color: #fff;
     font-size: 14px;
     font-weight: 500;
-    box-shadow: rgb(60 64 67 / 10%) 0px 1px 0px 0px, rgb(60 64 67 / 15%) 0px 2px 3px 2px;
+    box-shadow: rgb(60 64 67 / 10%) 0px 1px 0px 0px,
+        rgb(60 64 67 / 15%) 0px 2px 3px 2px;
     text-align: center;
     border-radius: 4px;
     margin-bottom: 10px;
@@ -212,19 +212,18 @@
     color: #333;
 }
 
-
 /* Slider */
-.carousel-item img{
-        height: 450px;
-        object-fit: cover;
+.carousel-item img {
+    height: 450px;
+    object-fit: cover;
 }
 
-.navbar-right .nav-item{
+.navbar-right .nav-item {
     height: 80px !important;
 }
 
 .main_title {
-    background: #F5F5F5;
+    background: #f5f5f5;
     margin-bottom: 20px;
     display: inline-block;
     height: 31px;
@@ -238,7 +237,7 @@
     text-transform: uppercase;
     padding: 8px 60px 6px 35px;
     margin: 0 0 0 60px;
-    background: #8B4513;
+    background: #8b4513;
     color: #fff;
     font-size: 16px;
     text-transform: uppercase;
@@ -246,21 +245,21 @@
 
 .main_title h2 span:after {
     content: " ";
-    border-top: 30px solid #8B4513;
-    border-left: 30px solid #F5F5F5;
+    border-top: 30px solid #8b4513;
+    border-left: 30px solid #f5f5f5;
     /* margin-left: 40px; */
     position: absolute;
     top: -7px;
     left: -35px;
 }
 
-.quick-sales{
+.quick-sales {
     margin-bottom: 70px;
 }
-.submenu{
+.submenu {
     box-shadow: none;
 }
-.dropdown-menu{
+.dropdown-menu {
     box-shadow: 0 0 3px #b6b6b6 !important;
 }
 .banner_area .banner_inner {
@@ -288,11 +287,11 @@
     right: 8px;
 }
 
-.list-pro{
+.list-pro {
     align-items: stretch !important;
 }
 
-.list-pro .col-md-6{
+.list-pro .col-md-6 {
     padding-bottom: 50px;
 }
 
@@ -301,8 +300,8 @@
 }
 
 /* Don hang */
-.table thead tr{
-    background-color: #8B4513;
+.table thead tr {
+    background-color: #8b4513;
 }
 
 .table thead tr th {
@@ -323,11 +322,11 @@
     font-size: 14px;
 }
 
-.cart_inner .table tbody tr .processing{
+.cart_inner .table tbody tr .processing {
     background-color: #ffc100;
 }
 
-.cart_inner .table tbody tr .confirmed{
+.cart_inner .table tbody tr .confirmed {
     background-color: #686868;
     padding: 5px;
     border-radius: 4px;
@@ -336,17 +335,17 @@
     width: 100%;
 }
 
-.cart_inner .table tbody tr .progress{
+.cart_inner .table tbody tr .progress {
     background-color: #4d83ff;
     height: 35px;
     font-size: 14px;
 }
 
-.cart_inner .table tbody tr .paid{
+.cart_inner .table tbody tr .paid {
     background-color: #71c016;
 }
 
-.cart_inner .table tbody tr .cancelled{
+.cart_inner .table tbody tr .cancelled {
     background-color: #ff4747;
 }
 
@@ -361,18 +360,18 @@
     border-radius: 0.4em;
 }
 
-.pay{
+.pay {
     margin: 30px;
 }
 
-.pay h4{
+.pay h4 {
     font-size: 14px;
     color: #fff;
     padding-left: 15px;
     padding-bottom: 10px;
 }
 
-.payment-png{
+.payment-png {
     display: flex;
     align-items: center;
     margin-top: 0;
@@ -419,25 +418,74 @@
     display: inline-block;
     padding: 8px 16px;
     text-decoration: none;
-    background-color: #8B4513;
+    background-color: #8b4513;
     color: #fff;
     border-radius: 5px;
     transition: background-color 0.3s, color 0.3s;
 }
 
 .pagination a:hover {
-    background-color: #8B4513;
+    background-color: #8b4513;
     color: #666;
 }
 
 .pagination .active span {
-    background-color: #8B4513;
+    background-color: #8b4513;
     color: #fff;
     cursor: default;
 }
 
 .pagination .disabled span {
-    background-color: #8B4513;
+    background-color: #8b4513;
     color: #fff;
     cursor: not-allowed;
+}
+.rating {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: center;
+}
+
+.rating > input {
+    display: none;
+}
+
+.rating > label {
+    position: relative;
+    width: 1em;
+    font-size: 2vw;
+    color: #ffd600;
+    cursor: pointer;
+}
+
+.rating > label::before {
+    content: "\2605";
+    position: absolute;
+    opacity: 0;
+}
+
+.rating > label:hover:before,
+.rating > label:hover ~ label:before {
+    opacity: 1 !important;
+}
+
+.rating > input:checked ~ label:before {
+    opacity: 1;
+}
+
+.rating:hover > input:checked ~ label:before {
+    opacity: 0.4;
+}
+p {
+    font-size: 1.2rem;
+}
+
+@media only screen and (max-width: 600px) {
+    h1 {
+        font-size: 14px;
+    }
+
+    p {
+        font-size: 12px;
+    }
 }

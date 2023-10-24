@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Address;
 use App\Models\Category;
 use App\Models\CateItem;
+use App\Models\Comment;
 use App\Models\Product;
 use App\Models\Slide;
 use App\Models\User;
@@ -49,7 +50,7 @@ class ClientController extends Controller
     }
     public function loginClient(Request $request)
     {
-        //check login user
+        //kiểm tra login user
         $data = [
             'email' => $request->email,
             'password' => $request->password,
@@ -72,70 +73,109 @@ class ClientController extends Controller
     }
     public function updateAccount(Request $request)
     {
+        //lấy ID của người dùng đang đăng nhập thông qua lớp Auth
         $id = Auth::user()->id;
+        //sử dụng ID ở ở trên để tìm và lấy thông tin người dùng từ cơ sở dữ liệu bằng cách sử dụng mô hình User
         $user = User::find($id);
+        //kiểm tra xem trường file_upload trong request có giá trị trống (không có tệp được tải lên) hay không
         if ($request->file_upload == '') {
+            //Dòng này lấy giá trị của trường image1 từ request làm giá trị cho biến $image. image1 là đường dẫn của ảnh
             $image = $request->input('image1');
         } else if ($request->has('file_upload')) {
+            //Dòng này lấy tệp tải lên từ request và gán cho biến $file.
             $file = $request->file_upload;
+            //Dòng này lấy tên gốc của tệp tải lên
             $file_name = $file->getClientOriginalName();
+            //di chuyển tệp tải lên vào thư mục public/images/users của ứng dụng Laravel
             $file->move(public_path('images/users'), $file_name);
+            //Sau khi tệp tải lên đã được di chuyển, biến $image được gán giá trị là tên tệp.
             $image = $file_name;
         }
+        //lưu các thay đổi
         $user->image = $image;
         $user->address = $request->address;
         $user->phone = $request->phone;
         $user->save();
+        //thông báo và trả về route tương ứng
         toastr()->success('Thành công', 'Cập nhật tài khoản thành công');
         return redirect(route('manager'));
     }
     public function user_address()
     {
-        Auth::user()->id;
+        // /Dòng này tìm kiếm và lấy danh sách địa chỉ từ cơ sở dữ liệu bằng cách sử dụng mô hình Address.
+        //tìm kiếm các bản ghi trong bảng address mà có trường user_id bằng với ID của người dùng đang đăng nhập.
+        //Kết quả được lấy về dưới dạng một danh sách các bản ghi.
         $listAdr = Address::where('user_id', '=', Auth::user()->id)->get();
+        //Dòng này trả về một view có tên là 'client.pages.manager.address'.
+        //Biến listAdr được truyền vào view thông qua phương thức with và sử dụng hàm compact để tạo một mảng chứa biến này.
         return view('client.pages.manager.address')->with(compact('listAdr'));
     }
-    public function addAddress(Request $r)
+    public function addAddress(Request $request)
     {
-        $adr = new Address();
-        $adr->user_id = $r->user_id;
-        $adr->name = $r->name;
-        $adr->phone = $r->phone;
-        $adr->address = $r->address;
-        $adr->status = $r->status;
-        DB::update('update address set status = ?', [0]);
+        //Tạo một đối tượng mới của lớp Address, sẽ được sử dụng để tạo một bản ghi mới trong cơ sở dữ liệu
+        $address = new Address();
+        //Dòng này gán giá trị cho trường user_id trong đối tượng $adr bằng giá trị được gửi từ biểu mẫu web thông qua $request
+        $address->user_id = $request->user_id;
+        $address->name = $request->name; //tương tự
+        $address->phone = $request->phone; //tương tự
+        $address->address = $request->address; //tương tự
+        $address->status = $request->status; //tương tự
+        // Dòng này thực hiện một truy vấn SQL để cập nhật tất cả các bản ghi trong bảng address
+        // DB::update('update address set status = ?', [0]);
 
-        $adr->save();
+        $address->save();
 
         toastr()->success('Thành công', 'Thêm địa chỉ thành công');
         return redirect(route('user_address'));
     }
     public function geteditAddress($id)
     {
-        $adr = Address::find($id);
-
-        return view('client.pages.manager.editaddress', ['adr' => $adr]);
+        //Dòng này tìm đối tượng Address trong cơ sở dữ liệu dựa trên giá trị ID của địa chỉ cần chỉnh sửa.
+        //Kết quả tìm được sẽ được lưu trong biến $address.
+        $address = Address::find($id);
+        return view('client.pages.manager.editaddress', ['adr' => $address]);
     }
-    public function editAddress(Request $r)
+    public function editAddress(Request $request)
     {
-        $adr = Address::find($r->id);
-        $adr->user_id = $r->user_id;
-        $adr->name = $r->name;
-        $adr->phone = $r->phone;
-        $adr->address = $r->address;
+        //Dòng này tìm đối tượng Address trong cơ sở dữ liệu dựa trên giá trị ID của địa chỉ cần chỉnh sửa
+        //được trích xuất từ dữ liệu gửi lên qua $request.
+        $address = Address::find($request->id);
+        $address->user_id = $request->user_id;
+        $address->name = $request->name;
+        $address->phone = $request->phone;
+        $address->address = $request->address;
+        $address->status = $request->status;
 
-        $adr->status = $r->status;
-
-        $adr->save();
+        $address->save();
 
         toastr()->success('Thành công', 'Chỉnh sửa địa chỉ thành công');
         return redirect(route('user_address'));
     }
     public function deleteAddress($id)
     {
-        $adr = Address::find($id);
-        $adr->delete();
+        //Dòng này tìm đối tượng Address trong cơ sở dữ liệu dựa trên giá trị ID đã được truyền vào qua tham số $id.
+        //trả về đối tượng địa chỉ cụ thể mà bạn muốn xoá.
+        $address = Address::find($id);
+        $address->delete();
         toastr()->success('Thành công', 'Xoá địa chỉ thành công');
         return redirect(route('user_address'));
     }
+    public function comment($id, Request $request)
+    {
+        $pro_id = $id;
+        $comment = new Comment();
+        $product = Product::find($id);
+        $comment->pro_id = $pro_id;
+        $comment->user_id = Auth::user()->id;
+        $comment->content = $request->content;
+        if ($request->rating_rate > 0) {
+            $comment->rate = $request->rating_rate;
+        } else {
+            $comment->rate = 5;
+        }
+        $comment->save();
+
+        return redirect()->back();
+    }
+
 }

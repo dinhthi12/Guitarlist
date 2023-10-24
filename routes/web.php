@@ -46,15 +46,17 @@ Route::prefix('/')->group(function () {
     //chức năng thêm địa chỉ người dùng
     Route::get('/user_address', [ClientController::class, 'user_address'])->name('user_address');
     Route::post('/addAddress', [ClientController::class, 'addAddress'])->name('addAddress');
-    Route::get('/editaddress/{id}', [ClientController::class, 'geteditAddress'])->name('geteditAddress');
-    Route::post('/editaddress', [ClientController::class, 'editAddress'])->name('editAddress');
+    Route::get('/editAddress/{id}', [ClientController::class, 'getEditAddress'])->name('getEditAddress');
+    Route::post('/editAddress', [ClientController::class, 'editAddress'])->name('editAddress');
     Route::get('deleteAddress/{id}', [ClientController::class, 'deleteAddress'])->name('deleteAddress');
     //tìm kiếm sp theo tên
     Route::get('/search', [ClientProductController::class, 'search'])->name('search');
     //chức năng liên hệ
     Route::get('contact',[ContactController::class,'contact'] )->name('contacts');
-    Route::post('/addcontact',[ContactController::class,'addcontact'] )->name('addcontact');
-    Route::get('deletecontact/{id}', [ContactController::class,'deletecontact'])->name('deletecontact');
+    Route::post('/addContact',[ContactController::class,'addContact'] )->name('addContact');
+    Route::get('deleteContact/{id}', [ContactController::class,'deleteContact'])->name('deleteContact');
+    //chức năng bình luận
+    Route::post('/product/comment/{id}',[ClientController::class,'comment'])->name('comment');
 });
 //chức năng login người dùng
 Route::post('/clientLogin', [ClientController::class, 'loginClient'])->name('clientLogin');

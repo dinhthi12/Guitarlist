@@ -235,7 +235,7 @@
                                         <h5>Tổng thể</h5>
                                         @if (isset($Round))
                                             <h4>{{ $Round }}</h4>
-                                            <h6>({{ $coutall }} Nhận xét)</h6>
+                                            <h6>({{ $countTotal }} Nhận xét)</h6>
                                         @else
                                             Chưa có đánh giá
                                         @endif
@@ -244,7 +244,7 @@
                                 </div>
                                 <div class="col-6">
                                     <div class="rating_list">
-                                        {{-- <h3>Dựa trên {{ $coutall }} nhận xét</h3> --}}
+                                        <h3>Dựa trên {{ $countTotal }} nhận xét</h3>
 
                                         <ul class="list">
                                             <li>
@@ -256,7 +256,7 @@
                                                     }
                                                     ?>
 
-                                                    {{-- {{ $cout5 }} --}}
+                                                    {{ $count5 }}
                                                 </a>
                                             </li>
                                             <li>
@@ -267,7 +267,7 @@
                                                         echo '<i class="fa fa-star"></i>';
                                                     }
                                                     ?>
-                                                    {{-- {{ $cout4 }} --}}
+                                                    {{ $count4 }}
                                                 </a>
                                             </li>
                                             <li>
@@ -278,7 +278,7 @@
                                                         echo '<i class="fa fa-star"></i>';
                                                     }
                                                     ?>
-                                                    {{-- {{ $cout3 }} --}}
+                                                    {{ $count3 }}
 
                                                 </a>
                                             </li>
@@ -290,7 +290,7 @@
                                                         echo '<i class="fa fa-star"></i>';
                                                     }
                                                     ?>
-                                                    {{-- {{ $cout2 }} --}}
+                                                    {{ $count2 }}
                                                 </a>
                                             </li>
                                             <li>
@@ -301,7 +301,7 @@
                                                         echo '<i class="fa fa-star"></i>';
                                                     }
                                                     ?>
-                                                    {{-- {{ $cout1 }} --}}
+                                                    {{ $count1 }}
                                                 </a>
                                             </li>
                                         </ul>
@@ -309,7 +309,7 @@
                                 </div>
                             </div>
                             <div class="review_list">
-                                {{-- @foreach ($comm as $com)
+                                @foreach ($comm as $com)
                                     <div class="review_item">
                                         <div class="media">
                                             <div class="d-flex">
@@ -319,7 +319,7 @@
                                                 <h4>{{ $com->name }} | {{ $com->created_at }}</h4>
 
                                                 <?php
-                                                for ($i = 0; $i < $com->status; $i++) {
+                                                for ($i = 0; $i < $com->rate; $i++) {
                                                     echo '<i class="fa fa-star"></i>';
                                                 } ?>
                                             </div>
@@ -328,7 +328,7 @@
                                             {{ $com->content }}
                                         </p>
                                     </div>
-                                @endforeach --}}
+                                @endforeach
 
 
 
@@ -346,73 +346,17 @@
                                         @csrf
                                         <p style="margin-left: 3%">Đánh giá của bạn:</p>
                                         <ul class="list">
-                                            <!-- CSS -->
-                                            <style>
-                                                .rating {
-                                                    display: flex;
-                                                    flex-direction: row-reverse;
-                                                    justify-content: center;
-                                                }
-
-                                                .rating>input {
-                                                    display: none;
-                                                }
-
-                                                .rating>label {
-                                                    position: relative;
-                                                    width: 1em;
-                                                    font-size: 2vw;
-                                                    color: #FFD600;
-                                                    cursor: pointer;
-                                                }
-
-                                                .rating>label::before {
-                                                    content: "\2605";
-                                                    position: absolute;
-                                                    opacity: 0;
-                                                }
-
-                                                .rating>label:hover:before,
-                                                .rating>label:hover~label:before {
-                                                    opacity: 1 !important;
-                                                }
-
-                                                .rating>input:checked~label:before {
-                                                    opacity: 1;
-                                                }
-
-                                                .rating:hover>input:checked~label:before {
-                                                    opacity: 0.4;
-                                                }
-
-
-
-                                                p {
-                                                    font-size: 1.2rem;
-                                                }
-
-                                                @media only screen and (max-width: 600px) {
-                                                    h1 {
-                                                        font-size: 14px;
-                                                    }
-
-                                                    p {
-                                                        font-size: 12px;
-                                                    }
-                                                }
-                                            </style>
-                                            <!-- End css -->
                                             <!-- sta -->
                                             <div class="rating">
-                                                <input type="radio" name="rating status" value="5"
+                                                <input type="radio" name="rating rate" value="5"
                                                     id="5"><label for="5">☆</label>
-                                                <input type="radio" name="rating status" value="4"
+                                                <input type="radio" name="rating rate" value="4"
                                                     id="4"><label for="4">☆</label>
-                                                <input type="radio" name="rating status" value="3"
+                                                <input type="radio" name="rating rate" value="3"
                                                     id="3"><label for="3">☆</label>
-                                                <input type="radio" name="rating status" value="2"
+                                                <input type="radio" name="rating rate" value="2"
                                                     id="2"><label for="2">☆</label>
-                                                <input type="radio" name="rating status" value="1"
+                                                <input type="radio" name="rating rate" value="1"
                                                     id="1"><label for="1">☆</label>
                                             </div>
                                             <div>

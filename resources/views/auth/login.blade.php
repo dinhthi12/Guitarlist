@@ -39,7 +39,7 @@
                                 <img src="{{ asset('images/logo.svg') }}" alt="logo">
                             </div>
                             <h4 class="text-center">Bạn cần đăng nhập</h4>
-                            <h6 class="font-weight-light text-center">Sử dụng tài khoản quản trị để tiếp tục.</h6>
+                            <h6 class="font-weight-light text-center">Sử dụng tài khoản của bạn để tiếp tục.</h6>
                             <form class="pt-3" action="{{ route('clientLogin') }}" method="POST" id="form-login">
                                 @csrf
                                 @error('err')
@@ -65,7 +65,7 @@
                                         nhập</button>
                                 </div>
                                 <div class="my-2 d-flex justify-content-between align-items-center">
-                                    <p class="m-0">Bạn chưa có tài khoản ? <a href="#">Đăng ký</a></p>
+                                    <p class="m-0">Bạn chưa có tài khoản ? <a href="{{ route('signup') }}">Đăng ký</a></p>
                                 </div>
                             </form>
                         </div>

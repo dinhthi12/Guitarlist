@@ -7,22 +7,19 @@
             <div class="row">
                 <!-- Bannel -->
             </div>
-
-
-
             <div class="row">
                 <div class="col-12">
                     <h2 class="contact-title text-center">Liên hệ chúng tôi</h2>
                 </div>
                 <div class="col-lg-8 mb-4 mb-lg-0">
-                    <form class="form-contact contact_form" action="/addcontact" method="post" id="form-register"
+                    <form class="form-contact contact_form" action="/addContact" method="post" id="form-register"
                         novalidate="novalidate">
                         @csrf
                         <div class="row">
                             @if (isset($dataUser))
                                 <div class="col-12">
                                     <div class="form-group">
-                                        <textarea class="form-control w-100 message" name="message" id="editor1" cols="30" rows="9"
+                                        <textarea class="form-control w-100 message" name="message" cols="30" rows="9"
                                             placeholder="Nhập tin nhắn..." required></textarea>
                                         <span style="font-size: 15px; color: #f33a58;width: 100%;"
                                             class="form-message"></span>
@@ -42,8 +39,9 @@
                                 </div>
                                 <div class="form-group mt-lg-3">
                                     <button type="submit" class="main_btn">Gửi tin nhắn.</button>
-                                    <button class="main_btn" type="button" data-toggle="collapse" data-target="#collapseExample2"
-                                        aria-expanded="false" aria-controls="collapseExample">
+                                    <button class="main_btn" type="button" data-toggle="collapse"
+                                        data-target="#collapseExample2" aria-expanded="false"
+                                        aria-controls="collapseExample">
                                         Lịch sử liên hệ
                                     </button>
                                 </div>
@@ -104,7 +102,7 @@
 
                                                             <td>
                                                                 @if ($viewCon->status == 0)
-                                                                    <a href="{{ route('deletecontact', $viewCon->id) }}"
+                                                                    <a href="{{ route('deleteContact', $viewCon->id) }}"
                                                                         onclick="confirm('Bạn chắc chắn xoá tin nhắn này')"
                                                                         class="genric-btn danger-border radius delete-cart"><i
                                                                             class="fa fa-times" aria-hidden="true"></i></a>

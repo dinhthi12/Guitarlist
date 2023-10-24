@@ -18,7 +18,7 @@
                                         value="{{ Auth::user()->id }}">
 
                                     <div class="col-md-6">
-                                        <label class="labels">Họ và tên</label>
+                                        <label class="labels">Họ và tên (Người nhận)</label>
 
                                         <input type="text" class="form-control fullname" placeholder="" name="name"
                                             value="">
@@ -26,7 +26,7 @@
                                             class="form-message"></span>
                                     </div>
                                     <div class="col-md-6">
-                                        <label class="labels">Số điện thoại</label>
+                                        <label class="labels">Số điện thoại (Người nhận)</label>
                                         <input type="text" class="form-control myPhone" value="" name="phone"
                                             placeholder="">
                                         <span style="font-size: 15px; color: #f33a58;width: 100%;"
@@ -36,7 +36,7 @@
                                 </div>
                                 <div class="row mt-3">
                                     <div class="col-md-6">
-                                        <label class="labels">Địa chỉ</label>
+                                        <label class="labels">Địa chỉ (Người nhận)</label>
                                         <input type="text" class="form-control address" name="address" value=""
                                             placeholder="">
                                         <span style="font-size: 15px; color: #f33a58;width: 100%;"
@@ -68,7 +68,7 @@
                                     <thead>
                                         <tr>
                                             <th>
-                                                #
+                                                STT
                                             </th>
                                             <th>
                                                 Họ và tên

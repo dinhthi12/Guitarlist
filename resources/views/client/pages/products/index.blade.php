@@ -148,74 +148,78 @@
                                 </p>
                             </div>
                         </div>
-                        <div class="col-md-4">
-                            <div class="table-responsive">
 
-                                <table class="table tb_details">
-                                    <tbody id="var_info">
-                                        @if (isset($detail->mechanicalSet))
-                                            <tr>
-                                                <td>
-                                                    <h5>Bộ cơ khí</h5>
-                                                </td>
-                                                <td class="dt_value">
-                                                    <h5>{{ $detail->mechanicalSet }}</h5>
-                                                </td>
-                                            </tr>
-                                        @endif
-                                        @if (isset($detail->soundboard))
-                                            <tr>
-                                                <td>
-                                                    <h5>Bảng âm thanh</h5>
-                                                </td>
-                                                <td class="dt_value">
-                                                    <h5>{{ $detail->soundboard }}</h5>
-                                                </td>
-                                            </tr>
-                                        @endif
-                                        @if (isset($detail->keyboard))
-                                            <tr>
-                                                <td>
-                                                    <h5>Bàn phím</h5>
-                                                </td>
-                                                <td class="dt_value">
-                                                    <h5>{{ $detail->keyboard }}</h5>
-                                                </td>
-                                            </tr>
-                                        @endif
-                                        @if (isset($detail->size))
-                                            <tr>
-                                                <td>
-                                                    <h5>Kích thước</h5>
-                                                </td>
-                                                <td class="dt_value">
-                                                    <h5>{{ $detail->size }} </h5>
-                                                </td>
-                                            </tr>
-                                        @endif
-                                        @if (isset($detail->weight))
-                                            <tr>
-                                                <td>
-                                                    <h5>Trọng lượng</h5>
-                                                </td>
-                                                <td class="dt_value">
-                                                    <h5>{{ $detail->weight }}</h5>
-                                                </td>
-                                            </tr>
-                                        @endif
-                                        @if (isset($detail->manufacture))
-                                            <tr>
-                                                <td>
-                                                    <h5>Nhà sản xuất</h5>
-                                                </td>
-                                                <td class="dt_value">
-                                                    <h5>{{ $detail->manufacture }}</h5>
-                                                </td>
-                                            </tr>
-                                        @endif
-                                    </tbody>
-                                </table>
+                        <div class="col-md-4">
+                            <div class="detail-content">
+                                <h2>Chi tiết sản phẩm</h2>
+                                <div class="table-responsive">
+                                    <table class="table tb_details">
+                                        <tbody id="var_info">
+                                            @if (isset($detail->mechanicalSet))
+                                                <tr>
+                                                    <td>
+                                                        <h5>Bộ cơ khí</h5>
+                                                    </td>
+                                                    <td class="dt_value">
+                                                        <h5>{{ $detail->mechanicalSet }}</h5>
+                                                    </td>
+                                                </tr>
+                                            @endif
+                                            @if (isset($detail->soundboard))
+                                                <tr>
+                                                    <td>
+                                                        <h5>Bảng âm thanh</h5>
+                                                    </td>
+                                                    <td class="dt_value">
+                                                        <h5>{{ $detail->soundboard }}</h5>
+                                                    </td>
+                                                </tr>
+                                            @endif
+                                            @if (isset($detail->keyboard))
+                                                <tr>
+                                                    <td>
+                                                        <h5>Bàn phím</h5>
+                                                    </td>
+                                                    <td class="dt_value">
+                                                        <h5>{{ $detail->keyboard }} phím</h5>
+                                                    </td>
+                                                </tr>
+                                            @endif
+                                            @if (isset($detail->size))
+                                                <tr>
+                                                    <td>
+                                                        <h5>Kích thước</h5>
+                                                    </td>
+                                                    <td class="dt_value">
+                                                        <h5>{{ $detail->size }} </h5>
+                                                    </td>
+                                                </tr>
+                                            @endif
+                                            @if (isset($detail->weight))
+                                                <tr>
+                                                    <td>
+                                                        <h5>Trọng lượng</h5>
+                                                    </td>
+                                                    <td class="dt_value">
+                                                        <h5>{{ $detail->weight }} g</h5>
+                                                    </td>
+                                                </tr>
+                                            @endif
+                                            @if (isset($detail->manufacture))
+                                                <tr>
+                                                    <td>
+                                                        <h5>Nhà sản xuất</h5>
+                                                    </td>
+                                                    <td class="dt_value">
+                                                        <h5>{{ $detail->manufacture }}</h5>
+                                                    </td>
+                                                </tr>
+                                            @endif
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
+
                         </div>
                     </div>
 
@@ -342,7 +346,7 @@
                                 <!--Bình luận-->
                                 @if (Auth::user() != null)
                                     <form class="row contact_form" action="/product/comment/{{ $pro->id }}"
-                                        method="post" id="contactForm form-product" novalidate="novalidate">
+                                        method="post" id="form-register" novalidate="novalidate">
                                         @csrf
                                         <p style="margin-left: 3%">Đánh giá của bạn:</p>
                                         <ul class="list">
@@ -364,8 +368,13 @@
                                             </div>
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <textarea class="form-control" name="content" id="content" rows="5" placeholder="Nội dung"></textarea>
+                                                    <textarea class="form-control w-100 message" id="content" name="content" cols="30" rows="9"
+                                                        placeholder="Nhập bình luận..." required></textarea>
+                                                    <span style="font-size: 15px; color: #f33a58;width: 100%;"
+                                                        class="form-message"></span>
                                                 </div>
+
+
                                             </div>
                                             <div class="col-md-12 text-right">
                                                 <button type="submit" value="submit" class="btn submit_btn">
@@ -390,4 +399,98 @@
         </div>
     </section>
     <!--================End Product Description Area =================-->
+    <script>
+        function Validator(options) {
+            var formElement = document.querySelector(options.form);
+            var selectorRules = {}
+            // hàm thực hiện validate
+            var selectorRules = {}
+
+            function validate(inputElement, rule) {
+                var input = inputElement.parentElement.querySelector('.form-control')
+                var errorElement = inputElement.parentElement.querySelector('.form-message');
+                var errorMessage
+                //
+                var rules = selectorRules[rule.selector]
+
+                for (var i = 0; i < rules.length; ++i) {
+                    errorMessage = rules[i](inputElement.value)
+                    if (errorMessage) break;
+                }
+                if (errorMessage) {
+                    errorElement.innerText = errorMessage;
+                    input.style.borderColor = '#f33a58'
+                } else {
+                    errorElement.innerText = ''
+                    input.style.borderColor = ''
+                }
+                return !errorMessage;
+            }
+
+            // lấy element của form
+            if (formElement) {
+                formElement.onsubmit = function(e) {
+
+
+                    var isFormValid = true
+
+                    options.rules.forEach(function(rule) {
+
+                        var inputElement = formElement.querySelector(rule.selector)
+                        var isValid = validate(inputElement, rule)
+                        if (!isValid) {
+                            isFormValid = false
+                        }
+                    });
+
+
+                    if (isFormValid) {
+                        formElement.submit()
+                    } else {
+                        e.preventDefault();
+                    }
+                }
+                // lặp qua mỗi rule và xửa lý sự kiện
+                options.rules.forEach(function(rule) {
+                    //lu lai cac rules cho moi input
+
+                    if (Array.isArray(selectorRules[rule.selector])) {
+                        selectorRules[rule.selector].push(rule.test)
+                    } else {
+                        selectorRules[rule.selector] = [rule.test]
+                    }
+
+                    var inputElement = formElement.querySelector(rule.selector)
+                    var errorElement = inputElement.parentElement.querySelector(options.errorSelector);
+                    var input = inputElement.parentElement.querySelector('.form-control')
+
+                    if (inputElement) {
+                        inputElement.onblur = function() {
+                            validate(inputElement, rule)
+                        }
+
+                        inputElement.oninput = function() {
+                            errorElement.innerHTML = ''
+                            input.style.borderColor = ''
+                        }
+                    }
+                })
+            }
+        }
+        Validator.isRequired = function(selector) {
+            return {
+                selector,
+                test(value) {
+                    return value.trim() ? undefined : 'Vui lòng nhập nội dung'
+                }
+            }
+        }
+        Validator({
+            form: '#form-register',
+            errorSelector: '.form-message',
+            rules: [
+                Validator.isRequired('.message')
+            ],
+        })
+    </script>
 @endsection

@@ -4,7 +4,7 @@
     <main>
         <section>
             <div class="container bg-light">
-                <form method="POST" action="{{route('addAddress')}}" enctype="multipart/form-data" id="form-address"
+                <form method="POST" action="{{ route('addAddress') }}" enctype="multipart/form-data" id="form-address"
                     class="forms-sample">
                     @csrf
                     <div class="row">
@@ -110,10 +110,10 @@
                                                     @endif
                                                 </td>
                                                 <td class="d-flex">
-                                                    <a href="{{route('geteditAddress',$adr->id)}}"
+                                                    <a href="{{ route('getEditAddress', $adr->id) }}"
                                                         class="btn btn-primary mx-2">Sửa</a>
 
-                                                    <a href="{{route('deleteAddress',$adr->id)}}"
+                                                    <a href="{{ route('deleteAddress', $adr->id) }}"
                                                         onclick="return confirm('Xóa mục này?')"><button type="button"
                                                             class="btn btn-danger">Xóa</button></a>
                                                 </td>

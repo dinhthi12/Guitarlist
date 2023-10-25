@@ -35,18 +35,29 @@ class ProductController extends Controller
         $proColors = Product::find($id)->Color;
         //lấy biến thể
         $proVariant = Product::find($id)->Variant;
-        //trả về view cùng mảng giá trị
+
+        //tổng số bình luận
         $countTotal = DB::table('comment')->where('pro_id', '=', $pro->id)->count();
+        //tổng số bình luận 5*
         $count5 = DB::table('comment')->where('pro_id', '=', $pro->id)->where('rate', '=', 5)->count();
+        //tổng số bình luận 4*
         $count4 = DB::table('comment')->where('pro_id', '=', $pro->id)->where('rate', '=', 4)->count();
+        //tổng số bình luận 3*
         $count3 = DB::table('comment')->where('pro_id', '=', $pro->id)->where('rate', '=', 3)->count();
+         //tổng số bình luận 2*
         $count2 = DB::table('comment')->where('pro_id', '=', $pro->id)->where('rate', '=', 2)->count();
+         //tổng số bình luận 1*
         $count1 = DB::table('comment')->where('pro_id', '=', $pro->id)->where('rate', '=', 1)->count();
 
+        //nếu countTotal > 0
         if ($countTotal > 0) {
+            //tính tổng thể
             $tong = ($count5 * 5 + $count4 * 4 + $count3 * 3 + $count2 * 2 + $count1 * 1) / $countTotal;
+            //làm tròn số
             $Round =  round($tong, 1);
+            //nối bảng + gắn giá trị tương ứng và hiển thị ra view
             $comm = DB::table('comment')->join('user', 'user.id', '=', 'comment.user_id')->select('comment.*', 'user.name')->where('pro_id', '=', $pro->id)->get();
+            //trả về view cùng mảng giá trị
             return view(
                 'client.pages.products.index',
                 [
@@ -65,7 +76,9 @@ class ProductController extends Controller
                 ]
             );
         } else {
+            //tương tự
             $comm = DB::table('comment')->join('user', 'user.id', '=', 'comment.user_id')->select('comment.*', 'user.name')->where('pro_id', '=', $pro->id)->get();
+            //trả về view cùng mảng giá trị
             return view(
                 'client.pages.products.index',
                 [
@@ -97,7 +110,7 @@ class ProductController extends Controller
         $listPro = Product::where('name', 'LIKE', '%' . $keywords . '%')->orWhere('detail', 'LIKE', '%' . $keywords . '%')->paginate(9);
         //dd($listPro);
         //Dòng này kiểm tra xem có kết quả tìm kiếm nào không.
-        //Nếu số lượng kết quả bằng 0 (không tìm thấy sản phẩm nào), một thông báo tương ứng được gán vào biến $MesSearch.
+        //Nếu số lượng kết quả bằng 0 (không tìm thấy sản phẩm nào), thông báo tương ứng được gán vào biến $MesSearch.
         if (count($listPro) == 0) {
             $MesSearch = 'Không tìm thấy kết quả của từ khóa: ' . $keywords . '.';
             return view('client.pages.categories.index')->with(compact('listPro', 'cti_bar', 'keywords', 'MesSearch'));

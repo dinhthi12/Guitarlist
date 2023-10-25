@@ -31,7 +31,7 @@ class CategoryController extends Controller
     }
     //func này lấy danh sách sp theo category item
     //luồng đi giống func trên
-     public function getProByCateItem($id)
+    public function getProByCateItem($id)
     {
         $categoryItem = CateItem::find($id);
         $listPro = $categoryItem->Product()->paginate(10);
@@ -39,7 +39,7 @@ class CategoryController extends Controller
         //Nó lấy danh sách các mục con dựa trên trường category_id của mục con và so sánh nó với category_id của mục con hiện tại.
         $cti_bar = CateItem::where('category_id', $categoryItem->category_id)->get();
 
-        return view('client.pages.categories.index',['listPro'=>$listPro,'cti_bar'=>$cti_bar]);
+        return view('client.pages.categories.index', ['listPro' => $listPro, 'cti_bar' => $cti_bar]);
     }
 
     public function getCateItemByCate(Request $request)

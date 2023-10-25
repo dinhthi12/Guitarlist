@@ -162,20 +162,27 @@ class ClientController extends Controller
     }
     public function comment($id, Request $request)
     {
+        //Dòng này gán giá trị của biến $id từ tham số cho biến $pro_id. xác định sản phẩm mà bình luận sẽ được thêm vào.
         $pro_id = $id;
+        // Dòng này tạo một đối tượng mới của lớp Comment để chuẩn bị cho việc lưu bình luận mới vào cơ sở dữ liệu.
         $comment = new Comment();
-        $product = Product::find($id);
+        //gán giá trị của $pro_id cho thuộc tính pro_id của đối tượng Comment, xác định sản phẩm mà bình luận thuộc về
         $comment->pro_id = $pro_id;
+        //Dòng này gán id của người dùng hiện tại (đã đăng nhập) cho thuộc tính user_id của đối tượng Comment, xác định người dùng đã thực hiện bình luận.
         $comment->user_id = Auth::user()->id;
+        //: Dòng này gán nội dung bình luận từ request ($request->content) cho thuộc tính content của đối tượng Comment.
         $comment->content = $request->content;
+        //òng này kiểm tra xem trường rating_rate trong request có giá trị lớn hơn 0 hay không.
+        //Nếu có, nó gán giá trị của rating_rate cho thuộc tính rate của đối tượng Comment.
+        //Nếu không, nó đặt rate mặc định là 5.
         if ($request->rating_rate > 0) {
             $comment->rate = $request->rating_rate;
         } else {
             $comment->rate = 5;
         }
+        //lưu vào db
         $comment->save();
 
         return redirect()->back();
     }
-
 }

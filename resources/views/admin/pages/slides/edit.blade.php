@@ -5,46 +5,58 @@
             <div class="col-12 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Thêm Slide</h4>
-                        <p class="card-description"></p>
-                        <form method="POST" action="{{ Route('createSlide') }}" enctype="multipart/form-data"
-                            class="forms-sample" id="form-add">
+                        <h4 class="card-title">Sửa Slide</h4>
+                        <p class="card-description">
+
+                        </p>
+                        <form method="POST" action="{{ Route('editSlide') }}" enctype="multipart/form-data"
+                            class="forms-sample" id="form-edit">
                             @csrf
+                            <input type="hidden" name="id" value="{{ $slide->id }}" id="">
+                            <input type="hidden" name="image1" value="{{ $slide->image }}" id="">
                             <div class="form-group">
                                 <label for="exampleInputName1">Tên Slide</label>
-                                <input type="text" name="name" class="form-control fullname mb-2 mr-sm-2"
-                                    id="exampleInputName1" placeholder="Nhập tên Slide">
+                                <input type="text" name="name" value="{{ $slide->name }}"
+                                    class="form-control fullname mb-2 mr-sm-2" id="exampleInputName1"
+                                    placeholder="Nhập tên Slide">
                                 <span style="font-size: 15px; color: #f33a58; line-height: 3px;   display: block;"
                                     class="form-message"></span>
                             </div>
 
                             <div class="form-group">
                                 <label>Hình Ảnh</label>
-                                <input type="file" name="file_upload" class="form-control avatar">
-                                <span
-                                    style="font-size: 15px; color: #f33a58; line-height: 3px; padding-top: 10px;  display: block;"
-                                    class="form-message"></span>
+                                <input type="file" name="file_upload" class="form-control">
+                            </div>
+                            <div class="col-sm-6">
+                                <img src="{{ asset('images/slides/' . $slide->image) }}" width="30%" alt="Không có ảnh">
                             </div>
 
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <label for="exampleSelectGender">Mô tả Slider</label>
+                                        <label for="exampleSelectGender">Mô tả Slide</label>
                                         <textarea style="resize: none" rows="8" class="form-control description mb-2 mr-sm-2" name="slide_desc"
-                                            id="exampleInputPassword1" placeholder="Mô tả danh mục"></textarea>
+                                            id="
+                      exampleInputPassword1" placeholder="Mô tả danh mục">{{ $slide->slide_desc }}</textarea>
                                         <span style="font-size: 15px; color: #f33a58; line-height: 3px;   display: block;"
                                             class="form-message"></span>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label for="exampleInputPassword1">Trạng Thái</label>
-                                    <select name="slide_status" class="form-control input-sm m-bot-15">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">Trạng Thái</label>
+                                <select name="slide_status" class="form-control input-sm m-bot-15">
+                                    @if ($slide->slide_status == 0)
+                                        <option selected value="0">Ẩn</option>
+                                        <option value="1">HIển thị</option>
+                                    @else
                                         <option value="0">Ẩn</option>
-                                        <option value="1">Hiển thị</option>
-                                    </select>
-                                </div>
-                                <div>
-                                </div>
+                                        <option selected value="1">HIển thị</option>
+                                    @endif
+
+                                </select>
+                            </div>
+                            <div>
                             </div>
                             <button type="submit" class="btn btn-primary mr-2">Submit</button>
                             <button type="button" class="btn btn-light">Cancel</button>
@@ -53,8 +65,7 @@
                 </div>
             </div>
         </div>
-    </div>P
-
+    </div>
     <script>
         function Validator(options) {
             var formElement = document.querySelector(options.form);
@@ -146,22 +157,12 @@
             }
         }
 
-        Validator.isAvatar = function(selector) {
-            return {
-                selector,
-                test(value) {
-                    return value ? undefined : 'Vui lòng chọn ảnh'
-                }
-            }
-        }
-
         Validator({
-            form: '#form-add',
+            form: '#form-edit',
             errorSelector: '.form-message',
             rules: [
                 Validator.isRequired('.fullname'),
                 Validator.isRequired('.description'),
-                Validator.isAvatar('.avatar'),
             ],
         })
     </script>

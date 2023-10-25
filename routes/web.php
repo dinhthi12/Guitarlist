@@ -9,6 +9,8 @@ use App\Http\Controllers\client\ClientController;
 use App\Http\Controllers\client\ContactController;
 use App\Http\Controllers\client\ProductController as ClientProductController;
 use App\Http\Controllers\client\WishlistController;
+use App\Http\Controllers\CommentController;
+use App\Http\Controllers\ContactController as ControllersContactController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SlideController;
 use Illuminate\Support\Facades\Auth;
@@ -91,7 +93,7 @@ Route::prefix('admin')->middleware('checkAdmin')->group(function () {
         Route::post('edit', [CateItemController::class, 'edit'])->name('editCateItem');
         Route::get('delete/{id}', [CateItemController::class, 'delete'])->name('deleteCateItem');
     });
-    //chức năng quản trị sp
+    //chức năng quản trị sản phẩm
     Route::prefix('products')->group(function () {
         Route::get('index', [ProductController::class, 'index'])->name('listPro');
         Route::get('create', [ProductController::class, 'createView'])->name('loadCreatePro');
@@ -112,7 +114,20 @@ Route::prefix('admin')->middleware('checkAdmin')->group(function () {
         Route::get('edit/{id}', [SLideController::class, 'loadEdit'])->name('loadEditSlide');
         Route::post('edit', [SLideController::class, 'edit'])->name('editSlide');
         Route::get('delete/{id}', [SLideController::class, 'delete'])->name('deleteSlide');
+        Route::get('unActive/{id}', [SLideController::class,'unActive'])->name('off');
+        Route::get('active/{id}', [SLideController::class,'active'])->name('on');
     });
+    //chức năng quản trị bình luận
+    Route::prefix('comments')->group(function () {
+        Route::get('index',[CommentController::class,'index'])->name('listCom');
+        Route::get('delete/{id}',[CommentController::class,'destroy'])->name('deleteCom');
+    });
+    //chức năng quản trị liên hệ
+    Route::prefix('contacts')->group(function () {
+        Route::get('index',[ControllersContactController::class,'index'])->name('contact');
+        Route::get('searchContact',[ControllersContactController::class,'searchContact'])->name('searchContact');
+    });
+
 });
 
 Auth::routes(['verify' => true]);

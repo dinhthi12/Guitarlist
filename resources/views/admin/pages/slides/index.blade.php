@@ -23,17 +23,17 @@
                   <tr>
                     <td>{{$slide->id}}</td>
                     <td>{{$slide->name}}</td>
-                    <td><img src="{{asset('images/slider/'.$slide->image)}}" alt="" style="width:150px; height: 70px; border-radius: 5px;"></td>
+                    <td><img src="{{asset('images/slides/'.$slide->image)}}" alt="" style="width:150px; height: 70px; border-radius: 5px;"></td>
                     <td>{{$slide->slide_desc}}</td>
                     <td><span class="text-ellipsis">
                       <?php
                        if($slide->slide_status==1){
                         ?>
-                        {{-- <a href="{{route('off', $slide->id)}}"><button type="button" class="btn btn-success">Đang Bật</button></a> --}}
+                        <a href="{{route('off', $slide->id)}}"><button type="button" class="btn btn-success">Đang Bật</button></a>
                         <?php
                          }else{
                         ?>
-                         {{-- <a href="{{route('on', $slide->id)}}"><button type="button" class="btn btn-danger">Đang Tắt</button></a> --}}
+                         <a href="{{route('on', $slide->id)}}"><button type="button" class="btn btn-danger">Đang Tắt</button></a>
                         <?php
                        }
                       ?>

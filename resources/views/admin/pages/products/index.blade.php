@@ -72,7 +72,7 @@
                                 <thead>
                                     <tr>
                                         <th>STT</th>
-                                        <th>Hãng</th>
+                                        <th>Loại</th>
                                         <th>Tên</th>
                                         <th>Hình</th>
                                         <th>Giá</th>

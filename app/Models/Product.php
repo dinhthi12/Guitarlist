@@ -37,22 +37,23 @@ class Product extends Model
     {
         return $this->belongsTo(Category::class,'cateitem_id','id');
     }
-    // public function Comments()
-    // {
-    //     return $this-> hasMany('App\Models\Comment','pro_id','id');
-    // }
+    public function Comment()
+    {
+        return $this-> hasMany(Comment::class,'pro_id','id');
+    }
     public function Detail()
     {
-        return $this-> hasOne('App\Models\Detail','pro_id','id');
+        return $this-> hasOne(Detail::class,'pro_id','id');
     }
     public function Color()
     {
-        return $this-> hasMany('App\Models\Color','pro_id','id');
+        return $this-> hasMany(Color::class,'pro_id','id');
     }
     public function Variant()
     {
-        return $this-> hasMany('App\Models\Variant','pro_id','id');
+        return $this-> hasMany(Variant::class,'pro_id','id');
     }
+
 
     public static function boot()
     {
@@ -61,6 +62,10 @@ class Product extends Model
         static::deleting(function ($product) {
             // Xoá các bản ghi trong bảng `detail` có khóa ngoại là `$product->id`
             Detail::where('pro_id', $product->id)->delete();
+            // Xoá các bản ghi trong bảng `color` có khóa ngoại là `$product->id`
+            Color::where('pro_id', $product->id)->delete();
+            // Xoá các bản ghi trong bảng `variant` có khóa ngoại là `$product->id`
+            Variant::where('pro_id', $product->id)->delete();
         });
     }
 }

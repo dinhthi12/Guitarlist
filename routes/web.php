@@ -104,7 +104,9 @@ Route::prefix('admin')->middleware('checkAdmin')->group(function () {
         Route::get('delete/{id}', [ProductController::class, 'delete'])->name('deletePro');
         Route::get('variants/{id}', [ProductController::class, 'showVariants'])->name('showVariants');
         Route::post('createColor', [ProductController::class, 'createColor'])->name('createColor');
-        Route::post('createMemory', [ProductController::class, 'createMemory'])->name('createMemory');
+        Route::post('createVariant', [ProductController::class, 'createVariant'])->name('createVariant');
+        Route::get('deleteColor/{id}',[ProductController::class,'deleteColor'])->name('deleteColor');
+        Route::get('deleteVariant/{id}',[ProductController::class,'deleteVariant'])->name('deleteVariant');
     });
     //chức năng quản trị slide
     Route::prefix('slider')->group(function () {

@@ -86,10 +86,11 @@ class ProductController extends Controller
     public function loadEdit($id)
     {
         $pro = Product::find($id);
-        $pro_details = Product::find($id)->ProDetails;
+        $pro_detail = Product::find($id)->Detail;
         $allCate = Category::all();
         $allCateItems = CateItem::all();
-        return view('admin.pages.products.edit')->with(compact('pro', 'allCate', 'pro_details', 'allCateItems'));
+        return view('admin.pages.products.edit')->with(compact('pro', 'allCate','allCateItems','pro_detail'));
+
     }
 
     public function edit(Request $r)
@@ -117,27 +118,26 @@ class ProductController extends Controller
         $pro->save();
 
         if (isset($r->mechanicalSet)) {
-            $pro_details = Detail::where('pro_id', '=', $pro->id)->first();
-
-            if ($pro_details) {
-                $pro_details->pro_id = $pro->id;
-                $pro_details->mechanicalSet = $r->mechanicalSet;
-                $pro_details->soundboard = $r->soundboard;
-                $pro_details->keyboard = $r->keyboard;
-                $pro_details->size = $r->size;
-                $pro_details->weight = $r->weight;
-                $pro_details->manufacture = $r->manufacture;
-                $pro_details->save();
+            $pro_detail = Detail::where('pro_id', '=', $pro->id)->first();
+            if ($pro_detail) {
+                $pro_detail->pro_id = $pro->id;
+                $pro_detail->mechanicalSet = $r->mechanicalSet;
+                $pro_detail->soundboard = $r->soundboard;
+                $pro_detail->keyboard = $r->keyboard;
+                $pro_detail->size = $r->size;
+                $pro_detail->weight = $r->weight;
+                $pro_detail->manufacture = $r->manufacture;
+                $pro_detail->save();
             } else {
-                $pro_details = new Detail();
-                $pro_details->pro_id = $pro->id;
-                $pro_details->mechanicalSet = $r->mechanicalSet;
-                $pro_details->soundboard = $r->soundboard;
-                $pro_details->keyboard = $r->keyboard;
-                $pro_details->size = $r->size;
-                $pro_details->weight = $r->weight;
-                $pro_details->manufacture = $r->manufacture;
-                $pro_details->save();
+                $pro_detail = new Detail();
+                $pro_detail->pro_id = $pro->id;
+                $pro_detail->mechanicalSet = $r->mechanicalSet;
+                $pro_detail->soundboard = $r->soundboard;
+                $pro_detail->keyboard = $r->keyboard;
+                $pro_detail->size = $r->size;
+                $pro_detail->weight = $r->weight;
+                $pro_detail->manufacture = $r->manufacture;
+                $pro_detail->save();
             }
         }
         toastr()->success('Thành công', 'Cập nhật sản phẩm thành công');
@@ -150,8 +150,8 @@ class ProductController extends Controller
         $allCate = Category::all();
         $pro_color = Color::where('pro_id', '=', $id)->get();
         // dd($pro_color);
-        $pro_memory = Variant::where('pro_id', '=', $id)->get();
-        return view('admin.pages.products.variants')->with(compact('pro', 'allCate', 'pro_color', 'pro_memory'));
+        $pro_variant = Variant::where('pro_id', '=', $id)->get();
+        return view('admin.pages.products.variants')->with(compact('pro', 'allCate', 'pro_color', 'pro_variant'));
     }
 
     public function createColor(Request $r)
@@ -175,16 +175,30 @@ class ProductController extends Controller
         return back();
     }
 
-    public function createMemory(Request $r)
+    public function createVariant(Request $r)
     {
-        $pro_memory = new Variant();
-        $pro_memory->pro_id = $r->id;
-        $pro_memory->name = $r->name;
-        $pro_memory->eq = $r->eq;
-        $pro_memory->price = $r->price_memory;
-        $pro_memory->save();
+        $pro_variant = new Variant();
+        $pro_variant->pro_id = $r->id;
+        $pro_variant->name = $r->name;
+        $pro_variant->eq = $r->eq;
+        $pro_variant->price = $r->price_variant;
+        $pro_variant->save();
 
         toastr()->success('Thành công', 'Thêm biến thể thành công');
+        return back();
+    }
+    public function deleteColor($id)
+    {
+        $pro_color=Color::find($id);
+        $pro_color->delete();
+        toastr()->success('Thành công', 'Xóa biến thể thành công');
+        return back();
+    }
+    public function deleteVariant($id)
+    {
+        $pro_variant=Variant::find($id);
+        $pro_variant->delete();
+        toastr()->success('Thành công', 'Xóa biến thể thành công');
         return back();
     }
 }

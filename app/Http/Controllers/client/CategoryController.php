@@ -23,7 +23,7 @@ class CategoryController extends Controller
         //lấy danh mục dựa theo id
         $category = Category::find($id);
         //sau khi có danh mục -> lấy danh sách sp theo danh mục dựa theo quan hệ model -> phân trang
-        $listPro = $category->Product()->paginate(5);
+        $listPro = $category->Product()->paginate(6);
         //lấy danh mục con theo danh mục
         $cti_bar = Category::find($id)->Cate_item;
         //trả về view
@@ -34,7 +34,7 @@ class CategoryController extends Controller
     public function getProByCateItem($id)
     {
         $categoryItem = CateItem::find($id);
-        $listPro = $categoryItem->Product()->paginate(10);
+        $listPro = $categoryItem->Product()->paginate(6);
         // tìm kiếm tất cả các mục con của cùng một danh mục mà mục con đang được xem.
         //Nó lấy danh sách các mục con dựa trên trường category_id của mục con và so sánh nó với category_id của mục con hiện tại.
         $cti_bar = CateItem::where('category_id', $categoryItem->category_id)->get();

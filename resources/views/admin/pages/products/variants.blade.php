@@ -128,8 +128,7 @@
                                         </div>
                                     </div>
                                     <a class="badge badge-danger rounded" style="width: 150px"
-                                        onclick="return confirm('Xóa mục này?')"
-                                        href="#">Xóa</a></td>
+                                        onclick="return confirm('Xóa mục này?')" href="{{route('deleteColor',$pc->id)}}">Xóa</a></td>
                                 </div>
                             </div>
                         @endforeach
@@ -137,8 +136,8 @@
 
                 {{-- add color --}}
                 <div class="col-12 mt-1">
-                    <form method="POST" action="{{route('createColor')}}" enctype="multipart/form-data" id="form-product"
-                        class="forms-sample">
+                    <form method="POST" action="{{ route('createColor') }}" enctype="multipart/form-data"
+                        id="form-edit-color" class="forms-sample">
                         @csrf
                         <input type="hidden" name="id" value="{{ $pro->id }}">
                         <div class="card card-body">
@@ -147,16 +146,16 @@
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label for="exampleSelectGender">Màu sắc</label>
-                                        <input type="text" name="color" class="form-control amount"
+                                        <input type="text" name="color" class="form-control color"
                                             id="exampleInputName1" placeholder="">
                                         <span
                                             style="font-size: 15px; color: #f33a58; line-height: 3px; padding-top: 10px;  display: block;"
                                             class="form-message"></span>
                                     </div>
                                     <div class="form-group">
-                                        <label for="exampleSelectGender">Gía thêm </label>
-                                        <input type="text" name="price_color" class="form-control amount"
-                                            id="exampleInputName1" placeholder="Nhập giá bán">
+                                        <label for="exampleSelectGender">Giá thêm </label>
+                                        <input type="number" name="price_color"
+                                            class="form-control amount myNumberInput" id="exampleInputName1" placeholder="Nhập giá bán">
                                         <span
                                             style="font-size: 15px; color: #f33a58; line-height: 3px; padding-top: 10px;  display: block;"
                                             class="form-message"></span>
@@ -183,22 +182,22 @@
         {{-- Bo Nho --}}
         <div class="col-6 grid-margin stretch-card" id="">
             <div class="row">
-                @if ($pro_memory)
+                @if ($pro_variant)
                     @php
                         $i = 0;
                     @endphp
-                    @foreach ($pro_memory as $pm)
+                    @foreach ($pro_variant as $pm)
                         @php
                             $i++;
                         @endphp
                         <div class="col-md-12 mt-1">
                             <div class="card card-body">
-                                <h4 class="card-title">Biến Thể Bộ Nhớ {{ $i }}</h4>
+                                <h4 class="card-title">Biến Thể {{ $i }}</h4>
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="exampleSelectGender">Bộ nhớ</label>
-                                            <input type="text" name="color" disabled value="{{ $pm->name }} GB"
+                                            <label for="exampleSelectGender">Tên biến thể</label>
+                                            <input type="text" name="name" disabled value="{{ $pm->name }}"
                                                 class="form-control amount" id="exampleInputName1" placeholder="">
                                             <span
                                                 style="font-size: 15px; color: #f33a58; line-height: 3px; padding-top: 10px;  display: block;"
@@ -207,8 +206,8 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="exampleSelectGender">Ram</label>
-                                            <input type="text" name="color" disabled value="{{ $pm->eq }} GB"
+                                            <label for="exampleSelectGender">EQ</label>
+                                            <input type="text" name="eq" disabled value="{{ $pm->eq }}"
                                                 class="form-control amount" id="exampleInputName1" placeholder="">
                                             <span
                                                 style="font-size: 15px; color: #f33a58; line-height: 3px; padding-top: 10px;  display: block;"
@@ -219,9 +218,9 @@
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <div class="form-group">
-                                            <label for="exampleSelectGender">Gía thêm </label>
-                                            <input type="text" name="price" disabled value="{{ $pm->price }} Đ"
-                                                class="form-control amount" id="exampleInputName1"
+                                            <label for="exampleSelectGender">Giá thêm </label>
+                                            <input type="text" name="price_variant" disabled
+                                                value="{{ $pm->price }} Đ" class="form-control amount"
                                                 placeholder="Nhập giá bán">
                                             <span
                                                 style="font-size: 15px; color: #f33a58; line-height: 3px; padding-top: 10px;  display: block;"
@@ -230,24 +229,23 @@
                                     </div>
                                 </div>
                                 <a class="badge badge-danger rounded" style="width: 150px"
-                                    onclick="return confirm('Xóa mục này?')"
-                                    href="#">Xóa</a></td>
+                                    onclick="return confirm('Xóa mục này?')" href="{{route('deleteVariant',$pm->id)}}">Xóa</a></td>
                             </div>
                         </div>
                     @endforeach
                 @endif
                 <div class="col-md-12 mt-1">
-                    <form method="POST" action="{{route('createMemory')}}" enctype="multipart/form-data" id="form-product"
-                        class="forms-sample">
+                    <form method="POST" action="{{ route('createVariant') }}" enctype="multipart/form-data"
+                        id="form-edit-variant" class="forms-sample">
                         @csrf
                         <input type="hidden" name="id" value="{{ $pro->id }}">
                         <div class="card card-body">
-                            <h4 class="card-title">Thêm Biến Thể Bộ Nhớ</h4>
+                            <h4 class="card-title">Thêm Biến Thể</h4>
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="exampleSelectGender">Bộ nhớ</label>
-                                        <input type="number" name="name" class="form-control name" placeholder="">
+                                        <label for="exampleSelectGender">Tên biến thể</label>
+                                        <input type="text" name="name" class="form-control name" placeholder="">
                                         <span
                                             style="font-size: 15px; color: #f33a58; line-height: 3px; padding-top: 10px;  display: block;"
                                             class="form-message"></span>
@@ -255,8 +253,8 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="exampleSelectGender">Ram</label>
-                                        <input type="number" name="eq" class="form-control eq" placeholder="">
+                                        <label for="exampleSelectGender">EQ</label>
+                                        <input type="text" name="eq" class="form-control eq" placeholder="">
                                         <span
                                             style="font-size: 15px; color: #f33a58; line-height: 3px; padding-top: 10px;  display: block;"
                                             class="form-message"></span>
@@ -266,8 +264,8 @@
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <label for="exampleSelectGender">Gía thêm </label>
-                                        <input type="text" name="price_memory"class="form-control amount"
+                                        <label for="exampleSelectGender">Giá thêm </label>
+                                        <input type="number" name="price_variant" class="form-control amount myNumberInput"
                                             id="exampleInputName1" placeholder="Nhập giá bán">
                                         <span
                                             style="font-size: 15px; color: #f33a58; line-height: 3px; padding-top: 10px;  display: block;"
@@ -363,53 +361,20 @@
                 })
             }
         }
-
         Validator.isRequired = function(selector) {
             return {
                 selector,
                 test(value) {
-                    return value.trim() ? undefined : 'Vui lòng nhập tên sản phẩm'
-                }
-            }
-        }
-        Validator.isList = function(selector) {
-            return {
-                selector,
-                test(value) {
-                    return value ? undefined : 'Vui lòng chọn danh mục'
+                    return value.trim() ? undefined : 'Vui lòng nhập tên biến thể'
                 }
             }
         }
 
-        Validator.isFirm = function(selector) {
+        Validator.isColor = function(selector) {
             return {
                 selector,
                 test(value) {
-                    return value ? undefined : 'Vui lòng chọn hãng'
-                }
-            }
-        }
-        Validator.isPrice = function(selector) {
-            return {
-                selector,
-                test(value) {
-                    return value ? undefined : 'Vui lòng nhập giá'
-                }
-            }
-        }
-        Validator.isDiscount = function(selector) {
-            return {
-                selector,
-                test(value) {
-                    return value ? undefined : 'Vui lòng nhập % giảm giá'
-                }
-            }
-        }
-        Validator.isDate = function(selector) {
-            return {
-                selector,
-                test(value) {
-                    return value ? undefined : 'Vui lòng chọn ngày'
+                    return value ? undefined : 'Vui lòng nhập màu sắc'
                 }
             }
         }
@@ -417,42 +382,58 @@
             return {
                 selector,
                 test(value) {
-                    return value ? undefined : 'Vui lòng nhập số lượng'
+                    return value ? undefined : 'Vui lòng nhập giá'
                 }
             }
         }
-        Validator.isStatus = function(selector) {
+        Validator.isEq = function(selector) {
             return {
                 selector,
                 test(value) {
-                    return value ? undefined : 'Vui lòng nhập số lượng'
+                    return value ? undefined : 'Vui lòng nhập EQ'
                 }
             }
         }
-
-        Validator.isDescribe = function(selector) {
+        Validator.isAvatar = function(selector) {
             return {
                 selector,
                 test(value) {
-                    return value ? undefined : 'Vui lòng nhập mô tả sản phẩm'
+                    return value ? undefined : 'Vui lòng chọn ảnh'
                 }
             }
         }
 
         Validator({
-            form: '#form-edit-product',
+            form: '#form-edit-color',
             errorSelector: '.form-message',
             rules: [
-                Validator.isRequired('.fullname'),
-                Validator.isList('.list'),
-                Validator.isFirm('.firm'),
-                Validator.isPrice('.price'),
-                Validator.isDiscount('.discount'),
-                Validator.isDate('.date'),
+                Validator.isColor('.color'),
+                Validator.isAvatar('.avatar'),
                 Validator.isAmount('.amount'),
-                Validator.isStatus('.status'),
-                Validator.isDescribe('.describe'),
             ],
         })
+        Validator({
+            form: '#form-edit-variant',
+            errorSelector: '.form-message',
+            rules: [
+                Validator.isRequired('.name'),
+                Validator.isEq('.eq'),
+                Validator.isAmount('.amount'),
+
+            ],
+        })
+    </script>
+    <script>
+        var numberInputs = document.querySelectorAll('.myNumberInput');
+
+        numberInputs.forEach(function(input) {
+            input.addEventListener('input', function() {
+                var inputValue = parseFloat(this.value);
+                if (inputValue < 0) {
+                    alert('Không thể nhập số âm');
+                    this.value = ''; // Xóa giá trị âm
+                }
+            });
+        });
     </script>
 @endsection

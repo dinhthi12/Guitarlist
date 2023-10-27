@@ -153,7 +153,7 @@
                             </div>
 
                             <div class="form-group">
-                                @if (isset($pro_details))
+                                @if (isset($pro_detail))
                                     <p>
                                         <a class="btn btn-primary col-sm-3" data-toggle="collapse"
                                             href="#multiCollapseExample1" role="button" aria-expanded="false"
@@ -169,7 +169,7 @@
                                     </p>
                                 @endif
                                 <!-- sửa chi tiết -->
-                                @if (isset($pro_details))
+                                @if (isset($pro_detail))
                                     <div class="row">
                                         <div class="col">
                                             <div class="collapse multi-collapse" id="multiCollapseExample1">
@@ -188,7 +188,7 @@
                                                             <div class="form-group">
                                                                 <label for="exampleSelectGender">Bộ cơ khí</label>
                                                                 <input type="text" name="mechanicalSet"
-                                                                    value="{{ $pro_details->mechanicalSet }}"
+                                                                    value="{{ $pro_detail->mechanicalSet }}"
                                                                     class="form-control cpu" id="exampleInputName1"
                                                                     placeholder="Nhập bộ cơ khí">
                                                                 <span
@@ -201,7 +201,7 @@
                                                             <div class="form-group">
                                                                 <label for="exampleSelectGender">Bảng âm thanh</label>
                                                                 <input type="text" name="soundboard"
-                                                                    value="{{ $pro_details->soundboard }}"
+                                                                    value="{{ $pro_detail->soundboard }}"
                                                                     class="form-control soundboard" id="exampleInputName1"
                                                                     placeholder="Nhập bảng âm thanh">
                                                                 <span
@@ -216,7 +216,7 @@
                                                             <div class="form-group">
                                                                 <label for="exampleInputName1">Bàn phím</label>
                                                                 <input type="number" name="keyboard"
-                                                                    value="{{ $pro_details->keyboard }}"
+                                                                    value="{{ $pro_detail->keyboard }}"
                                                                     class="form-control keyboard" id="exampleInputName1"
                                                                     placeholder="Nhập Bàn phím của đàn">
                                                                 <span
@@ -229,7 +229,7 @@
                                                             <div class="form-group">
                                                                 <label for="exampleSelectGender">Kích thước</label>
                                                                 <input type="text" name="size"
-                                                                    value="{{ $pro_details->size }}"
+                                                                    value="{{ $pro_detail->size }}"
                                                                     class="form-control size" id="exampleInputName1"
                                                                     placeholder="Nhập thông số kích thước">
                                                                 <span
@@ -244,7 +244,7 @@
                                                             <div class="form-group">
                                                                 <label for="exampleSelectGender">Trọng lượng</label>
                                                                 <input type="number" name="weight"
-                                                                    value="{{ $pro_details->weight }}"
+                                                                    value="{{ $pro_detail->weight }}"
                                                                     class="form-control weight" id="exampleInputName1"
                                                                     placeholder="Nhập thông số trọng lượng">
                                                                 <span
@@ -256,8 +256,9 @@
                                                             <div class="form-group">
                                                                 <label for="exampleSelectGender">Sản xuất</label>
                                                                 <input type="text" name="manufacture"
-                                                                    value="{{ $pro_details->manufacture }}"
-                                                                    class="form-control manufacture" id="exampleInputName1"
+                                                                    value="{{ $pro_detail->manufacture }}"
+                                                                    class="form-control manufacture"
+                                                                    id="exampleInputName1"
                                                                     placeholder="Nhập nơi sản xuất">
                                                                 <span
                                                                     style="font-size: 15px; color: #f33a58; line-height: 3px; padding-top: 10px;  display: block;"

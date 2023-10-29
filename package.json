@@ -21,8 +21,5 @@
         "toastr": "^2.1.4",
         "vite": "^4.0.0",
         "vue": "^3.2.37"
-    },
-    "dependencies": {
-        "inputmask": "^5.0.8"
     }
 }

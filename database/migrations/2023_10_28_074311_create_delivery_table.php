@@ -11,15 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('variant', function (Blueprint $table) {
+        Schema::create('delivery', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('pro_id');
             $table->string('name');
-            $table->string('eq');
-            $table->string('price');
+            $table->decimal('price', 10, 2);
             $table->timestamps();
-             // Tạo cột khóa ngoại kết nối với bảng 'product'
-             $table->foreign('pro_id')->references('id')->on('product');
         });
     }
 
@@ -28,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('variant');
+        Schema::dropIfExists('delivery');
     }
 };

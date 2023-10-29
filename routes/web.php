@@ -7,6 +7,7 @@ use App\Http\Controllers\CateItemController;
 use App\Http\Controllers\client\CategoryController as ClientCategoryController;
 use App\Http\Controllers\client\ClientController;
 use App\Http\Controllers\client\ContactController;
+use App\Http\Controllers\Client\OrderController;
 use App\Http\Controllers\client\ProductController as ClientProductController;
 use App\Http\Controllers\client\WishlistController;
 use App\Http\Controllers\CommentController;
@@ -59,6 +60,14 @@ Route::prefix('/')->group(function () {
     Route::get('deleteContact/{id}', [ContactController::class,'deleteContact'])->name('deleteContact');
     //chức năng bình luận
     Route::post('/product/comment/{id}',[ClientController::class,'comment'])->name('comment');
+    //chức năng thêm sản phẩm vào giỏ hàng + thanh toán
+    Route::prefix('cart')->group(function () {
+        Route::get('/index', [OrderController::class,'viewCart'] )->name('viewCart');
+        Route::post('/addCart',[OrderController::class,'addCart'])->name('addCart');
+        Route::get('/deleteItemCart/{name}',[OrderController::class,'deleteItemCart'])->name('deleteItemCart');
+        Route::post('/getAddressById',[OrderController::class,'getAddressById'])->name('getAddressById');
+        Route::post('/updateCart',[OrderController::class,'updatCart'])->name('updateCart');
+    });
 });
 //chức năng login người dùng
 Route::post('/clientLogin', [ClientController::class, 'loginClient'])->name('clientLogin');

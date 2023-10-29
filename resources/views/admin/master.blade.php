@@ -5,12 +5,11 @@
     <!-- Required meta tags -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <link rel="icon" href="{{ URL::asset('images/logo.svg')}}" />
+    <link rel="icon" href="{{ URL::asset('images/logo.svg') }}" />
     <title>@yield('title')</title>
     <!-- plugins:css -->
     <link rel="stylesheet" href="{{ URL::asset('admin/vendors/mdi/css/materialdesignicons.min.css') }}">
     <link rel="stylesheet" href="{{ URL::asset('admin/vendors/base/vendor.bundle.base.css') }}">
-
     <link rel="stylesheet" type="text/css" href="{{ URL::asset('admin/css/loading-bar.css') }}" />
     <script type="text/javascript" src="{{ URL::asset('admin/js/loading-bar.js') }}"></script>
 
@@ -69,7 +68,12 @@
     <script src="{{ URL::asset('admin/js/jquery.dataTables.js') }}"></script>
     <script src="{{ URL::asset('admin/js/dataTables.bootstrap4.js') }}"></script>
     <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
-    <script> CKEDITOR.replace('editor1'); </script>
+    <script>
+        CKEDITOR.replace('editor1');
+    </script>
+    {{-- <script src="{{ URL::asset('admin/js/jquery.inputmask.min.js') }}"></script> --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.8/jquery.inputmask.min.js" integrity="sha512-efAcjYoYT0sXxQRtxGY37CKYmqsFVOIwMApaEbrxJr4RwqVVGw8o+Lfh/+59TU07+suZn1BWq4fDl5fdgyCNkw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
     <!-- End custom js for this page-->
 </body>
 

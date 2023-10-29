@@ -59,7 +59,7 @@
                         <input type="hidden" value="{{ $pro->image }}" id="pro_image">
                         <div class="d-flex">
                             <h2 class="pr-2 "><span id='pro_price'
-                                    data-price="{{ $pro->price - $pro->discount }}">{{ number_format($pro->price - ($pro->price * $pro->discount) / 100, 0, '.', '.') }}</span>
+                                    data-price="{{ $pro->price - ($pro->price * $pro->discount) / 100 }}">{{ number_format($pro->price - ($pro->price * $pro->discount) / 100, 0, '.', '.') }}</span>
                                 <span>VND</span>
                             </h2>
                             @if ($pro->discount > 0)
@@ -108,7 +108,7 @@
                             </button>
                         </div>
                         <div class="card_area">
-                            <a class="main_btn" id="addCart">Thêm vào giỏ hàng</a>
+                            <a class="main_btn" id="addCart" onclick="addToCart(event)">Thêm vào giỏ hàng</a>
                             <a class="icon_btn" href="#">
                                 <i class="lnr lnr lnr-diamond"></i>
                             </a>
@@ -493,4 +493,174 @@
             ],
         })
     </script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            const pro_name = $('#pro_name').html();
+            console.log(pro_name); //lấy tên
+            const pro_price = parseFloat($('#pro_price').data('price'));
+            console.log(pro_price);
+            const pro_id = $('#pro_id').val();
+            console.log(pro_id);
+
+            let pro_var_name = "";
+            let pro_var_price;
+
+            $('.pro_color').click(function() {
+                var color = $(this).html();
+                var image = $(this).data('image');
+                var color_price = parseFloat($(this).data('price'));
+                console.log(color_price);
+                $('#pro_name').html(pro_name + color);
+                $('#pro_image').val(image);
+                pro_var_name = $('#pro_name').html();
+                pro_var_price = pro_price + color_price;
+                $('#pro_price').html(pro_var_price.toLocaleString('vi-VN'));
+            });
+
+            $('.pro_mem').click(function() {
+                var variant = $(this).html();
+                var me_price = parseFloat($(this).data('price'));
+                if (pro_var_name) {
+                    $('#pro_name').html(pro_var_name + " " + variant);
+                } else {
+                    $('#pro_name').html(pro_name + " " + variant);
+                }
+                if (pro_var_price) {
+                    $('#pro_price').html((me_price + pro_var_price).toLocaleString('vi-VN'));
+                } else {
+                    $('#pro_price').html((pro_price + me_price).toLocaleString('vi-VN'));
+                }
+            });
+
+            $('#addCart').click(function() {
+                const pro_name_cart = $('#pro_name').html();
+                console.log(pro_name_cart);
+                const pro_image_cart = $('#pro_image').val();
+                console.log(pro_image_cart);
+                const pro_price_cart = $('#pro_price').html(); // "6.602.000"
+                const priceWithoutCommas = pro_price_cart.replace(/\./g, ''); // "6602000"
+                const pro_price_integer = parseInt(priceWithoutCommas, 10);
+                console.log(pro_price_integer);
+                const pro_qty_cart = $('#sst').val();
+                console.log(pro_qty_cart);
+                if (!authCheck()) {
+                    alert("Bạn chưa đăng nhập. Vui lòng đăng nhập để sử dụng chức năng này.");
+                } else {
+                    $.ajax({
+                        url: '{{ route('addCart') }}',
+                        method: 'post',
+                        data: {
+                            _token: "{{ csrf_token() }}",
+                            pro_id: pro_id,
+                            name: pro_name_cart,
+                            image: pro_image_cart,
+                            price: pro_price_integer,
+                            qty: pro_qty_cart,
+                            _method: "post"
+                        },
+                        success: function(data) {
+                            window.location.reload();
+                        },
+                        error: function() {
+                            alert('BỊ LỖI, HÃY THỬ LẠI');
+                        }
+                    });
+                }
+            });
+        });
+
+        function authCheck() {
+            return {{ auth()->check() }};
+        }
+    </script>
+
+
+    {{-- <script type="text/javascript">
+        function authCheck() {
+            return {{ auth()->check() }};
+        }
+
+        function addToCart(event) {
+            if (!authCheck()) {
+                event.preventDefault(); // Ngăn chặn việc điều hướng đến liên kết
+
+                // Hiển thị thông báo hoặc thực hiện xử lý khác tùy ý
+                alert("Bạn chưa đăng nhập. Vui lòng đăng nhập để sử dụng chức năng này.");
+            } else {
+                $(document).ready(function() {
+                    const pro_name = $('#pro_name').html();
+                    console.log(pro_name); //lấy tên
+                    const pro_price = parseFloat($('#pro_price').data('price'));
+                    console.log(pro_price);
+                    const pro_id = $('#pro_id').val();
+                    console.log(pro_id);
+
+                    let pro_var_name = ""
+                    let pro_var_price
+
+                    $('.pro_color').click(function() {
+                        var color = $(this).html();
+                        var image = $(this).data('image');
+                        var color_price = parseFloat($(this).data('price'));
+                        console.log(color_price);
+                        $('#pro_name').html(pro_name + color);
+                        $('#pro_image').val(image);
+                        pro_var_name = $('#pro_name').html();
+                        pro_var_price = pro_price + color_price;
+                        $('#pro_price').html(pro_var_price.toLocaleString('vi-VN'));
+
+                    });
+
+                    $('.pro_mem').click(function() {
+                        var variant = $(this).html();
+                        var me_price = parseFloat($(this).data('price'));
+                        if (pro_var_name) {
+                            $('#pro_name').html(pro_var_name + " " + variant)
+
+                        } else {
+                            $('#pro_name').html(pro_name + " " + variant)
+                        }
+                        if (pro_var_price) {
+                            $('#pro_price').html((me_price + pro_var_price).toLocaleString('vi-VN'));
+                        } else {
+                            $('#pro_price').html((pro_price + me_price).toLocaleString('vi-VN'));
+                        }
+                    });
+
+                    $('#addCart').click(function() {
+                        const pro_name_cart = $('#pro_name').html()
+                        console.log(pro_name_cart);
+                        const pro_image_cart = $('#pro_image').val()
+                        console.log(pro_image_cart);
+                        const pro_price_cart = $('#pro_price').html(); // "6.602.000"
+                        const priceWithoutCommas = pro_price_cart.replace(/\./g, ''); // "6602000"
+                        const pro_price_integer = parseInt(priceWithoutCommas, 10);
+                        console.log(pro_price_integer);
+                        const pro_qty_cart = $('#sst').val()
+                        console.log(pro_qty_cart);
+                        $.ajax({
+                            url: '{{ route('addCart') }}',
+                            method: 'post',
+                            data: {
+                                _token: "{{ csrf_token() }}",
+                                pro_id: pro_id,
+                                name: pro_name_cart,
+                                image: pro_image_cart,
+                                price: pro_price_integer,
+                                qty: pro_qty_cart,
+                                _method: "post"
+
+                            },
+                            success: function(data) {
+                                window.location.reload();
+                            },
+                            error: function() {
+                                alert('BỊ LỖI, HÃY THỬ LẠI');
+                            }
+                        });
+                    });
+                });
+            }
+        }
+    </script> --}}
 @endsection

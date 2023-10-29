@@ -15,9 +15,7 @@
                             <label for="exampleInputName1">Tên Sản Phẩm</label>
                             <input type="text" name="name" value="{{ $pro->name }}" disabled
                                 class="form-control fullname" id="exampleInputName1" placeholder="Nhập tên sản phẩm">
-                            <span
-                                style="font-size: 15px; color: #f33a58; line-height: 3px; padding-top: 10px;  display: block;"
-                                class="form-message"></span>
+
                         </div>
                         <div class="row">
                             <div class="col-sm-6">
@@ -26,9 +24,7 @@
                                     <input type="text" name="name" value="{{ $pro->Cate_item->Category->name }}"
                                         disabled class="form-control fullname" id="exampleInputName1"
                                         placeholder="Nhập tên sản phẩm">
-                                    <span
-                                        style="font-size: 15px; color: #f33a58; line-height: 3px; padding-top: 10px;  display: block;"
-                                        class="form-message"></span>
+
                                 </div>
                             </div>
                             <div class="col-sm-6">
@@ -37,9 +33,7 @@
                                     <input type="text" name="name" value="{{ $pro->Cate_item->name }}" disabled
                                         class="form-control fullname" id="exampleInputName1"
                                         placeholder="Nhập tên sản phẩm">
-                                    <span
-                                        style="font-size: 15px; color: #f33a58; line-height: 3px; padding-top: 10px;  display: block;"
-                                        class="form-message"></span>
+
                                 </div>
                             </div>
                         </div>
@@ -49,9 +43,6 @@
                                     <label for="exampleInputName1">Giá</label>
                                     <input type="number" value="{{ $pro->price }}" disabled name="price"
                                         class="form-control price" id="exampleInputName1" placeholder="Nhập Giá Sản Phẩm">
-                                    <span
-                                        style="font-size: 15px; color: #f33a58; line-height: 3px; padding-top: 10px;  display: block;"
-                                        class="form-message"></span>
                                 </div>
                             </div>
                             <div class="col-sm-6">
@@ -59,9 +50,7 @@
                                     <label for="exampleInputName1">Giảm Giá</label>
                                     <input type="number" value="{{ $pro->discount }}" disabled name="discount"
                                         class="form-control discount" id="exampleInputName1" placeholder="Nhập % Giảm giá">
-                                    <span
-                                        style="font-size: 15px; color: #f33a58; line-height: 3px; padding-top: 10px;  display: block;"
-                                        class="form-message"></span>
+
                                 </div>
                             </div>
                         </div>
@@ -103,18 +92,14 @@
                                                 <label for="exampleSelectGender">Màu sắc</label>
                                                 <input type="text" name="color" disabled value="{{ $pc->color }}"
                                                     class="form-control amount" id="exampleInputName1" placeholder="">
-                                                <span
-                                                    style="font-size: 15px; color: #f33a58; line-height: 3px; padding-top: 10px;  display: block;"
-                                                    class="form-message"></span>
+
                                             </div>
                                             <div class="form-group">
                                                 <label for="exampleSelectGender">Giá thêm </label>
-                                                <input type="text" name="price" disabled
-                                                    value="{{ $pc->price }} Đ" class="form-control amount"
-                                                    id="exampleInputName1" placeholder="Nhập giá bán">
-                                                <span
-                                                    style="font-size: 15px; color: #f33a58; line-height: 3px; padding-top: 10px;  display: block;"
-                                                    class="form-message"></span>
+                                                <input type="text" name="price" disabled value="{{ $pc->price }} Đ"
+                                                    class="form-control amount" id="exampleInputName1"
+                                                    placeholder="Nhập giá bán">
+
                                             </div>
                                         </div>
                                         <div class="col-sm-6">
@@ -128,7 +113,8 @@
                                         </div>
                                     </div>
                                     <a class="badge badge-danger rounded" style="width: 150px"
-                                        onclick="return confirm('Xóa mục này?')" href="{{route('deleteColor',$pc->id)}}">Xóa</a></td>
+                                        onclick="return confirm('Xóa mục này?')"
+                                        href="{{ route('deleteColor', $pc->id) }}">Xóa</a></td>
                                 </div>
                             </div>
                         @endforeach
@@ -155,7 +141,8 @@
                                     <div class="form-group">
                                         <label for="exampleSelectGender">Giá thêm </label>
                                         <input type="number" name="price_color"
-                                            class="form-control amount myNumberInput" id="exampleInputName1" placeholder="Nhập giá bán">
+                                            class="form-control amount myNumberInput" id="exampleInputName1"
+                                            placeholder="Nhập giá bán">
                                         <span
                                             style="font-size: 15px; color: #f33a58; line-height: 3px; padding-top: 10px;  display: block;"
                                             class="form-message"></span>
@@ -199,9 +186,7 @@
                                             <label for="exampleSelectGender">Tên biến thể</label>
                                             <input type="text" name="name" disabled value="{{ $pm->name }}"
                                                 class="form-control amount" id="exampleInputName1" placeholder="">
-                                            <span
-                                                style="font-size: 15px; color: #f33a58; line-height: 3px; padding-top: 10px;  display: block;"
-                                                class="form-message"></span>
+
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -209,9 +194,7 @@
                                             <label for="exampleSelectGender">EQ</label>
                                             <input type="text" name="eq" disabled value="{{ $pm->eq }}"
                                                 class="form-control amount" id="exampleInputName1" placeholder="">
-                                            <span
-                                                style="font-size: 15px; color: #f33a58; line-height: 3px; padding-top: 10px;  display: block;"
-                                                class="form-message"></span>
+
                                         </div>
                                     </div>
                                 </div>
@@ -229,7 +212,8 @@
                                     </div>
                                 </div>
                                 <a class="badge badge-danger rounded" style="width: 150px"
-                                    onclick="return confirm('Xóa mục này?')" href="{{route('deleteVariant',$pm->id)}}">Xóa</a></td>
+                                    onclick="return confirm('Xóa mục này?')"
+                                    href="{{ route('deleteVariant', $pm->id) }}">Xóa</a></td>
                             </div>
                         </div>
                     @endforeach
@@ -265,8 +249,9 @@
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label for="exampleSelectGender">Giá thêm </label>
-                                        <input type="number" name="price_variant" class="form-control amount myNumberInput"
-                                            id="exampleInputName1" placeholder="Nhập giá bán">
+                                        <input type="number" name="price_variant"
+                                            class="form-control amount myNumberInput" id="exampleInputName1"
+                                            placeholder="Nhập giá bán">
                                         <span
                                             style="font-size: 15px; color: #f33a58; line-height: 3px; padding-top: 10px;  display: block;"
                                             class="form-message"></span>

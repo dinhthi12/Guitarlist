@@ -120,7 +120,8 @@
                                         onclick="addToWishlist(event)">
                                         <i class="ti-heart"></i>
                                     </a>
-                                    <a href="#">
+                                    <a href="{{ auth()->check() ? route('getProById', $pro->id) : 'javascript:void(0);' }}"
+                                        onclick="addToCart(event)">
                                         <i class="ti-shopping-cart"></i>
                                     </a>
                                 </div>
@@ -217,7 +218,8 @@
                                                 onclick="addToWishlist(event)">
                                                 <i class="ti-heart"></i>
                                             </a>
-                                            <a href="#">
+                                            <a href="{{ auth()->check() ? route('getProById', $pro->id) : 'javascript:void(0);' }}"
+                                                onclick="addToCart(event)">
                                                 <i class="ti-shopping-cart"></i>
                                             </a>
                                         </div>
@@ -285,7 +287,8 @@
                                         onclick="addToWishlist(event)">
                                         <i class="ti-heart"></i>
                                     </a>
-                                    <a href="#">
+                                    <a href="{{ auth()->check() ? route('getProById', $pro->id) : 'javascript:void(0);' }}"
+                                        onclick="addToCart(event)">
                                         <i class="ti-shopping-cart"></i>
                                     </a>
                                 </div>
@@ -420,6 +423,15 @@
     <!--================ End Blog Area =================-->
     <script>
         function addToWishlist(event) {
+            if (!authCheck()) {
+                event.preventDefault(); // Prevent the link from being followed
+
+                // Show an alert
+                alert("Bạn chưa đăng nhập. Vui lòng đăng nhập để sử dụng chức năng này.");
+            }
+        }
+
+        function addToCart(event) {
             if (!authCheck()) {
                 event.preventDefault(); // Prevent the link from being followed
 

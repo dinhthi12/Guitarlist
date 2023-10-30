@@ -13,9 +13,13 @@
                     <div class="col-lg-5">
                         <div class="float-right">
                             <ul class="right_side">
-                                <li> <a href="{{Route('index')}}">gift card</a></li>
-                                <li> <a href="#">Đơn Hàng</a></li>
-                                <li> <a href="{{Route('contacts')}}">Liên Hệ</a></li>
+                                {{-- trả về trang index --}}
+                                <li> <a href="{{ Route('index') }}">gift card</a></li>
+                                {{-- nếu đăng nhập thì xem được đơn hàng còn chưa đăng nhập thì hiện thông báo "bạn chưa đăng nhập" --}}
+                                <li> <a href="{{Route('myOrders')}}">Đơn Hàng</a></li>
+                                {{-- trả về trang liên hệ. Nếu đăng nhập mới gửi được form liên hệ còn chưa đăng nhập thì chỉ hiển thị giao diện --}}
+                                <li> <a href="{{ Route('contacts') }}">Liên Hệ</a></li>
+                                {{-- nếu đăng nhập thì hiển thị hi + username còn chưa đăng nhập thì hiện route đăng ký --}}
                                 @if (Auth::check())
                                     <li><a href="#">hi, {{ Auth::user()->name }}</a></li>
                                 @else
@@ -32,7 +36,7 @@
         <div class="main_menu">
             <div class="container">
                 <nav class="navbar navbar-expand-lg navbar-light w-100">
-                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <!-- logo trang web -->
                     <a class="navbar-brand logo_h" href="{{ route('index') }}">
                         <img src="{{ asset('images/logo.svg') }}" width="80px" alt="" />
                     </a>
@@ -41,9 +45,9 @@
                         <div class="row w-100 mr-0">
                             <div class="col-lg-7 pr-0">
                                 <ul class="nav navbar-nav center_nav pull-left" style="padding-left: 50px;">
+                                    {{-- lấy danh sách tên của category từ controller ra --}}
                                     @foreach ($allCate as $cate)
                                         <li class="nav-item submenu dropdown">
-                                            {{-- lấy danh sách tên của category từ controller ra --}}
                                             <a href="{{ route('getProByCate', $cate->id) }}"
                                                 class="nav-link dropdown-toggle">{{ $cate->name }}</a>
                                             <ul class="dropdown-menu">
@@ -85,11 +89,11 @@
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="{{route('viewCart')}}" class="icons">
+                                        <a href="{{ route('viewCart') }}" class="icons">
                                             <i class="ti-shopping-cart"></i>
                                         </a>
                                     </li>
-                                    {{-- check user đăng nhập --}}
+                                    {{-- kiểm tra user đăng nhập --}}
                                     @if (Auth::check())
                                         <li class="nav-item dropdown">
                                             <a href="#" class="icons dropdown-toggle" id="dropdownMenuButton"
@@ -99,11 +103,6 @@
                                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                                 <a class="dropdown-item" href="{{ route('manager') }}"><i
                                                         class="fa fa-info" aria-hidden="true"></i> Quản lý tài khoản</a>
-                                                @if (Auth::user()->role == 1)
-                                                    <a class="dropdown-item" href="{{ route('indexAdmin') }}"
-                                                        target="_blank"><i class="fa fa-wrench" aria-hidden="true"></i>
-                                                        Quản trị Website</a>
-                                                @endif
                                                 <form action="/logout" method="post">
                                                     @csrf
                                                     <button class="dropdown-item btn-none"><i class="fa fa-sign-out"
@@ -119,22 +118,17 @@
                                             </a>
                                         </li>
                                     @endif
+                                    {{-- lấy danh sách sản phẩm yêu thích theo từng user --}}
                                     @if (Auth::check())
                                         <li class="nav-item">
                                             @php
                                                 $user = Auth::user();
                                                 $wishlist = $user->wishlist;
-                                                $wishlistcount = $wishlist ? $wishlist->count() : 0;
+                                                // $wishlistcount = $user->wishlist->count();
+                                                // $wishlistcount = $wishlist ? $wishlist->count() : 0;
                                             @endphp
                                             <a href="{{ route('listWish') }}" class="icons" style="height: 50%">
-                                                <i class="ti-heart" aria-hidden="true">
-                                                    @if ($wishlistcount > 0)
-                                                        <div class="shopee-cart-number-badge">
-                                                            <span
-                                                                style="display: block; line-height: normal; color: rgb(243, 235, 235);">{{ $wishlistcount }}</span>
-                                                        </div>
-                                                    @endif
-                                                </i>
+                                                <i class="ti-heart" aria-hidden="true"></i>
                                             </a>
                                         </li>
                                     @endif

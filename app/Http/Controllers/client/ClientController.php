@@ -7,6 +7,7 @@ use App\Models\Address;
 use App\Models\Category;
 use App\Models\CateItem;
 use App\Models\Comment;
+use App\Models\Order;
 use App\Models\Product;
 use App\Models\Slide;
 use App\Models\User;
@@ -153,11 +154,16 @@ class ClientController extends Controller
     }
     public function deleteAddress($id)
     {
-        //Dòng này tìm đối tượng Address trong cơ sở dữ liệu dựa trên giá trị ID đã được truyền vào qua tham số $id.
-        //trả về đối tượng địa chỉ cụ thể mà bạn muốn xoá.
-        $address = Address::find($id);
-        $address->delete();
-        toastr()->success('Thành công', 'Xoá địa chỉ thành công');
+        $user = Auth::user();
+
+        // Kiểm tra xem người dùng có ít nhất một địa chỉ giao hàng hay không
+        if ($user->Address->count() > 1) {
+            $address = Address::find($id);
+            $address->delete();
+            toastr()->success('Thành công', 'Xoá địa chỉ thành công');
+        } else {
+            toastr()->error('Lỗi', 'Bạn cần có ít nhất một địa chỉ giao hàng');
+        }
         return redirect(route('user_address'));
     }
     public function comment($id, Request $request)
@@ -184,5 +190,10 @@ class ClientController extends Controller
         $comment->save();
 
         return redirect()->back();
+    }
+    public function orders()
+    {
+        $orders = Order::where('user_id', '=', Auth::id())->orderBy('id', 'desc')->get();
+        return view('client.pages.carts.order', compact('orders'));
     }
 }

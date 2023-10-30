@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Address;
 use App\Models\Category;
 use App\Models\Delivery;
+use App\Models\Order;
+use App\Models\OrderDetail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -71,5 +73,34 @@ class OrderController extends Controller
         $allProCart = session()->get('cart');
         toastr()->success('Thành công', 'Đã xóa sản phẩm khỏi giỏ hàng');
         return redirect()->back();
+    }
+    public function insertOrder(Request $r)
+    {
+        // INSERT ORDER
+        $order = new Order();
+        $order->user_id=$r->user_id;
+        $order->address_id=$r->user_address;
+        $order->delivery_id=$r->deli_id;
+        $order->discount=$r->discount;
+        $order->total=$r->total;
+        $order->status=0;
+        $order->note=$r->note;
+        $order ->save();
+
+        $order_id= $order->id;
+        // INSERT ORDER_DETAIL
+        $allProCart=session()->get('cart');
+        foreach($allProCart as $pro){
+            $order_detail = new OrderDetail();
+            $order_detail->order_id=$order_id;
+            $order_detail->pro_id=$pro['id'];
+            $order_detail->name=$pro['name'];
+            $order_detail->number=$pro['qty'];
+            $order_detail->price=$pro['price'];
+            $order_detail->save();
+        }
+        session()->forget(['cart','coupon']);
+        return redirect()->back()->with('success', 'Tạo đơn hàng thành công');
+
     }
 }

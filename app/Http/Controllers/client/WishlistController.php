@@ -44,7 +44,7 @@ class WishlistController extends Controller
                 'pro_id' => $pro_id
             ]);
             //thông báo thành công
-            toastr()->success('Thêm vào danh sách yêu thích thành công.');
+            toastr()->success('Đã thêm vào danh sách yêu thích.');
         }
         //trả về trang index
         return redirect(route('index'));
@@ -56,6 +56,7 @@ class WishlistController extends Controller
         //thực hiện xoá
         $wishlist->delete();
         //trả về route và hiện thông báo
-        return redirect(route('listWish'))->with('success', 'Đã xóa sản phẩm khỏi yêu thích');
+        toastr()->success('Đã xóa sản phẩm khỏi yêu thích.');
+        return redirect(route('listWish'));
     }
 }

@@ -68,6 +68,8 @@ Route::prefix('/')->group(function () {
         Route::post('/getAddressById',[OrderController::class,'getAddressById'])->name('getAddressById');
         Route::post('/updateCart',[OrderController::class,'updatCart'])->name('updateCart');
     });
+    Route::post('/insertOrder',[OrderController::class,'insertOrder'])->name('insertOrder');
+    Route::get('/orders',[ClientController::class,'orders'])->name('myOrders');
 });
 //chức năng login người dùng
 Route::post('/clientLogin', [ClientController::class, 'loginClient'])->name('clientLogin');
@@ -138,7 +140,6 @@ Route::prefix('admin')->middleware('checkAdmin')->group(function () {
         Route::get('index',[ControllersContactController::class,'index'])->name('contact');
         Route::get('searchContact',[ControllersContactController::class,'searchContact'])->name('searchContact');
     });
-
 });
 
 Auth::routes(['verify' => true]);

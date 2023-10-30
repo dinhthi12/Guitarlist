@@ -10,10 +10,10 @@ class Delivery extends Model
     use HasFactory;
     protected $table='delivery';
     protected $fillable=[
-        'price',
+        'value',
         'name'
     ];
-    public function Orders()
+    public function Order()
     {
         return $this->belongsTo('App\Models\Order','deli_id','id');
     }

@@ -38,9 +38,17 @@ class User extends Authenticatable implements MustVerifyEmail
         'role'
     ];
 
-    public function wishlist()
+    public function Wishlist()
     {
         return $this->hasOne(Wishlist::class, 'user_id', 'id');
+    }
+    // public function Address()
+    // {
+    //     return $this->hasMany(Address::class, 'user_id', 'id');
+    // }
+    public function Address()
+    {
+        return $this->hasMany(Address::class, 'user_id', 'id');
     }
     /**
      * The attributes that should be hidden for serialization.

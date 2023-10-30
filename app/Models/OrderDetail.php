@@ -18,11 +18,11 @@ class OrderDetail extends Model
         'price'
     ];
 
-    public function Orders()
+    public function Order()
     {
         return $this->belongsTo('App\Models\Order','order_id','id');
     }
-    public function Products()
+    public function Product()
     {
         return $this->belongsTo('App\Models\Product','pro_id', 'id');
     }

@@ -23,11 +23,11 @@ class Order extends Model
         'note'
     ];
 
-    public function OrderDetails()
+    public function OrderDetail()
     {
         return $this->hasMany('App\Models\OrderDetail','order_id', 'id');
     }
-    public function Products()
+    public function Product()
     {
         return $this->hasMany('App\Models\Product','pro_id', 'id');
     }
@@ -35,12 +35,12 @@ class Order extends Model
     {
         return $this->belongsTo('App\Models\User','user_id','id');
     }
-    public function UserAddress()
+    public function Address()
     {
         return $this->belongsTo('App\Models\Address','address_id','id');
     }
-    public function Delivery()
-    {
-        return $this->belongsTo('App\Models\Delivery','delivery_id', 'id');
-    }
+    // public function Delivery()
+    // {
+    //     return $this->belongsTo('App\Models\Delivery','delivery_id', 'id');
+    // }
 }

@@ -1,7 +1,23 @@
 @extends('client.master')
 @section('title', 'Giỏ hàng')
 @section('content')
-    @include('client/partials/_nav')
+    <section class="banner_area">
+        <div class="banner_inner d-flex align-items-center">
+            <div class="container">
+                <div class="banner_content d-md-flex justify-content-between align-items-center">
+                    <div class="mb-3 mb-md-0">
+                        <h2>Trang thanh toán</h2>
+                        <p>giỏ hàng hiện tại</p>
+                    </div>
+                    <div class="page_link">
+                        <a href="index.html">Trang chủ</a>
+                        <a href="#">giỏ hàng</a>
+                        <a href="category.html"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
     @php
         $cart_total = 0;
         if (Session::has('coupon')) {
@@ -96,13 +112,13 @@
                     {{-- Payment --}}
                     @if (Auth::check() && $allProCart)
                         <div class="payment">
-                            <form action="#" method="post">
+                            <form action="{{route('insertOrder')}}" method="post">
                                 @csrf
                                 <div class="patment-title">
                                     <h2>Tiến hành thanh toán</h2>
                                 </div>
                                 <div class="row">
-                                    <div class="col-6">
+                                    <div class="col-7">
                                         <div class="mt-10">
                                             <label for="">Khách hàng</label>
                                             <input type="text" name="name" disabled value="{{ Auth::user()->name }}"
@@ -123,7 +139,8 @@
                                                         <select id="userAddress" name="user_address" style="display: none;">
                                                             @foreach ($userAddress as $address)
                                                                 <option value="{{ $address->id }}">
-                                                                    {{ $address->address }},{{ $address->name }},{{ $address->phone }}
+                                                                    {{ $address->address }}, {{ $address->name }},
+                                                                    {{ $address->phone }}
                                                                 </option>
                                                             @endforeach
                                                         </select>
@@ -151,23 +168,23 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-6">
+                                    <div class="col-5">
                                         @if (isset($userAddress))
                                             <div class="mt-10">
-                                                <label for="">Địa chỉ nhận hàng</label>
+                                                <label for="">Địa chỉ người đặt</label>
                                                 <input type="text" id="addressChange" name="address" disabled
                                                     value="{{ $userAddress[0]->address }}" class="single-input">
                                             </div>
                                             <div class="mt-5">
-                                                <label for="">Tên người nhận</label>
+                                                <label for="">Tên người đặt</label>
                                                 <input type="text" id="nameChange" disabled
                                                     value="{{ $userAddress[0]->name }}" class="single-input"
                                                     placeholder="Vui lòng thêm địa chỉ giao hàng">
                                             </div>
                                             <div class="mt-5">
-                                                <label for="">Số điện thoại</label>
+                                                <label for="">Số điện thoại người đặt</label>
                                                 <input type="text" id="phoneChange" disabled
-                                                    value="0{{ $userAddress[0]->phone }}" class="single-input"
+                                                    value="{{ $userAddress[0]->phone }}" class="single-input"
                                                     placeholder="Vui lòng thêm địa chỉ giao hàng">
                                             </div>
                                             <div class="mt-5">
@@ -273,6 +290,7 @@
                 return number.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
             }
             let ship_select = $('#ship_select').find(':selected').attr('data-value');
+            console.log(ship_select);
             let ship_value = $('#ship_value').html()
             let cart_total = $('#cart-total-price').html()
             discount = $('#payment-discount').html()

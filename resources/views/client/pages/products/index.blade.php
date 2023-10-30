@@ -1,7 +1,6 @@
 @extends('client.master')
 @section('title', 'Sản phẩm chi tiết')
 @section('content')
-    {{-- @include('client/_nav') --}}
     <section class="banner_area">
         <div class="banner_inner d-flex align-items-center">
             <div class="container">
@@ -151,7 +150,7 @@
 
                         <div class="col-md-4">
                             <div class="detail-content">
-                                <h2>Chi tiết sản phẩm</h2>
+                                <h2>Thông số chi tiết</h2>
                                 <div class="table-responsive">
                                     <table class="table tb_details">
                                         <tbody id="var_info">
@@ -219,7 +218,6 @@
                                     </table>
                                 </div>
                             </div>
-
                         </div>
                     </div>
 
@@ -243,7 +241,6 @@
                                         @else
                                             Chưa có đánh giá
                                         @endif
-
                                     </div>
                                 </div>
                                 <div class="col-6">
@@ -259,7 +256,6 @@
                                                         echo '<i class="fa fa-star"></i>';
                                                     }
                                                     ?>
-
                                                     {{ $count5 }}
                                                 </a>
                                             </li>
@@ -283,7 +279,6 @@
                                                     }
                                                     ?>
                                                     {{ $count3 }}
-
                                                 </a>
                                             </li>
                                             <li>
@@ -333,8 +328,6 @@
                                         </p>
                                     </div>
                                 @endforeach
-
-
 
                             </div>
                         </div>
@@ -573,94 +566,4 @@
             return {{ auth()->check() }};
         }
     </script>
-
-
-    {{-- <script type="text/javascript">
-        function authCheck() {
-            return {{ auth()->check() }};
-        }
-
-        function addToCart(event) {
-            if (!authCheck()) {
-                event.preventDefault(); // Ngăn chặn việc điều hướng đến liên kết
-
-                // Hiển thị thông báo hoặc thực hiện xử lý khác tùy ý
-                alert("Bạn chưa đăng nhập. Vui lòng đăng nhập để sử dụng chức năng này.");
-            } else {
-                $(document).ready(function() {
-                    const pro_name = $('#pro_name').html();
-                    console.log(pro_name); //lấy tên
-                    const pro_price = parseFloat($('#pro_price').data('price'));
-                    console.log(pro_price);
-                    const pro_id = $('#pro_id').val();
-                    console.log(pro_id);
-
-                    let pro_var_name = ""
-                    let pro_var_price
-
-                    $('.pro_color').click(function() {
-                        var color = $(this).html();
-                        var image = $(this).data('image');
-                        var color_price = parseFloat($(this).data('price'));
-                        console.log(color_price);
-                        $('#pro_name').html(pro_name + color);
-                        $('#pro_image').val(image);
-                        pro_var_name = $('#pro_name').html();
-                        pro_var_price = pro_price + color_price;
-                        $('#pro_price').html(pro_var_price.toLocaleString('vi-VN'));
-
-                    });
-
-                    $('.pro_mem').click(function() {
-                        var variant = $(this).html();
-                        var me_price = parseFloat($(this).data('price'));
-                        if (pro_var_name) {
-                            $('#pro_name').html(pro_var_name + " " + variant)
-
-                        } else {
-                            $('#pro_name').html(pro_name + " " + variant)
-                        }
-                        if (pro_var_price) {
-                            $('#pro_price').html((me_price + pro_var_price).toLocaleString('vi-VN'));
-                        } else {
-                            $('#pro_price').html((pro_price + me_price).toLocaleString('vi-VN'));
-                        }
-                    });
-
-                    $('#addCart').click(function() {
-                        const pro_name_cart = $('#pro_name').html()
-                        console.log(pro_name_cart);
-                        const pro_image_cart = $('#pro_image').val()
-                        console.log(pro_image_cart);
-                        const pro_price_cart = $('#pro_price').html(); // "6.602.000"
-                        const priceWithoutCommas = pro_price_cart.replace(/\./g, ''); // "6602000"
-                        const pro_price_integer = parseInt(priceWithoutCommas, 10);
-                        console.log(pro_price_integer);
-                        const pro_qty_cart = $('#sst').val()
-                        console.log(pro_qty_cart);
-                        $.ajax({
-                            url: '{{ route('addCart') }}',
-                            method: 'post',
-                            data: {
-                                _token: "{{ csrf_token() }}",
-                                pro_id: pro_id,
-                                name: pro_name_cart,
-                                image: pro_image_cart,
-                                price: pro_price_integer,
-                                qty: pro_qty_cart,
-                                _method: "post"
-
-                            },
-                            success: function(data) {
-                                window.location.reload();
-                            },
-                            error: function() {
-                                alert('BỊ LỖI, HÃY THỬ LẠI');
-                            }
-                        });
-                    });
-                });
-            }
-        }
-    </script> --}}
 @endsection

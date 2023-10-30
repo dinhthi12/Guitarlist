@@ -97,12 +97,13 @@ class ProductController extends Controller
             );
         }
     }
-    public function search()
+    public function search(Request $request)
     {
         $cti_bar = Category::all();
         //Dòng này lấy từ khóa tìm kiếm từ tham số URL với tên keywords.
         //Nó sử dụng biến siêu toàn cục $_GET để truy cập giá trị từ URL.
-        $keywords = $_GET['keywords'];
+        $keywords = $request->input('keywords');
+
         //Dòng này truy vấn các sản phẩm từ mô hình Product dựa trên từ khóa tìm kiếm.
         //nó sử dụng phương thức where để tìm các sản phẩm có tên hoặc mô tả chứa từ khóa (sử dụng điều kiện LIKE),
         //sau đó sử dụng orWhere để kết hợp các điều kiện.
@@ -112,10 +113,10 @@ class ProductController extends Controller
         //Dòng này kiểm tra xem có kết quả tìm kiếm nào không.
         //Nếu số lượng kết quả bằng 0 (không tìm thấy sản phẩm nào), thông báo tương ứng được gán vào biến $MesSearch.
         if (count($listPro) == 0) {
-            $MesSearch = 'Không tìm thấy kết quả của từ khóa: ' . $keywords . '.';
+            $MesSearch = 'Không tìm thấy kết quả của từ khóa: ' . $keywords;
             return view('client.pages.categories.index')->with(compact('listPro', 'cti_bar', 'keywords', 'MesSearch'));
         } else {
-            $MesSearch = 'Kết quả của từ khóa: ' . $keywords . '.';
+            $MesSearch = 'Kết quả của từ khóa: ' . $keywords;
             return view('client.pages.categories.index')->with(compact('listPro', 'cti_bar', 'keywords', 'MesSearch'));
         }
     }

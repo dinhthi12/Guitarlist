@@ -8,7 +8,7 @@
                         <p class="card-title">Danh sách tin nhắn liên hệ.</p>
 
                         <div class="col-md-3" style="float: left;">
-                            <form class="card-title" action="#" method="GET">
+                            <form class="card-title" action="{{route('searchContact')}}" method="GET">
                                 @csrf
                                 <div class="form-group">
                                     <input type="text" name="keywords" class="form-control mb-2 mr-sm-2" id="fullname"

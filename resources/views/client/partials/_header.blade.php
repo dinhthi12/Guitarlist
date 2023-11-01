@@ -89,7 +89,8 @@
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="{{ route('viewCart') }}" class="icons">
+                                        <a href="{{ auth()->check() ? route('viewCart') : 'javascript:void(0);' }}"
+                                            onclick="addToCart(event)" class="icons">
                                             <i class="ti-shopping-cart"></i>
                                         </a>
                                     </li>

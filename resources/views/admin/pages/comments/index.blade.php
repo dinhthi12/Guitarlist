@@ -8,12 +8,12 @@
                         <p class="card-title">Danh sách bình luận</p>
                         <div class="col-md-3" style="float: left;">
                             <!-- onchange="this.form.submit()" để submit -->
-                            <form class="card-title" action="#" method="GET">
+                            <form class="card-title" action="{{route('searchName')}}" method="GET">
                                 @csrf
                                 <div class="form-group">
                                     <select class="form-control show-cti form-select list" name="keywords_pro_id"
                                         id="pro" onchange="this.form.submit()">
-                                        <option>Lọc theo tên</option>
+                                        <option>Lọc theo tên sản phẩm</option>
                                         <option value="">Tất cả bình luận</option>
                                         @foreach ($allPro as $pro)
                                             <option data-id="{{ $pro->id }}" value="{{ $pro->id }}">
@@ -26,23 +26,7 @@
                         </div>
 
                         <div class="col-md-3" style="float: left;">
-                            <form class="card-title" action="#" method="GET">
-                                @csrf
-                                <div class="form-group">
-                                    <select class="form-control show-cti form-select list" name="keywords_user_id"
-                                        id="user" onchange="this.form.submit()">
-                                        <option>Lọc theo người dùng</option>
-                                        <option value="">Tất cả bình luận</option>
-                                        @foreach ($allUser as $user)
-                                            <option data-id="{{ $user->id }}" value="{{ $user->id }}">
-                                                {{ $user->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="col-md-3" style="float: left;">
-                            <form class="card-title" action="{#" method="GET">
+                            <form class="card-title" action="{{route('searchDate')}}" method="GET">
                                 @csrf
                                 <div class="form-group">
                                     <select class="form-control show-cti form-select list" name="keywords_date"
@@ -88,7 +72,7 @@
                                             <td>{{ $com->Product->name }}</td>
                                             <td>{{ $com->User->name }}</td>
                                             <td>{{ $com->content }}</td>
-                                            <td>{{ $com->status }}</td>
+                                            <td>{{ $com->rate }}</td>
                                             <td>{{ $com->created_at }}</td>
                                             <td><a class="badge badge-danger rounded"
                                                     onclick="return confirm('Xóa mục này?')"

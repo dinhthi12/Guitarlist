@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
+use App\Mail\OrderConfirmationEmail;
 use App\Models\Address;
 use App\Models\Category;
 use App\Models\Delivery;
@@ -10,6 +11,7 @@ use App\Models\Order;
 use App\Models\OrderDetail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class OrderController extends Controller
 {
@@ -86,7 +88,6 @@ class OrderController extends Controller
         $order->status=0;
         $order->note=$r->note;
         $order ->save();
-
         $order_id= $order->id;
         // INSERT ORDER_DETAIL
         $allProCart=session()->get('cart');
@@ -99,6 +100,7 @@ class OrderController extends Controller
             $order_detail->price=$pro['price'];
             $order_detail->save();
         }
+
         session()->forget(['cart','coupon']);
         return redirect()->back()->with('success', 'Tạo đơn hàng thành công');
 

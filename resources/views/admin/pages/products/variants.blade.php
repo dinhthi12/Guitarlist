@@ -29,7 +29,7 @@
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="exampleSelectGender">Hãng</label>
+                                    <label for="exampleSelectGender">Loại</label>
                                     <input type="text" name="name" value="{{ $pro->Cate_item->name }}" disabled
                                         class="form-control fullname" id="exampleInputName1"
                                         placeholder="Nhập tên sản phẩm">

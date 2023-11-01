@@ -44,7 +44,7 @@
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <label for="exampleSelectGender">Hãng</label>
+                                        <label for="exampleSelectGender">Loại</label>
                                         <select class="form-control show-cti firm" name="category_id">
                                             @foreach ($allCateItems as $cti)
                                                 @if ($cti->id == $pro->Cate_item->id)
@@ -511,7 +511,7 @@
             return {
                 selector,
                 test(value) {
-                    return value ? undefined : 'Vui lòng chọn hãng'
+                    return value ? undefined : 'Vui lòng chọn loại'
                 }
             }
         }

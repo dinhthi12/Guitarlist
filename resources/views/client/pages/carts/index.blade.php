@@ -65,7 +65,7 @@
                                                 {{-- <h5>{{ number_format($pro['price'], 0, '.', '.') }} VNĐ</h5> --}}
                                             </td>
                                             <td>
-                                                <input type="number" name="qty" maxlength="12"
+                                                <input type="number" name="qty" maxlength="12" disabled
                                                     value={{ $pro['qty'] }} data-proName="{{ $pro['name'] }}"
                                                     title="Quantity:" class="qty" style="width: 40px;" min="1" />
                                             </td>
@@ -80,23 +80,10 @@
                                             </td>
                                         </tr>
                                     @endforeach
-                                @else
-                                    <tr>
-                                        <td colspan="5">
-                                            <p class="no_cart">Chưa có sản phẩm nào trong giỏ hàng</p>
-                                        </td>
-                                    </tr>
-                                @endif
-                                <tr class="bottom_button">
-                                    <td colspan="2">
-                                        <a class="gray_btn" href="#">Cập nhật giỏ hàng</a>
-                                    </td>
-
-                                    <td colspan="3">
+                                    <td colspan="5">
                                         <div class="cupon_text">
-                                            <form action="#" method="post">
+                                            <form action="{{ route('discountCode') }}" method="post">
                                                 @csrf
-
                                                 <input type="text"
                                                     @if (isset($disc[0])) value="{{ $disc[0]['code'] }}" @endif
                                                     name="discountCode" placeholder="Mã giảm giá" />
@@ -104,7 +91,13 @@
                                             </form>
                                         </div>
                                     </td>
-                                </tr>
+                                @else
+                                    <tr>
+                                        <td colspan="5">
+                                            <p class="no_cart">Chưa có sản phẩm nào trong giỏ hàng</p>
+                                        </td>
+                                    </tr>
+                                @endif
                             </tbody>
                         </table>
                     </div>
@@ -112,7 +105,7 @@
                     {{-- Payment --}}
                     @if (Auth::check() && $allProCart)
                         <div class="payment">
-                            <form action="{{route('insertOrder')}}" method="post">
+                            <form action="{{ route('insertOrder') }}" method="post">
                                 @csrf
                                 <div class="patment-title">
                                     <h2>Tiến hành thanh toán</h2>
@@ -254,7 +247,6 @@
                                             </div>
                                         </div>
                                     </div>
-
                                 </div>
                         </div>
                         </form>
@@ -290,10 +282,11 @@
                 return number.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
             }
             let ship_select = $('#ship_select').find(':selected').attr('data-value');
-            console.log(ship_select);
+            //console.log(ship_select);
             let ship_value = $('#ship_value').html()
             let cart_total = $('#cart-total-price').html()
             discount = $('#payment-discount').html()
+            console.log(discount)
             $('#payment-discount').html(format_currency($('#payment-discount').html()))
             total = $('#order-total')
             totalInput = $('#order-total-input')

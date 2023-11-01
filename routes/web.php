@@ -12,6 +12,7 @@ use App\Http\Controllers\client\ProductController as ClientProductController;
 use App\Http\Controllers\client\WishlistController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ContactController as ControllersContactController;
+use App\Http\Controllers\DeliveryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SlideController;
 use Illuminate\Support\Facades\Auth;
@@ -70,6 +71,7 @@ Route::prefix('/')->group(function () {
     });
     Route::post('/insertOrder',[OrderController::class,'insertOrder'])->name('insertOrder');
     Route::get('/orders',[ClientController::class,'orders'])->name('myOrders');
+    Route::post('/discountCode',[ClientController::class,'discountCode'])->name('discountCode');
 });
 //chức năng login người dùng
 Route::post('/clientLogin', [ClientController::class, 'loginClient'])->name('clientLogin');
@@ -134,11 +136,22 @@ Route::prefix('admin')->middleware('checkAdmin')->group(function () {
     Route::prefix('comments')->group(function () {
         Route::get('index',[CommentController::class,'index'])->name('listCom');
         Route::get('delete/{id}',[CommentController::class,'destroy'])->name('deleteCom');
+        Route::get('/index1',[CommentController::class,'searchName'] )->name('searchName');
+        Route::get('/index2',[CommentController::class,'searchDate'] )->name('searchDate');
     });
     //chức năng quản trị liên hệ
     Route::prefix('contacts')->group(function () {
         Route::get('index',[ControllersContactController::class,'index'])->name('contact');
         Route::get('searchContact',[ControllersContactController::class,'searchContact'])->name('searchContact');
+    });
+    //chức năng quản trị phương thức giao hàng
+    Route::prefix('delivery')->group(function () {
+        Route::get('index', [DeliveryController::class,'index'])->name('ListDelivery');
+        Route::get('create', [DeliveryController::class,'CreateDelivery'])->name('CreateDelivery');
+        Route::post('create_', [DeliveryController::class,'CreateDelivery_'])->name('CreateDelivery_');
+        Route::get('edit/{id}', [DeliveryController::class,'getEdit'])->name('EditDelivery');
+        Route::post('edit', [DeliveryController::class,'edit'])->name('EditDelivery_');
+        Route::get('delete/{id}',[DeliveryController::class,'DeleteDelivery'])->name('DeleteDelivery');
     });
 });
 

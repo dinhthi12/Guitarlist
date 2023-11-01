@@ -91,13 +91,13 @@
             </a>
             <div class="collapse" id="auth">
                 <ul class="nav flex-column sub-menu">
-                    <li class="nav-item"> <a class="nav-link" href="#"> Thêm mới</a></li>
-                    <li class="nav-item"> <a class="nav-link" href="#"> Danh sách </a></li>
+                    <li class="nav-item"> <a class="nav-link" href="{{route('CreateDelivery')}}"> Thêm mới</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="{{route('ListDelivery')}}"> Danh sách </a></li>
                 </ul>
             </div>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="documentation/documentation.html">
+            <a class="nav-link" href="#">
                 <i class="mdi mdi-file-document-box-outline menu-icon"></i>
                 <span class="menu-title">Documentation</span>
             </a>

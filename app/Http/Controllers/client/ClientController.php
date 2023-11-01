@@ -7,14 +7,17 @@ use App\Models\Address;
 use App\Models\Category;
 use App\Models\CateItem;
 use App\Models\Comment;
+use App\Models\Discount;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\Slide;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 
 class ClientController extends Controller
 {
@@ -195,5 +198,28 @@ class ClientController extends Controller
     {
         $orders = Order::where('user_id', '=', Auth::id())->orderBy('id', 'desc')->get();
         return view('client.pages.carts.order', compact('orders'));
+    }
+    public function discountCode(Request $request)
+    {
+        $today = Carbon::today();
+        $data = $request->discountCode;
+        // dd($data);
+        $coupon = Discount::where('code', '=', $data)->where('quantity', '>', 0)->whereDate('start_time', '<', $today)->whereDate('end_time', '>', $today)->first();
+
+        if ($coupon) {
+            $coupon_session = Session::get('coupon');
+            $cou[] = array(
+                'code' => $coupon->code,
+                'quantity' => $coupon->quantity,
+                'discount' => $coupon->discount,
+            );
+            Session::put('coupon', $cou);
+            Session::save();
+            $coupon->quantity = $coupon->quantity - 1;
+            $coupon->save();
+            return redirect()->back()->with('success', 'Áp dụng mã giảm giá thành công');
+        } else {
+            return redirect()->back()->with('error', 'Mã giảm giá không đúng hoặc hết hạn');
+        }
     }
 }

@@ -44,9 +44,9 @@ class ProductController extends Controller
         $count4 = DB::table('comment')->where('pro_id', '=', $pro->id)->where('rate', '=', 4)->count();
         //tổng số bình luận 3*
         $count3 = DB::table('comment')->where('pro_id', '=', $pro->id)->where('rate', '=', 3)->count();
-         //tổng số bình luận 2*
+        //tổng số bình luận 2*
         $count2 = DB::table('comment')->where('pro_id', '=', $pro->id)->where('rate', '=', 2)->count();
-         //tổng số bình luận 1*
+        //tổng số bình luận 1*
         $count1 = DB::table('comment')->where('pro_id', '=', $pro->id)->where('rate', '=', 1)->count();
 
         //nếu countTotal > 0

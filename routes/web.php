@@ -13,8 +13,11 @@ use App\Http\Controllers\client\WishlistController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ContactController as ControllersContactController;
 use App\Http\Controllers\DeliveryController;
+use App\Http\Controllers\DiscountController;
+use App\Http\Controllers\OrderController as ControllersOrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SlideController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -56,23 +59,27 @@ Route::prefix('/')->group(function () {
     //tìm kiếm sp theo tên
     Route::get('/search', [ClientProductController::class, 'search'])->name('search');
     //chức năng liên hệ
-    Route::get('contact',[ContactController::class,'contact'] )->name('contacts');
-    Route::post('/addContact',[ContactController::class,'addContact'] )->name('addContact');
-    Route::get('deleteContact/{id}', [ContactController::class,'deleteContact'])->name('deleteContact');
+    Route::get('contact', [ContactController::class, 'contact'])->name('contacts');
+    Route::post('/addContact', [ContactController::class, 'addContact'])->name('addContact');
+    Route::get('deleteContact/{id}', [ContactController::class, 'deleteContact'])->name('deleteContact');
     //chức năng bình luận
-    Route::post('/product/comment/{id}',[ClientController::class,'comment'])->name('comment');
+    Route::post('/product/comment/{id}', [ClientController::class, 'comment'])->name('comment');
     //chức năng thêm sản phẩm vào giỏ hàng + thanh toán
     Route::prefix('cart')->group(function () {
-        Route::get('/index', [OrderController::class,'viewCart'] )->name('viewCart');
-        Route::post('/addCart',[OrderController::class,'addCart'])->name('addCart');
-        Route::get('/deleteItemCart/{name}',[OrderController::class,'deleteItemCart'])->name('deleteItemCart');
-        Route::post('/getAddressById',[OrderController::class,'getAddressById'])->name('getAddressById');
-        Route::post('/updateCart',[OrderController::class,'updatCart'])->name('updateCart');
+        Route::get('/index', [OrderController::class, 'viewCart'])->name('viewCart');
+        Route::post('/addCart', [OrderController::class, 'addCart'])->name('addCart');
+        Route::get('/deleteItemCart/{name}', [OrderController::class, 'deleteItemCart'])->name('deleteItemCart');
+        Route::post('/getAddressById', [OrderController::class, 'getAddressById'])->name('getAddressById');
+        Route::post('/updateCart', [OrderController::class, 'updatCart'])->name('updateCart');
     });
-    Route::post('/insertOrder',[OrderController::class,'insertOrder'])->name('insertOrder');
-    Route::get('/orders',[ClientController::class,'orders'])->name('myOrders');
-    Route::post('/discountCode',[ClientController::class,'discountCode'])->name('discountCode');
+    Route::post('/insertOrder', [OrderController::class, 'insertOrder'])->name('insertOrder');
+    Route::get('/orders', [ClientController::class, 'orders'])->name('myOrders');
+    Route::post('/discountCode', [ClientController::class, 'discountCode'])->name('discountCode');
+    Route::get('/orderDetails/{id}',[ClientController::class,'orderDetails'])->name('myOrderDetails');
+    Route::get('/cancelOrders/{id}',[ClientController::class,'cancelOrders'])->name('cancelOrders');
+
 });
+
 //chức năng login người dùng
 Route::post('/clientLogin', [ClientController::class, 'loginClient'])->name('clientLogin');
 //chức năng đăng ký người dùng
@@ -109,6 +116,9 @@ Route::prefix('admin')->middleware('checkAdmin')->group(function () {
     //chức năng quản trị sản phẩm
     Route::prefix('products')->group(function () {
         Route::get('index', [ProductController::class, 'index'])->name('listPro');
+        Route::get('/index5',[ProductController::class,'index5'] )->name('search5');
+        Route::get('/index6',[ProductController::class,'index6'] )->name('search6');
+        Route::get('/index7',[ProductController::class,'index7'] )->name('search7');
         Route::get('create', [ProductController::class, 'createView'])->name('loadCreatePro');
         Route::post('create', [ProductController::class, 'create'])->name('createPro');
         Route::post('cateItems', [ProductController::class, 'loadCateItem'])->name('loadCateItems');
@@ -118,8 +128,8 @@ Route::prefix('admin')->middleware('checkAdmin')->group(function () {
         Route::get('variants/{id}', [ProductController::class, 'showVariants'])->name('showVariants');
         Route::post('createColor', [ProductController::class, 'createColor'])->name('createColor');
         Route::post('createVariant', [ProductController::class, 'createVariant'])->name('createVariant');
-        Route::get('deleteColor/{id}',[ProductController::class,'deleteColor'])->name('deleteColor');
-        Route::get('deleteVariant/{id}',[ProductController::class,'deleteVariant'])->name('deleteVariant');
+        Route::get('deleteColor/{id}', [ProductController::class, 'deleteColor'])->name('deleteColor');
+        Route::get('deleteVariant/{id}', [ProductController::class, 'deleteVariant'])->name('deleteVariant');
     });
     //chức năng quản trị slide
     Route::prefix('slider')->group(function () {
@@ -129,29 +139,56 @@ Route::prefix('admin')->middleware('checkAdmin')->group(function () {
         Route::get('edit/{id}', [SLideController::class, 'loadEdit'])->name('loadEditSlide');
         Route::post('edit', [SLideController::class, 'edit'])->name('editSlide');
         Route::get('delete/{id}', [SLideController::class, 'delete'])->name('deleteSlide');
-        Route::get('unActive/{id}', [SLideController::class,'unActive'])->name('off');
-        Route::get('active/{id}', [SLideController::class,'active'])->name('on');
+        Route::get('unActive/{id}', [SLideController::class, 'unActive'])->name('off');
+        Route::get('active/{id}', [SLideController::class, 'active'])->name('on');
     });
     //chức năng quản trị bình luận
     Route::prefix('comments')->group(function () {
-        Route::get('index',[CommentController::class,'index'])->name('listCom');
-        Route::get('delete/{id}',[CommentController::class,'destroy'])->name('deleteCom');
-        Route::get('/index1',[CommentController::class,'searchName'] )->name('searchName');
-        Route::get('/index2',[CommentController::class,'searchDate'] )->name('searchDate');
+        Route::get('index', [CommentController::class, 'index'])->name('listCom');
+        Route::get('delete/{id}', [CommentController::class, 'destroy'])->name('deleteCom');
+        Route::get('/index1', [CommentController::class, 'searchName'])->name('searchName');
+        Route::get('/index2', [CommentController::class, 'searchDate'])->name('searchDate');
     });
     //chức năng quản trị liên hệ
     Route::prefix('contacts')->group(function () {
-        Route::get('index',[ControllersContactController::class,'index'])->name('contact');
-        Route::get('searchContact',[ControllersContactController::class,'searchContact'])->name('searchContact');
+        Route::get('index', [ControllersContactController::class, 'index'])->name('contact');
+        Route::get('searchContact', [ControllersContactController::class, 'searchContact'])->name('searchContact');
     });
     //chức năng quản trị phương thức giao hàng
     Route::prefix('delivery')->group(function () {
-        Route::get('index', [DeliveryController::class,'index'])->name('ListDelivery');
-        Route::get('create', [DeliveryController::class,'CreateDelivery'])->name('CreateDelivery');
-        Route::post('create_', [DeliveryController::class,'CreateDelivery_'])->name('CreateDelivery_');
-        Route::get('edit/{id}', [DeliveryController::class,'getEdit'])->name('EditDelivery');
-        Route::post('edit', [DeliveryController::class,'edit'])->name('EditDelivery_');
-        Route::get('delete/{id}',[DeliveryController::class,'DeleteDelivery'])->name('DeleteDelivery');
+        Route::get('index', [DeliveryController::class, 'index'])->name('ListDelivery');
+        Route::get('create', [DeliveryController::class, 'CreateDelivery'])->name('CreateDelivery');
+        Route::post('create_', [DeliveryController::class, 'CreateDelivery_'])->name('CreateDelivery_');
+        Route::get('edit/{id}', [DeliveryController::class, 'getEdit'])->name('EditDelivery');
+        Route::post('edit', [DeliveryController::class, 'edit'])->name('EditDelivery_');
+        Route::get('delete/{id}', [DeliveryController::class, 'DeleteDelivery'])->name('DeleteDelivery');
+    });
+    //chức năng quản trị người dùng
+    Route::prefix('users')->group(function () {
+        Route::get('index', [UserController::class, 'index'])->name('listUser');
+        Route::get('/searchNameUser', [UserController::class, 'searchNameUser'])->name('searchNameUser');
+        Route::get('indexAdmin', [UserController::class, 'indexAdmin'])->name('listUserAd');
+        Route::get('delete/{id}', [UserController::class, 'destroy'])->name('deleteUser');
+        Route::get('/searchNameAdmin', [UserController::class, 'searchNameAdmin'])->name('searchNameAdmin');
+        Route::get('delete/{id}', [UserController::class, 'destroy'])->name('deleteUser');
+    });
+    //chức năng quản trị mã giảm giá
+    Route::prefix('discounts')->group(function () {
+        Route::get('index', [DiscountController::class, 'index'])->name('listDiscount');
+        Route::get('show', [DiscountController::class, 'show'])->name('loadDiscount_code');
+        Route::post('store', [DiscountController::class, 'store'])->name('storeDiscount_code');
+        Route::get('showId/{id}', [DiscountController::class, 'showId'])->name('loadUpdateDiscount_code');
+        Route::post('update', [DiscountController::class, 'update'])->name('updateDiscount_code');
+        Route::get('delete/{id}', [DiscountController::class, 'destroy'])->name('deleteDiscount_code');
+    });
+    //chức năng quản trị đơn hàng
+    Route::prefix('order')->group(function () {
+        Route::get('index', [ControllersOrderController::class, 'index'])->name('orders');
+        Route::get('detail/{id}', [ControllersOrderController::class, 'detail'])->name('orderDetail');
+        Route::get('edit/{id}', [ControllersOrderController::class, 'edit'])->name('edit');
+        Route::get('delete/{id}', [ControllersOrderController::class, 'delete'])->name('orderDelete');
+        Route::post('/update', [ControllersOrderController::class, 'update'])->name('orderUpdate');
+        Route::post('/orderByStatus', [ControllersOrderController::class, 'orderByStatus'])->name('orderByStatus');
     });
 });
 

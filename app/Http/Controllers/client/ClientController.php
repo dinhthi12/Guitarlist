@@ -9,6 +9,7 @@ use App\Models\CateItem;
 use App\Models\Comment;
 use App\Models\Discount;
 use App\Models\Order;
+use App\Models\OrderDetail;
 use App\Models\Product;
 use App\Models\Slide;
 use App\Models\User;
@@ -221,5 +222,18 @@ class ClientController extends Controller
         } else {
             return redirect()->back()->with('error', 'Mã giảm giá không đúng hoặc hết hạn');
         }
+    }
+    public function orderdetails($id)
+    {
+        $order = Order::find($id);
+        $details = OrderDetail::where('order_id', '=', $id)->get();
+        return view('client.pages.carts.orderdetail', compact('order', 'details'));
+    }
+    public function cancelOrders($id)
+    {
+        $order = Order::find($id);
+        $order->status = 4;
+        $order->save();
+        return redirect()->back()->with('success', 'Hủy đơn hàng thành công');
     }
 }

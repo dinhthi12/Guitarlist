@@ -5,30 +5,32 @@
             <div class="col-12 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Thêm phương thức vận chuyển</h4>
+                        <h4 class="card-title">Chỉnh sửa mã giảm giá</h4>
                         <p class="card-description">
                             Nhập thông tin
                         </p>
-                        <form method="POST" action="{{ route('CreateDelivery_') }}" enctype="multipart/form-data"
+                        <form method="POST" action="{{ route('updateDiscount_code') }}" enctype="multipart/form-data"
                             id="form-disc" class="forms-sample">
                             @csrf
+                            <input type="hidden" name="id" value="{{ $allDisc->id }}" id="">
                             <div class="row">
-
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <label for="exampleInputName1">Cước phí</label>
-                                        <input type="number" name="value" min="0" class="form-control value"
-                                            id="exampleInputName1" placeholder="Nhập cước phí">
+                                        <label for="exampleInputName1">Mã giảm giá</label>
+                                        <input type="text" value="{{ $allDisc->code }}" name="code"
+                                            class="form-control code" id="exampleInputName1" placeholder="Nhập mã giảm giá">
                                         <span
                                             style="font-size: 15px; color: #f33a58; line-height: 3px; padding-top: 10px;  display: block;"
                                             class="form-message"></span>
                                     </div>
                                 </div>
+
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <label for="exampleInputName1">Nhập phương thức vận chuyển</label>
-                                        <input type="text" name="name" class="form-control name"
-                                            id="exampleInputName1" placeholder="Nhập phương thức giao">
+                                        <label for="exampleInputName1">Số tiền giảm giá</label>
+                                        <input type="number" name="discount" min="0" value="{{ $allDisc->discount }}"
+                                            class="form-control discount" id="exampleInputName1"
+                                            placeholder="Nhập số tiền giảm giá">
                                         <span
                                             style="font-size: 15px; color: #f33a58; line-height: 3px; padding-top: 10px;  display: block;"
                                             class="form-message"></span>
@@ -36,7 +38,44 @@
                                 </div>
 
                             </div>
-                            <button type="submit" class="btn btn-primary mr-2">Thêm mới</button>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="exampleInputName1">Ngày bắt đầu</label>
+                                        <input type="date" name="start_time" value="{{ $allDisc->start_time }}"
+                                            class="form-control start_time" id="exampleInputName1"
+                                            placeholder="Nhập ngày đăng">
+                                        <span
+                                            style="font-size: 15px; color: #f33a58; line-height: 3px; padding-top: 10px;  display: block;"
+                                            class="form-message"></span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="exampleInputName1">Ngày kết thúc</label>
+                                        <input type="date" name="end_time" value="{{ $allDisc->end_time }}"
+                                            class="form-control end_time" id="exampleInputName1"
+                                            placeholder="Nhập số lượng">
+                                        <span
+                                            style="font-size: 15px; color: #f33a58; line-height: 3px; padding-top: 10px;  display: block;"
+                                            class="form-message"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="exampleInputName1">Số lượng</label>
+                                        <input type="number" name="quantity" min="0" value="{{ $allDisc->quantity }}"
+                                            class="form-control quantity" id="exampleInputName1"
+                                            placeholder="Nhập số lượng">
+                                        <span
+                                            style="font-size: 15px; color: #f33a58; line-height: 3px; padding-top: 10px;  display: block;"
+                                            class="form-message"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary mr-2">Cập nhật</button>
                             <button type="button" class="btn btn-light">Cancel</button>
 
                         </form>
@@ -45,31 +84,6 @@
             </div>
         </div>
     </div>
-
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $('#cate').click(function() {
-                var id_cate = $(this).val();
-                $.ajax({
-                    url: '{{ route('loadCateItems') }}',
-                    method: 'POST',
-                    data: {
-                        _token: "{{ csrf_token() }}",
-                        id_cate: id_cate
-                    },
-                    success: function(data) {
-                        $("select[name='cate_id'").html('');
-                        $.each(data, function(key, value) {
-                            $("select[name='cate_id']").append(
-                                "<option value=" + value.id + ">" + value.name +
-                                "</option>"
-                            );
-                        });
-                    }
-                })
-            });
-        });
-    </script>
 
     <script>
         function Validator(options) {
@@ -153,19 +167,45 @@
         }
 
 
-        Validator.isName = function(selector) {
+        Validator.isCode = function(selector) {
             return {
                 selector,
                 test(value) {
-                    return value ? undefined : 'Vui nhập chi nhánh'
+                    return value ? undefined : 'Vui nhập mã giảm giá'
                 }
             }
         }
-        Validator.isValue = function(selector) {
+
+        Validator.isDiscount = function(selector) {
             return {
                 selector,
                 test(value) {
-                    return value ? undefined : 'Vui lòng nhập cước phí'
+                    return value ? undefined : 'Vui lòng nhập só tiền giảm giá'
+                }
+            }
+        }
+        Validator.isQuantity = function(selector) {
+            return {
+                selector,
+                test(value) {
+                    return value ? undefined : 'Vui lòng nhập số lượng'
+                }
+            }
+        }
+        Validator.isStart_time = function(selector) {
+            return {
+                selector,
+                test(value) {
+                    return value ? undefined : 'Vui lòng chọn ngày bắt đầu'
+                }
+            }
+        }
+
+        Validator.isEnd_time = function(selector) {
+            return {
+                selector,
+                test(value) {
+                    return value ? undefined : 'Vui lòng chọn ngày kết thúc'
                 }
             }
         }
@@ -174,8 +214,11 @@
             form: '#form-disc',
             errorSelector: '.form-message',
             rules: [
-                Validator.isName('.name'),
-                Validator.isValue('.value'),
+                Validator.isCode('.code'),
+                Validator.isDiscount('.discount'),
+                Validator.isQuantity('.quantity'),
+                Validator.isStart_time('.start_time'),
+                Validator.isEnd_time('.end_time'),
             ],
         })
     </script>

@@ -53,7 +53,7 @@
 }
 .payment_item p{
     color: white;
-    text-transform: uppercase;
+    /* text-transform: uppercase; */
     margin-bottom: 10px;
 }
 .payment_item .ship_select{

@@ -60,9 +60,9 @@
                   </td>
                   <td class="text-center">{{ number_format($order->total, 0, '.', '.')}} VNĐ</td>
                   <td>
-                    <a style="border: 1px solid #d3cdcd;" href="#" class="genric-btn default-border radius delete-cart"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                    <a style="border: 1px solid #d3cdcd;" href="{{route('myOrderDetails',$order->id)}}" class="genric-btn default-border radius delete-cart"><i class="fa fa-eye" aria-hidden="true"></i></a>
                     @if ($order->status==0)
-                      <a href="#" onclick="confirm('Bạn chắc chắn hủy đơn hàng này')" class="genric-btn danger-border radius delete-cart"><i class="fa fa-times" aria-hidden="true"></i></a>
+                      <a href="{{route('cancelOrders',$order->id)}}" onclick="confirm('Bạn chắc chắn hủy đơn hàng này')" class="genric-btn danger-border radius delete-cart"><i class="fa fa-times" aria-hidden="true"></i></a>
                      @endif
                   </td>
                 </tr>

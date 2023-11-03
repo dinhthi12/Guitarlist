@@ -9,39 +9,34 @@
                         <a class="card-title badge badge-info rounded" href="{{ route('loadCreatePro') }}">Thêm mới</a><br>
 
                         <div class="col-md-3" style="float: left;">
-                            <form class="card-title" action="#" method="GET">
+                            <form class="card-title" action="{{ route('search6') }}" method="GET">
                                 @csrf
-                                <div class="form-group">
-                                    <select class="form-control show-cti form-select list" name="keywords_pro_name"
-                                        id="name" onchange="this.form.submit()">
-                                        <option>Lọc theo tên</option>
-                                        <option value="">Tất cả sản phẩm</option>
-                                        {{-- @foreach ($allPro1 as $pro)
-                        <option data-id="{{$pro->name}}" value="{{$pro->name}}">{{$pro->name}}<option>
-                      @endforeach --}}
-                                    </select>
-                                </div>
+
+                                <input name="keywords_pro_name" type="search" class="form-control"
+                                    placeholder="Lọc người dùng...">
                             </form>
                         </div>
 
                         <div class="col-md-3" style="float: left">
-                            <form class="card-title" action="#" method="GET">
+                            <form class="card-title" action="{{ route('search5') }}" method="GET">
                                 @csrf
                                 <div class="form-group">
                                     <select class="form-control show-cti form-select list" name="keywords_cate_id"
                                         id="cate" onchange="this.form.submit()">
                                         <option>Lọc theo loại</option>
                                         <option value="">Tất cả sản phẩm</option>
-                                        {{-- @foreach ($allCate as $cate)
-                        <option data-id="{{$cate->id}}" value="{{$cate->id}}">{{$cate->name}}<option>
-                      @endforeach --}}
+                                        @foreach ($allCate as $cate)
+                                            <option data-id="{{ $cate->id }}" value="{{ $cate->id }}">
+                                                {{ $cate->name }}
+                                            <option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </form>
                         </div>
 
                         <div class="col-md-3" style="float: left;">
-                            <form class="card-title" action="#" method="GET">
+                            <form class="card-title" action="{{ route('search7') }}" method="GET">
                                 @csrf
                                 <div class="form-group">
                                     <select class="form-control show-cti form-select list" name="keywords_price"

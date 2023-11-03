@@ -18,7 +18,7 @@
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label for="exampleInputName1">Cước phí</label>
-                                        <input type="number" name="value" class="form-control value"
+                                        <input type="number" name="price" min="0" class="form-control price"
                                             id="exampleInputName1" placeholder="Nhập cước phí"
                                             value="{{ $allDeli->value }}">
                                         <span
@@ -179,7 +179,7 @@
             errorSelector: '.form-message',
             rules: [
                 Validator.isName('.name'),
-                Validator.isValue('.value'),
+                Validator.isValue('.price'),
             ],
         })
     </script>

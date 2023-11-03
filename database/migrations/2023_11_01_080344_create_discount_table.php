@@ -16,8 +16,8 @@ return new class extends Migration
             $table->string('code');
             $table->decimal('discount', 10, 2);
             $table->integer('quantity');
-            $table->timestamp('start_time')->nullable();
-            $table->timestamp('end_time')->nullable();
+            $table->date('start_time');
+            $table->date('end_time');
             $table->timestamps();
         });
     }

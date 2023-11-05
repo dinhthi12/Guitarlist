@@ -15,7 +15,6 @@ class CateItemController extends Controller
     }
     public function index($id)
     {
-        //nhập id cha -> tìm tất cả các danh mục con trùng với id cha
         $cateItems = CateItem::where('category_id', $id)->paginate(5);
         $cate = Category::find($id);
         return view('admin.pages.categories.cateitems.index', compact('cateItems', 'cate'));

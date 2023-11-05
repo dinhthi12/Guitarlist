@@ -46,7 +46,7 @@
                                             </div>
                                         </div>
                                         <div class="product-btm">
-                                            <a href="#" class="d-block">
+                                            <a href="{{ route('getProById', $pro->id) }}" class="d-block">
                                                 <h4>{{ $pro->name }}</h4>
                                             </a>
                                             <div class="mt-3">
@@ -104,7 +104,7 @@
 
                         <aside class="left_widgets p_filter_widgets">
                             <div class="l_w_title">
-                                <h3>Thương hiệu sản phẩm</h3>
+                                <h3>Loại sản phẩm</h3>
                             </div>
                             <div class="widgets_inner">
                                 <ul class="list" id="cate_items">
@@ -116,21 +116,6 @@
                                 </ul>
                             </div>
                         </aside>
-
-                        {{-- <aside class="left_widgets p_filter_widgets">
-                            <div class="l_w_title">
-                                <h3>Bộ lọc giá</h3>
-                            </div>
-                            <div class="widgets_inner">
-                                <div class="range_item">
-                                    <div id="slider-range"></div>
-                                    <div class="">
-                                        <label for="amount">Giá : </label>
-                                        <input type="text" id="amount" readonly />
-                                    </div>
-                                </div>
-                            </div>
-                        </aside> --}}
                     </div>
                 </div>
             </div>

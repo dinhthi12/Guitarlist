@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\ExportName;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-
+use Maatwebsite\Excel\Facades\Excel;
 class CategoryController extends Controller
 {
     public function __construct()
@@ -17,7 +18,7 @@ class CategoryController extends Controller
         //gọi danh sách danh mục và hiển thị
         $categoryList = Category::paginate(5);
         view()->share('categoryList', $categoryList);
-         //trả về view danh mục
+        //trả về view danh mục
         return view('admin.pages.categories.index');
     }
     public function loadEdit($id)
@@ -30,7 +31,7 @@ class CategoryController extends Controller
 
     public function edit(Request $request)
     {
-        //thực hiện edi
+        //thực hiện edit
         $cate = Category::find($request->id);
         $cate->name = $request->name;
         //save
@@ -58,5 +59,10 @@ class CategoryController extends Controller
         $cate->save();
 
         return redirect('admin/categories/index')->with('success', 'Thêm danh mục thành công');
+    }
+    public function export()
+    {
+        //Dòng này sử dụng thư viện "Maatwebsite/Excel" để tạo và tải về một tệp Excel
+        return Excel::download(new ExportName(), 'export-data.xlsx');
     }
 }

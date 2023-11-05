@@ -104,6 +104,7 @@ Route::prefix('admin')->middleware('checkAdmin')->group(function () {
         Route::get('edit/{id}', [CategoryController::class, 'loadEdit'])->name('loadEditCate');
         Route::post('edit', [CategoryController::class, 'edit'])->name('editCate');
         Route::get('delete/{id}', [CategoryController::class, 'delete'])->name('deleteCate');
+        Route::get('export-view', [CategoryController::class, 'export'])->name('export');
     });
     //chức năng quản trị danh mục con
     Route::prefix('cateitems')->group(function () {

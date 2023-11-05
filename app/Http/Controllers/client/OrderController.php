@@ -100,7 +100,6 @@ class OrderController extends Controller
             $order_detail->price=$pro['price'];
             $order_detail->save();
         }
-
         session()->forget(['cart','coupon']);
         return redirect()->back()->with('success', 'Tạo đơn hàng thành công');
 

@@ -197,17 +197,39 @@ class ClientController extends Controller
     }
     public function orders()
     {
+        //Dòng này tạo một truy vấn (query) đến cơ sở dữ liệu để lấy danh sách các đơn hàng.
+        //Order là tên model
+        //where dùng để áp dụng điều kiện cho truy vấn.
+        //điều kiện là user_id phải bằng Auth::id().
+        //Auth::id() là một phương thức trong Laravel để lấy ID của người dùng hiện tại đã đăng nhập.
+        //Dòng này trả về danh sách đơn hàng thuộc về người dùng đã đăng nhập.
+        //Dòng này sắp xếp kết quả truy vấn theo trường id (ID của đơn hàng) theo thứ tự giảm dần (desc)
+        //có nghĩa là đơn hàng mới nhất sẽ được hiển thị đầu tiên trong danh sách.
         $orders = Order::where('user_id', '=', Auth::id())->orderBy('id', 'desc')->get();
+        //trả về view
         return view('client.pages.carts.order', compact('orders'));
     }
     public function discountCode(Request $request)
     {
+        //Dòng này tạo một biến $today chứa ngày hiện tại, được tính bằng thư viện Carbon trong Laravel.
+        //Điều này dùng để so sánh với thời gian bắt đầu và kết thúc của mã giảm giá để kiểm tra xem mã có còn hiệu lực không.
         $today = Carbon::today();
+        //Dòng này lấy giá trị của tham số discountCode được gửi qua request (yêu cầu) từ form khi người dùng nhập mã giảm giá.
         $data = $request->discountCode;
         // dd($data);
+        //Dòng này thực hiện truy vấn đến cơ sở dữ liệu để tìm kiếm mã giảm giá. Cụ thể, nó kiểm tra các điều kiện sau:
+        //Mã giảm giá phải trùng khớp với giá trị nhập vào.
+        //Số lượng còn lại của mã giảm giá phải lớn hơn 0, đảm bảo mã giảm giá chưa được sử dụng hết.
+        //Thời gian bắt đầu của mã giảm giá phải nhỏ hơn ngày hiện tại.
+        //Thời gian kết thúc của mã giảm giá phải lớn hơn ngày hiện tại.
+        //Nếu tất cả các điều kiện này đều đúng, thì mã giảm giá hợp lệ sẽ được lấy ra và gán cho biến $coupon.
         $coupon = Discount::where('code', '=', $data)->where('quantity', '>', 0)->whereDate('start_time', '<', $today)->whereDate('end_time', '>', $today)->first();
 
+        //Dòng này kiểm tra xem biến $coupon có tồn tại, tức là mã giảm giá hợp lệ đã được tìm thấy trong cơ sở dữ liệu hay không.
         if ($coupon) {
+         //nếu mã giảm giá hợp lệ, dòng tiếp theo tạo một mảng $cou chứa thông tin của mã giảm giá
+         //và sau đó lưu mảng này vào session với tên là 'coupon'.
+         //Điều này giúp lưu trữ thông tin mã giảm giá trong suốt quá trình mua sắm của người dùng.
             $coupon_session = Session::get('coupon');
             $cou[] = array(
                 'code' => $coupon->code,
@@ -216,24 +238,39 @@ class ClientController extends Controller
             );
             Session::put('coupon', $cou);
             Session::save();
+            //biến $coupon trừ đi 1 từ trường quantity, tương ứng với việc một người dùng đã áp dụng mã giảm giá.
+            //Sau đó, thực hiện lưu thay đổi vào cơ sở dữ liệu bằng $coupon->save().
             $coupon->quantity = $coupon->quantity - 1;
             $coupon->save();
+            //Áp dụng mã giảm giá thành công" sử dụng with('success', ...).
+            //Người dùng sẽ thấy thông báo này sau khi mã giảm giá được áp dụng.
             return redirect()->back()->with('success', 'Áp dụng mã giảm giá thành công');
         } else {
+            //nếu mã giảm giá không hợp lệ (không tìm thấy mã hoặc đã hết hạn), thì hàm cũng trả về một redirect về trang trước đó và kèm theo thông báo "Mã giảm giá không đúng hoặc hết hạn" sử dụng with('error', ...).
             return redirect()->back()->with('error', 'Mã giảm giá không đúng hoặc hết hạn');
         }
     }
     public function orderdetails($id)
     {
+        //Dòng này tìm kiếm đơn hàng trong cơ sở dữ liệu dựa trên $id được truyền vào
+        //Nó sử dụng phương thức find($id) của model Order để tìm kiếm đơn hàng với ID tương ứng và lưu vào biến $order.
         $order = Order::find($id);
+        //Dòng này tìm kiếm các chi tiết đơn hàng (order details) trong cơ sở dữ liệu dựa trên trường order_id so sánh với $id, tức là lấy ra tất cả các chi tiết đơn hàng thuộc về đơn hàng có ID là $id.
+        //Kết quả được trả về dưới dạng một collection (tập hợp) và lưu vào biến $details.
         $details = OrderDetail::where('order_id', '=', $id)->get();
+        //òng này trả về một view với tên 'client.pages.carts.orderdetail' và truyền vào view hai biến dữ liệu order và details bằng cách sử dụng hàm compact
         return view('client.pages.carts.orderdetail', compact('order', 'details'));
     }
     public function cancelOrders($id)
     {
+        //tương tự
         $order = Order::find($id);
+        //Dòng này cập nhật trạng thái của đơn hàng bằng cách gán giá trị 4 cho trường status.
+        //trong trường hợp này, 4 có thể đại diện cho trạng thái "Đã hủy".
         $order->status = 4;
+        //Dòng này lưu trạng thái đã cập nhật của đơn hàng vào cơ sở dữ liệu bằng cách gọi phương thức save() trên đối tượng $order.
         $order->save();
+        //Dòng này sau khi hủy đơn hàng thành công, chuyển hướng người dùng trở lại trang trước đó (thông qua redirect()->back()) và gửi một thông báo thành công thông qua phương thức with()
         return redirect()->back()->with('success', 'Hủy đơn hàng thành công');
     }
 }

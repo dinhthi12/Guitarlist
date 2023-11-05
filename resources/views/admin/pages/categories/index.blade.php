@@ -8,6 +8,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title">Thêm mới danh mục</h4>
+
                         <form method="POST" action="{{ route('createCate') }}" enctype="multipart/form-data"
                             class="form-inline" id="form-add">
                             @csrf
@@ -27,6 +28,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title">Danh Mục</h4>
+                        <a href="{{ route('export') }}" class="btn btn-success">Xuất Excel</a>
                         <div class="table-responsive pt-3">
                             <table id="recent-purchases-listing" class="table table-bordered">
                                 <thead>

@@ -12,10 +12,9 @@ class UserController extends Controller
     public function index()
     {
         //View client
-        $allCom = Comment::all();
         $allPro = Product::all();
         $allUser = User::where('role', '=', 0)->get();
-        return view('admin.pages.users.index')->with(compact('allPro', 'allUser', 'allCom'));
+        return view('admin.pages.users.index')->with(compact('allPro', 'allUser'));
     }
 
     public function indexAdmin()

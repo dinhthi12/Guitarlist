@@ -46,8 +46,9 @@ class OrderController extends Controller
     }
     public function orderByStatus(Request $r)
     {
-        if($r->status==5){
+        if($r->status == 5){
             $orders = Order::orderBy('id','desc')->get();
+            return view('admin.pages.orders.index', compact('orders'));
         }
         $orders = Order::where('status', '=', $r->status)->orderBy('id','desc')->get();
         return view('admin.pages.orders.index', compact('orders'));

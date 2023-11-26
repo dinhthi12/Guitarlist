@@ -38,6 +38,16 @@
     @include('client/partials/_header')
     <!--================Header Menu Area =================-->
     @yield('content')
+    <button class="nut-mo-chatbox" onclick="moForm()"><i class="flaticon-support"></i></button>
+    <div class="Chatbox" id="myForm">
+        <form action="" class="form-container">
+            <label for="msg"><b>Lời Nhắn</b></label>
+            <textarea placeholder="Bạn hãy nhập lời nhắn.." name="msg" required></textarea>
+
+            <button type="submit" class="btn">Gửi</button>
+            <button type="button" class="btn nut-dong-chatbox" onclick="dongForm()">Đóng</button>
+        </form>
+    </div>
     <!--================ start footer Area  =================-->
     @include('client/partials/_footer')
     <!--================ End footer Area  =================-->
@@ -59,7 +69,19 @@
     <script src="{{ URL::asset('js/mail-script.js') }}"></script>
     <script src="{{ URL::asset('js/theme.js') }}"></script>
     <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
-    <script> CKEDITOR.replace('editor1'); </script>
+    <script>
+        CKEDITOR.replace('editor1');
+    </script>
+    <script>
+        /*Hàm Mở Form*/
+        function moForm() {
+            document.getElementById("myForm").style.display = "block";
+        }
+        /*Hàm Đóng Form*/
+        function dongForm() {
+            document.getElementById("myForm").style.display = "none";
+        }
+    </script>
 </body>
 
 </html>

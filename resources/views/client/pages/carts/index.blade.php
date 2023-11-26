@@ -105,7 +105,7 @@
                     {{-- Payment --}}
                     @if (Auth::check() && $allProCart)
                         <div class="payment">
-                            <form action="{{ route('insertOrder') }}" method="post">
+                            <form action="{{ url('/insertOrder') }}" method="post">
                                 @csrf
                                 <div class="patment-title">
                                     <h2>Tiến hành thanh toán</h2>
@@ -187,6 +187,7 @@
                                         @endif
                                     </div>
                                 </div>
+
                                 <div class="row payment-money mt-10">
                                     <div class="col-3">
                                         <div class="element">
@@ -217,13 +218,14 @@
                                             <h3 class="element-total">Tổng tiền: <i class="fa fa-credit-card"
                                                     aria-hidden="true"></i></h3>
                                             <p class="odr-total"><span id="order-total"></span><span> Đ</span></p>
-                                            <input type="hidden" name="total" id="order-total-input">
+                                            <input type="hidden" name="total" class="order-total-input">
                                         </div>
                                     </div>
-                                    <div class="row mt-10">
+                                    <div class="row mt-6">
                                         <p data-toggle="modal" data-target="#exampleModal"
-                                            class="genric-btn primary confirm">Xác nhận thanh toán</p>
+                                            class="genric-btn primary confirm">Thanh toán cod</p>
                                     </div>
+
                                     <!-- Modal -->
                                     <div class="modal fade" id="exampleModal" tabindex="-1"
                                         aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -242,14 +244,24 @@
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary"
                                                         data-dismiss="modal">Hủy</button>
-                                                    <button type="submit" class="btn btn-success">Xác nhận</button>
+                                                    <button type="submit" name="redirect" class="btn btn-success">Xác
+                                                        nhận</button>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                            </form>
+                            <div class="row mt-6">
+                                <form action={{ url('/paymentOrder') }} method="post">
+                                    @csrf
+                                    <input type="hidden" name="total" class="order-total-input">
+                                    <button type="submit" name="redirect" class="genric-btn primary confirm">Thanh thoán
+                                        online</button>
+                                </form>
+                            </div>
                         </div>
-                        </form>
+
                     @endif
                 </div>
 
@@ -289,7 +301,7 @@
             console.log(discount)
             $('#payment-discount').html(format_currency($('#payment-discount').html()))
             total = $('#order-total')
-            totalInput = $('#order-total-input')
+            totalInput = $('.order-total-input')
             $('#cart-total-price').html(format_currency($('#cart-total-price').html()))
             $('#ship_value').html(format_currency(ship_select))
             total.html(Number(ship_select) + Number(cart_total) - Number(discount))
@@ -302,7 +314,8 @@
                 $('#ship_price').html(ship_select)
                 total.html(Number(cart_total) + Number(ship_select) - Number(discount))
                 totalInput.val(total.html())
-                total.html(format_currency(total.html()))
+                console.log((total.html()))
+                total.html(format_currency(total.html()));
             })
 
             $('#userAddress').change(function(e) {

@@ -71,12 +71,15 @@ Route::prefix('/')->group(function () {
         Route::get('/deleteItemCart/{name}', [OrderController::class, 'deleteItemCart'])->name('deleteItemCart');
         Route::post('/getAddressById', [OrderController::class, 'getAddressById'])->name('getAddressById');
         Route::post('/updateCart', [OrderController::class, 'updatCart'])->name('updateCart');
+
     });
     Route::post('/insertOrder', [OrderController::class, 'insertOrder'])->name('insertOrder');
+    Route::post('/paymentOrder', [OrderController::class, 'vnPay_payment'])->name('vnPay_payment');
     Route::get('/orders', [ClientController::class, 'orders'])->name('myOrders');
     Route::post('/discountCode', [ClientController::class, 'discountCode'])->name('discountCode');
     Route::get('/orderDetails/{id}',[ClientController::class,'orderDetails'])->name('myOrderDetails');
     Route::get('/cancelOrders/{id}',[ClientController::class,'cancelOrders'])->name('cancelOrders');
+
 
 });
 

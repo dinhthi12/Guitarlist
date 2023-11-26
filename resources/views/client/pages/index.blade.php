@@ -420,6 +420,7 @@
             </div>
         </div>
     </section>
+
     <!--================ End Blog Area =================-->
     <script>
         function addToWishlist(event) {
